@@ -1,4 +1,6 @@
 import React from 'react';
+import OnBoarding from './components/OnBoarding/OnBoarding';
+import SignIn from './components/SignIn/SignIn';
 import Home from './components/Home';
 import About from './components/About';
 import Favorite from './components/Challlenges';
@@ -40,6 +42,12 @@ function App() {
         <main className={classes.content}>
           <div className={classes.toolbar} />
           <Switch>
+          <Route path="/OnBoarding">
+              <OnBoarding />
+            </Route>
+            <Route path="/SignIn">
+              <SignIn />
+            </Route>
             <Route path="/about">
               <About />
             </Route>
