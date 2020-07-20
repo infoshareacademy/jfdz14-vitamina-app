@@ -57,7 +57,12 @@ const SignInText = () => {
   )
 }
 
-const OnBoarding = () => {
+const OnBoarding = (props) => {
+    const setUser = (event) => {
+      event.preventDefault();
+      props.onTemporarySetUser();
+    }
+
     return ( 
         <>
         <CssBaseline />
@@ -66,7 +71,7 @@ const OnBoarding = () => {
             <div className='dupa'>
                 <Slider />
             </div>
-            <Button variant="contained" href="/home" style={{backgroundColor: '#0098C9', fontFamily: 'Source Sans Pro', fontSize: '16px', color: '#fff', textTransform: 'none', width: '79%', borderRadius: '8px'}}>
+            <Button onClick={setUser} variant="contained" href="/home" style={{backgroundColor: '#0098C9', fontFamily: 'Source Sans Pro', fontSize: '16px', color: '#fff', textTransform: 'none', width: '79%', borderRadius: '8px'}}>
               Zarejestruj się
             </Button>
             <SignInText />
