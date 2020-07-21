@@ -31,6 +31,7 @@ const useStyles = makeStyles(theme => ({
 
 function App() {
   const classes = useStyles();
+
   return (
     <BrowserRouter>
       <div className={classes.root}>
@@ -43,7 +44,7 @@ function App() {
             <Route path="/about">
               <About />
             </Route>
-            <Route path="/challenges">
+            <Route exact path="/challenges">
               <Favorite />
             </Route>
             <Route path="/userProfile">
