@@ -1,0 +1,30 @@
+.chart__content {
+  width: clamp(320px, 100%, 400px);
+  padding: 24px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 2px 2px 4px rgba(39, 39, 39, 0.2);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.chart__paragraph {
+  font-size: clamp(1em, 5vw, 1.5em);
+  font-weight: bolder;
+}
+
+.chart___pie {
+  margin-right: 5%;
+}
+
+@media screen and (max-width: 410px) {
+  .chart__content {
+    max-width: max(220px,100%);
+    padding: 18px 8px;
+  }
+  .chart___pie {
+    margin: 0;
+  }
+}

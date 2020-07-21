@@ -1,5 +1,5 @@
 import React from 'react';
-import Home from './components/Home';
+import Dashboard from './components/Dashboard';
 import About from './components/About';
 import Favorite from './components/Challlenges';
 import UserProfile from './components/UserProfile';
@@ -24,7 +24,9 @@ const useStyles = makeStyles(theme => ({
     ...theme.mixins.toolbar,
   },
   content: {
+    height: '100vh',
     flexGrow: 1,
+    backgroundColor: '#eef1f3',
     padding: theme.spacing(3),
   },
 }));
@@ -57,7 +59,7 @@ function App() {
               <Settings />
             </Route>
             <Route path="/">
-              <Home />
+              <Dashboard />
             </Route>
           </Switch>
         </main>
