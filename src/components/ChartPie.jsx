@@ -12,11 +12,12 @@ const ChartPie = () => (
     <Progress
       type="circle"
       strokeColor={{
-        '0%': '#108ee9',
+        '0%': '#0098c9',
+        '40%': '#0098c9',
         '100%': '#87d068',
       }}
       strokeWidth={8}
-      percent={80}
+      percent={90}
       className={styles.chart__pie}
     />
   </section>

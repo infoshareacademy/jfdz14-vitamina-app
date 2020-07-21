@@ -2,6 +2,7 @@
   width: clamp(320px, 100%, 400px);
   padding: 24px;
   background-color: #fff;
+  color: #364954;
   border-radius: 8px;
   box-shadow: 2px 2px 4px rgba(39, 39, 39, 0.2);
 
@@ -11,7 +12,7 @@
 }
 
 .chart__paragraph {
-  font-size: clamp(1em, 5vw, 1.5em);
+  font-size: clamp(14px, 5vw, 1.5em);
   font-weight: bolder;
 }
 
@@ -19,11 +20,15 @@
   margin-right: 5%;
 }
 
-@media screen and (max-width: 410px) {
+@media screen and (max-width: 414px) {
   .chart__content {
     max-width: max(220px,100%);
     padding: 18px 8px;
   }
+  .chart__paragraph {
+    font-size: 14px;
+  }
+  
   .chart___pie {
     margin: 0;
   }
