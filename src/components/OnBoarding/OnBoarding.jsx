@@ -48,20 +48,33 @@ const Slider = () => {
     </>
   );
 };
-
+/*
 const SignInText = () => {
   return (
     <p className="singin-text">Posiadasz już konto? <Link href="/SignIn" style={{color: '#0098C9', fontWeight: '600'}}>
     Zaloguj się.
-  </Link></p>
+  </Link>
+  </p>
   )
 }
+*/
 
 const OnBoarding = (props) => {
     const setUser = (event) => {
       event.preventDefault();
       props.onTemporarySetUser();
     }
+
+    const setLogin = (event) => {
+      event.preventDefault();
+      props.onLogin();
+    }
+
+    const setRegister = (event) => {
+      event.preventDefault();
+      props.onRegister();
+    }
+
 
     return ( 
         <>
@@ -71,12 +84,18 @@ const OnBoarding = (props) => {
             <div className='dupa'>
                 <Slider />
             </div>
-            <Button onClick={setUser} variant="contained" href="/home" style={{backgroundColor: '#0098C9', fontFamily: 'Source Sans Pro', fontSize: '16px', color: '#fff', textTransform: 'none', width: '79%', borderRadius: '8px'}}>
+            <Button onClick={setRegister} variant="contained" href="/home" style={{backgroundColor: '#0098C9', fontFamily: 'Source Sans Pro', fontSize: '16px', color: '#fff', textTransform: 'none', width: '79%', borderRadius: '8px'}}>
               Zarejestruj się
             </Button>
-            <SignInText />
+            <p className="singin-text">Posiadasz już konto? 
+            <Link onClick={setLogin} style={{color: '#0098C9', fontWeight: '600'}}>
+              Zaloguj się.
+               </Link>
+             </p>
         </Container>
         </>
     )
 }
+
+
 export default OnBoarding;

@@ -26,7 +26,12 @@ const PasswordText = () => {
       </Link></p>
     )
 }
-const SignIn = () => {
+const SignIn = (props) => {
+  const setApp = (event) => {
+    event.preventDefault();
+    props.onApp();
+  }
+
     return (
         <>
         <CssBaseline />
@@ -34,7 +39,7 @@ const SignIn = () => {
             <img src={logo} className="logo" alt=""/>
             <img src={signin} className="signin-image" alt=""/>
             <Basic />
-            <Button variant="contained" href="/home" style={{backgroundColor: '#0098C9', fontFamily: 'Source Sans Pro', fontSize: '16px', color: '#fff', textTransform: 'none', width: '79%'}}>
+            <Button onClick={setApp} variant="contained" style={{backgroundColor: '#0098C9', fontFamily: 'Source Sans Pro', fontSize: '16px', color: '#fff', textTransform: 'none', width: '79%'}}>
               Zaloguj się
             </Button>
             <PasswordText />

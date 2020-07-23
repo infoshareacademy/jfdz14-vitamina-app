@@ -1,6 +1,7 @@
 import React from 'react';
 import OnBoarding from './components/OnBoarding/OnBoarding';
 import SignIn from './components/SignIn/SignIn';
+import SignUp from './components/SignUp/SignUp';
 import Home from './components/Home';
 import About from './components/About';
 import Favorite from './components/Challlenges';
@@ -9,7 +10,6 @@ import Diary from './components/Diary';
 import Settings from './components/Settings';
 import NavBar from './components/NavBar';
 import {makeStyles} from '@material-ui/core/styles';
-import { withRouter } from "react-router";
 
 import { BrowserRouter, Switch, Route} from 'react-router-dom'
 import './App.css';
@@ -32,11 +32,18 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Dupa = withRouter(({ location }) => {
+
+function AppContent() {
+  const classes = useStyles();
   return (
-    <>
-  
-      <Switch>
+    <BrowserRouter>
+      <div className={classes.root}>
+        <header>
+          <NavBar />
+        </header>
+        <main className={classes.content}>
+          <div className={classes.toolbar} />
+          <Switch>
           <Route path="/OnBoarding">
               <OnBoarding />
             </Route>
@@ -62,22 +69,6 @@ const Dupa = withRouter(({ location }) => {
               <Home />
             </Route>
           </Switch>
-      </>
-  )
-    }
-)
-
-function AppContent() {
-  const classes = useStyles();
-  return (
-    <BrowserRouter>
-      <div className={classes.root}>
-        <header>
-          <NavBar />
-        </header>
-        <main className={classes.content}>
-          <div className={classes.toolbar} />
-          <Dupa />
         </main>
       </div>
     </BrowserRouter>
@@ -86,7 +77,8 @@ function AppContent() {
 
 class App extends React.Component {
   state = {
-    user: null
+    user: null,
+    log: null
   }
 
   handleTemporarySetUse = () => {
@@ -94,14 +86,36 @@ class App extends React.Component {
       user: 'Uzytkownik'
     })
   }
+  
+  handleApp= () => {
+    this.setState({
+      log: 'Logged'
+    })
+  }
+
+  handleLogin = () => {
+    this.setState({
+      log: 'Login'
+    })
+  }
+
+  handleRegister= () => {
+    this.setState({
+      log: 'Register'
+    })
+  }
 
   render() {
-    if (this.state.user) {
+    if (this.state.user || this.state.log === 'Logged') {
       return <AppContent />
+    } else if (this.state.log === 'Login') {
+      return <SignIn onApp={this.handleApp} />
+    } else if (this.state.log === 'Register') {
+      return <SignUp onLogin={this.handleLogin} onApp={this.handleApp} />
     } else {
-      return <OnBoarding onTemporarySetUser={this.handleTemporarySetUse} />
-    }
+      return <OnBoarding onTemporarySetUser={this.handleTemporarySetUse} onLogin={this.handleLogin} onRegister={this.handleRegister} />
   }
+}
 }
 
 export default App;
