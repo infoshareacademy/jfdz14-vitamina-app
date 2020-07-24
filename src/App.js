@@ -3,7 +3,7 @@ import Dashboard from './components/Dashboard';
 import About from './components/About';
 import Favorite from './components/Challlenges';
 import UserProfile from './components/UserProfile';
-import Diary from './components/Diary';
+import Diary from './components/diary/Diary';
 import Settings from './components/Settings';
 import NavBar from './components/NavBar';
 import {makeStyles} from '@material-ui/core/styles';
@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
     height: '100vh',
     flexGrow: 1,
     backgroundColor: '#eef1f3',
-    padding: theme.spacing(3),
+    padding: '10px',
   },
 }));
 

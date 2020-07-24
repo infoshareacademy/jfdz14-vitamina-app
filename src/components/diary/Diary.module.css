@@ -1,0 +1,52 @@
+.diary__section {
+  width: min(980px, 100%);
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+}
+.diary__header {
+  width: 100%;
+}
+
+.diary__header__title {
+  font-size: 2em;
+}
+
+.button {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  border: 1px solid #364954;
+  background-color: #364954;
+  transition: background .6s;
+}
+
+.button:hover {
+  background-color: transparent;
+  color: #364954;
+  transition: background .6s;
+}
+
+.button__content {
+  margin: 0;
+  font-size: 1.2em;
+}
+
+.button__icon {
+  margin-right: 5px;
+  font-size: 2em;
+  font-weight: bolder;
+}
+
+@media screen and (max-width: 414px) {
+  .button__content {
+    font-size: 0.9em;
+  }
+
+  .button__icon {
+    font-size: 1.5em;
+  }
+}

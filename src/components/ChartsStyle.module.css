@@ -28,8 +28,14 @@
   .chart__paragraph {
     font-size: 14px;
   }
-  
+
   .chart___pie {
     margin: 0;
   }
+}
+
+@media screen and (min-width: 891px) {
+ .chart__content {
+   height: 168px;
+ }
 }
