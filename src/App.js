@@ -44,12 +44,6 @@ function AppContent() {
         <main className={classes.content}>
           <div className={classes.toolbar} />
           <Switch>
-          <Route path="/OnBoarding">
-              <OnBoarding />
-            </Route>
-            <Route path="/SignIn">
-              <SignIn />
-            </Route>
             <Route path="/about">
               <About />
             </Route>

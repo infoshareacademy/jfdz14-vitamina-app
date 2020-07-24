@@ -2,14 +2,10 @@
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
   }
-.dupa {
+.slider-content {
     position: relative;
     width: 100%;
     text-align: center;
-    /*
-    display: flex;
-    justify-content: center;
-    align-items: center;*/
   }
   .logo {
     margin: 10px;
@@ -17,19 +13,8 @@
   }
   .swiper-container {
      max-width: 450px;
-     /*height: auto;
-      margin-left: auto;
-      margin-right: auto;
-      position: relative;
-      overflow: hidden;
-      list-style: none;
-      padding: 0; 
-       Fix of Webkit flickering */
       z-index: 1;
       text-align: center;
-     /* display: flex;
-      justify-content: center;
-      align-items: center; */
     }
   .slide-image {
     margin: 10px;

@@ -5,10 +5,7 @@ import 'swiper/swiper-bundle.css'
 import 'swiper/swiper-bundle.min.css'
 import "./OnBoarding.css";
 
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Container from '@material-ui/core/Container';
-import Button from '@material-ui/core/Button';
-import Link from '@material-ui/core/Link';
+import { CssBaseline, Container, Button, Link, makeStyles } from '@material-ui/core';
 
 import logo from '../image/logo.png';
 import Slide1 from './slide1.svg';
@@ -17,12 +14,36 @@ import Slide3 from './slide3.svg';
 
 SwiperCore.use([Pagination]);
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    height: '100vh', 
+    fontFamily: 'Source Sans Pro', 
+    display: 'flex', 
+    justifyContent: 'center', 
+    alignItems: 'center', 
+    flexDirection: 'column',
+  },
+  button: {
+    width: '100%',
+    maxWidth: '430px',
+    marginBottom: theme.spacing(2),
+    backgroundColor: '#0098C9',
+    fontFamily: 'Source Sans Pro', 
+    fontSize: '16px', 
+    color: '#fff', 
+    textTransform: 'none',
+    borderRadius: '8px',
+    '&:hover': {
+      backgroundColor: '#0098C9',
+    },
+  },
+}));
+
+
 const SliderConfigs = {
     spaceBetween: 50,
     slidesPerView: 1,
     pagination: { clickable: true },
-    onSlideChange: () => console.log('slide change'),
-    onSwiper: (swiper) => console.log(swiper)
 };
 
 const Slider = () => {
@@ -48,18 +69,10 @@ const Slider = () => {
     </>
   );
 };
-/*
-const SignInText = () => {
-  return (
-    <p className="singin-text">Posiadasz już konto? <Link href="/SignIn" style={{color: '#0098C9', fontWeight: '600'}}>
-    Zaloguj się.
-  </Link>
-  </p>
-  )
-}
-*/
 
 const OnBoarding = (props) => {
+  const classes = useStyles();
+
     const setUser = (event) => {
       event.preventDefault();
       props.onTemporarySetUser();
@@ -79,19 +92,20 @@ const OnBoarding = (props) => {
     return ( 
         <>
         <CssBaseline />
-        <Container maxWidth="sm" style={{height: '100vh', fontFamily: 'Source Sans Pro', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
+        <Container maxWidth="sm" className={classes.root}>
             <img src={logo} className="logo" alt=""/>
-            <div className='dupa'>
+            <div className='slider-content'>
                 <Slider />
             </div>
-            <Button onClick={setRegister} variant="contained" href="/home" style={{backgroundColor: '#0098C9', fontFamily: 'Source Sans Pro', fontSize: '16px', color: '#fff', textTransform: 'none', width: '79%', borderRadius: '8px'}}>
+            <Button 
+            className={classes.button} 
+            onClick={setRegister} 
+            variant="contained" >
               Zarejestruj się
             </Button>
             <p className="singin-text">Posiadasz już konto? 
-            <Link onClick={setLogin} style={{color: '#0098C9', fontWeight: '600'}}>
-              Zaloguj się.
-               </Link>
-             </p>
+            <Link onClick={setLogin} style={{color: '#0098C9', fontWeight: '600', cursor: 'pointer'}}> Zaloguj się.</Link> 
+              </p>
         </Container>
         </>
     )

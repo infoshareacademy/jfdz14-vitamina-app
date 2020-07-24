@@ -1,11 +1,8 @@
-.singin-text {
-    font-size: 16px;
-    font-weight: normal;
-}
 .signin-image {
-    margin: 10px;
-    width: 450px;
+    margin: 10px 10px 10% 10px;
+    width: 100%;
     min-width: 150px;
+    max-width: 430px;
     height: auto;
     z-index: 2;
 }
