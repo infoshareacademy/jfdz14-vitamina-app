@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     height: '100vh', 
     fontFamily: 'Source Sans Pro', 
+    fontSize: '16px',
     display: 'flex', 
     justifyContent: 'center', 
     alignItems: 'center', 
@@ -73,11 +74,6 @@ const Slider = () => {
 const OnBoarding = (props) => {
   const classes = useStyles();
 
-    const setUser = (event) => {
-      event.preventDefault();
-      props.onTemporarySetUser();
-    }
-
     const setLogin = (event) => {
       event.preventDefault();
       props.onLogin();
@@ -87,7 +83,6 @@ const OnBoarding = (props) => {
       event.preventDefault();
       props.onRegister();
     }
-
 
     return ( 
         <>

@@ -126,7 +126,8 @@ const SignUp = (props) => {
                 touched,
                 handleChange,
                 handleBlur,
-                handleSubmit, }) => (
+                handleSubmit, 
+            }) => (
                 <Form  className={classes.form} onSubmit={handleSubmit}>
                   <TextField
                     className={classes.input}

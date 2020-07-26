@@ -14,6 +14,13 @@ import {makeStyles} from '@material-ui/core/styles';
 import { BrowserRouter, Switch, Route} from 'react-router-dom'
 import './App.css';
 
+
+
+const Logged = 'Logged'
+const Login = 'Login'
+const Register = 'Register'
+
+
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
@@ -74,42 +81,39 @@ class App extends React.Component {
     user: null,
     log: null
   }
-
-  handleTemporarySetUse = () => {
-    this.setState({
-      user: 'Uzytkownik'
-    })
-  }
   
   handleApp= () => {
     this.setState({
-      log: 'Logged'
+      log: Logged
     })
   }
 
   handleLogin = () => {
     this.setState({
-      log: 'Login'
+      log: Login
     })
   }
 
   handleRegister= () => {
     this.setState({
-      log: 'Register'
+      log: Register
     })
   }
 
-  render() {
-    if (this.state.user || this.state.log === 'Logged') {
-      return <AppContent />
-    } else if (this.state.log === 'Login') {
-      return <SignIn onApp={this.handleApp} />
-    } else if (this.state.log === 'Register') {
-      return <SignUp onLogin={this.handleLogin} onApp={this.handleApp} />
-    } else {
-      return <OnBoarding onTemporarySetUser={this.handleTemporarySetUse} onLogin={this.handleLogin} onRegister={this.handleRegister} />
+  render() { 
+   
+    switch(this.state.log) {
+      case Logged:
+        return <AppContent />
+      case Login:
+        return <SignIn onApp={this.handleApp} />
+      case Register:
+        return <SignUp onLogin={this.handleLogin} onApp={this.handleApp} />
+      default:
+        return <OnBoarding onLogin={this.handleLogin} onRegister={this.handleRegister} />  
+    }
+  
   }
-}
 }
 
 export default App;
