@@ -2,6 +2,7 @@ import React from 'react';
 import Home from './components/Home';
 import About from './components/About';
 import Favorite from './components/Challlenges';
+import ChallengeDescription from './components/ChallengeDescription';
 import UserProfile from './components/UserProfile';
 import Diary from './components/Diary';
 import Settings from './components/Settings';
@@ -43,8 +44,11 @@ function App() {
             <Route path="/about">
               <About />
             </Route>
-            <Route path="/challenges">
+            <Route exact path="/challenges">
               <Favorite />
+            </Route>
+            <Route path="/challenges/:id">
+              <ChallengeDescription />
             </Route>
             <Route path="/userProfile">
               <UserProfile />
