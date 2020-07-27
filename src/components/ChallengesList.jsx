@@ -11,8 +11,8 @@ import ChallengeImage3 from "./image/challenge3.jpg";
 import clsx from 'clsx';
 import { Link } from "react-router-dom";
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-
-
+import ListGroup from "react-bootstrap/ListGroup"
+import SearchBar from './SearchBar';
 
 
   // The example data is structured as follows:
@@ -85,7 +85,7 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
     },
   ]
 
-    export default function TitlebarGridList() {
+    export default function ChallengesList() {
 
       const useStyles = makeStyles((theme) => ({
         root: {
@@ -123,32 +123,12 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 
   return (
 
-/*
-classes={{tile: classes.boxShadow}} 
-*/
 
+    
     <div className={classes.root}>
-      <GridList cellHeight={180} cols={3}>
-        {tileData.map((tile) => (
-            <GridListTile  key={tile.img} className={classes.tileStyling, classes.boxShadow}>  
-            
-                 
-  
+      <SearchBar articles={tileData} classes={classes}/>
 
-              <img src={tile.img} alt={tile.title}/>
-              <Link to={`challenges/${tile.id}`}>
-              <GridListTileBar
-                title={tile.title}
-                subtitle={<span>{tile.category}</span>}
-                actionIcon={
-                  <IconButton aria-label={`info about ${tile.title}`} className={classes.icon}>
-                  </IconButton>
-                }
-              />
-               </Link>
-            </GridListTile>
-        ))}
-      </GridList>
+
     </div>
   );
 }

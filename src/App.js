@@ -11,6 +11,7 @@ import {makeStyles} from '@material-ui/core/styles';
 
 import { BrowserRouter, Switch, Route} from 'react-router-dom'
 import './App.css';
+import ChallengesList from './components/ChallengesList';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -45,7 +46,7 @@ function App() {
               <About />
             </Route>
             <Route exact path="/challenges">
-              <Favorite />
+            <ChallengesList />
             </Route>
             <Route path="/challenges/:id">
               <ChallengeDescription />
