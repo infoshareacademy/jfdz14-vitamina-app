@@ -17,7 +17,7 @@ const ChartPie = () => (
         '100%': '#87d068',
       }}
       strokeWidth={8}
-      percent={90}
+      percent={70}
       className={styles.chart__pie}
     />
   </section>
