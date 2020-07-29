@@ -1,9 +1,8 @@
 import React from 'react';
-import Dashboard from './components/Dashboard';
+import Dashboard from './components/dashboard/Dashboard';
 import OnBoarding from './components/OnBoarding/OnBoarding';
 import SignIn from './components/SignIn/SignIn';
 import SignUp from './components/SignUp/SignUp';
-import Home from './components/Home';
 import About from './components/About';
 import Favorite from './components/Challlenges';
 import UserProfile from './components/UserProfile';
@@ -35,7 +34,7 @@ const useStyles = makeStyles(theme => ({
     ...theme.mixins.toolbar,
   },
   content: {
-    height: '100vh',
+    minHeight: '100vh',
     flexGrow: 1,
     backgroundColor: '#eef1f3',
     padding: '10px',
@@ -47,6 +46,7 @@ function AppContent() {
   const classes = useStyles();
 
   return (
+    <>
     <BrowserRouter>
       <div className={classes.root}>
         <header>
@@ -77,13 +77,14 @@ function AppContent() {
         </main>
       </div>
     </BrowserRouter>
+    </>
   );
 }
 
 class App extends React.Component {
   state = {
     user: null,
-    log: null
+    log: Logged,
   }
   
   handleApp= () => {

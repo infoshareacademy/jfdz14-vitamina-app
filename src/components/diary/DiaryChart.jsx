@@ -1,32 +1,30 @@
 import React, { PureComponent } from 'react';
-import {
-  AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ReferenceLine, ResponsiveContainer
-} from 'recharts';
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 const data = [
   {
-    name: 'pon', nastrój: 0, amt: 2400,
+    name: 'pon', nastrój: 0,
   },
   {
-    name: 'pon', nastrój: 2.5, amt: 2400,
+    name: 'pon', nastrój: 2.5,
   },
   {
-    name: 'wt', nastrój: 5, amt: 2210,
+    name: 'wt', nastrój: 5,
   },
   {
-    name: 'śr', nastrój: 0, amt: 2290,
+    name: 'śr', nastrój: 0,
   },
   {
-    name: 'czw', nastrój: 7.5, amt: 2000,
+    name: 'czw', nastrój: 7.5,
   },
   {
-    name: 'pt', nastrój: 8, amt: 2181,
+    name: 'pt', nastrój: 8,
   },
   {
-    name: 'sb', nastrój: 10, amt: 2500,
+    name: 'sb', nastrój: 10,
   },
   {
-    name: 'nd', nastrój: 5, amt: 2100,
+    name: 'nd', nastrój: 5,
   },
 ];
 
