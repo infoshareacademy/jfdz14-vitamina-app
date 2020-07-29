@@ -132,3 +132,5 @@ import SearchBar from './SearchBar';
     </div>
   );
 }
+
+export {tileData};
