@@ -5,6 +5,7 @@ import SignUp from './components/SignUp/SignUp';
 import Home from './components/Home';
 import About from './components/About';
 import Favorite from './components/Challlenges';
+import ChallengeDescription from './components/ChallengeDescription';
 import UserProfile from './components/UserProfile';
 import Diary from './components/Diary';
 import Settings from './components/Settings';
@@ -13,6 +14,7 @@ import {makeStyles} from '@material-ui/core/styles';
 
 import { BrowserRouter, Switch, Route} from 'react-router-dom'
 import './App.css';
+import ChallengesList from './components/ChallengesList';
 
 
 
@@ -54,8 +56,11 @@ function AppContent() {
             <Route path="/about">
               <About />
             </Route>
-            <Route path="/challenges">
-              <Favorite />
+            <Route exact path="/challenges">
+            <ChallengesList />
+            </Route>
+            <Route path="/challenges/:id">
+              <ChallengeDescription />
             </Route>
             <Route path="/userProfile">
               <UserProfile />
