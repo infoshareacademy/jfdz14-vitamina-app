@@ -1,12 +1,10 @@
 import React from 'react';
-import ChallengeImage1 from "./image/challenge1.jpg"
 import Button from "@material-ui/core/Button";
-import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 
 import { tileData } from './ChallengesList';
 import { useParams } from 'react-router-dom';
-import Challenges from './Challlenges';
+import { useState, useEffect } from 'react';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,22 +16,33 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-
+  
 const ChallengeDescription = (props) => {
   
   const classes = useStyles();
   const theme = useTheme();
 
+  const [finished, setFinished] = useState(null)
+
   let { id } = useParams()
   const challenge = tileData.find(challenge => challenge.id.toString() === id);
 
-  const handleInProgress = () => {
-      localStorage.setItem(`InProgress${challenge.id}`, JSON.stringify(challenge))
+ const handleInProgress = () => {
+    setFinished(false)
+    console.log(finished)
+    localStorage.setItem(`InProgress${challenge.id}`, JSON.stringify(challenge))
   }
   const handleFinished = () => {
+    setFinished(true)
+    console.log(finished)
     localStorage.removeItem(`InProgress${challenge.id}`)
     localStorage.setItem(`Finished${challenge.id}`, JSON.stringify(challenge))
-}
+} 
+    let challengeList = [];
+    for(let i = 0; i < localStorage.length; i++){
+      let key = localStorage.key(i);
+      challengeList.push(key); 
+    }
 
 return (
   <>
@@ -44,20 +53,19 @@ return (
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam expedita incidunt, quos provident ex mollitia eaque dolore molestiae praesentium laboriosam similique temporibus fugit! Velit dolor, harum voluptate excepturi est ratione! 
           </article>
           
-          <Button variant="contained" onClick={handleInProgress} style={{backgroundColor: '#0098C9', fontFamily: 'Source Sans Pro', fontSize: '16px', color: '#fff', textTransform: 'none', width: 'auto', borderRadius: '8px', marginTop: 25}}>
-                  Podejmij się!
-          </Button>
- 
-          <Button variant="contained" onClick={handleFinished} style={{backgroundColor: '#364954', fontFamily: 'Source Sans Pro', fontSize: '16px', color: '#fff', textTransform: 'none', width: 'auto', borderRadius: '8px', marginTop: 25}}>
-                  Zakończ
-          </Button>
+          { !challengeList.includes(`InProgress${challenge.id}`) || finished ? (
+        <Button variant="contained" onClick={handleInProgress} style={{backgroundColor: '#0098C9', fontFamily: 'Source Sans Pro', fontSize: '16px', color: '#fff', textTransform: 'none', width: 'auto', borderRadius: '8px', marginTop: 25}}>
+        Podejmij się!
+      </Button>) : 
+      (<Button variant="contained" onClick={handleFinished} style={{backgroundColor: '#364954', fontFamily: 'Source Sans Pro', fontSize: '16px', color: '#fff', textTransform: 'none', width: 'auto', borderRadius: '8px', marginTop: 25}}>
+                        Zakończ
+                </Button>) }
         </div>
   </>
 
 )
 
 }
-
 
 
 export default ChallengeDescription;

@@ -16,7 +16,7 @@ import { BrowserRouter, Switch, Route} from 'react-router-dom'
 import './App.css';
 import ChallengesList from './components/ChallengesList';
 
-import ChallengeRouter from './components/ChallengeDescription';
+import ChallengeDescriptionRouter from './components/ChallengeDescription';
 
 
 const Logged = 'Logged'
@@ -85,7 +85,7 @@ function AppContent() {
 class App extends React.Component {
   state = {
     user: null,
-    log: Logged
+    log: null,
   }
   
   handleApp= () => {

@@ -36,9 +36,10 @@ const Settings = () => {
         const classes = useStyles();
         
         
-        let challengeList = [];
+       let challengeList = [];
         for(let i = 0; i < localStorage.length; i++){
-          challengeList.push(localStorage.key(i));
+          let key = localStorage.key(i);
+          challengeList.push(key); 
         }
 
      return (
@@ -50,9 +51,6 @@ const Settings = () => {
                         if(challengeList.includes(`InProgress${tile.id}`)){
                             return (
             <GridListTile key={tile.id} className={classes.tileStyling, classes.boxShadow}>  
-            
-                 
-  
 
               <img src={tile.img} alt={tile.title}/>
               <Link to={`challenges/${tile.id}`}>
@@ -74,9 +72,6 @@ const Settings = () => {
                         if(challengeList.includes(`Finished${tile.id}`)){
                             return (
             <GridListTile key={tile.id} className={classes.tileStyling, classes.boxShadow}>  
-            
-                 
-  
 
               <img src={tile.img} alt={tile.title}/>
               <Link to={`challenges/${tile.id}`}>
@@ -98,50 +93,3 @@ const Settings = () => {
 };
 
 export default Settings;
-
-
-/*
- <>
-  <>
-          <ul>
-          {
-                    tileData.map(tile => {
-                        if(inProgressList.includes(`InProgress${tile.id}`)){
-                            return (
-                              <span>{tile.title}</span>
-                            )
-                        }
-                    
-                    })
-                }
-          </ul>            
-          </>
-          <ul>
-          {
-                    tileData.map(tile => {
-                        if(inProgressList.includes(`InProgress${tile.id}`)){
-                            return (
-                              <span>{tile.title}</span>
-                            )
-                        }
-                    
-                    })
-                }
-          </ul>            
-          </>
-
-let progressList = [{}]
-const getProgressList = JSON.parse(localStorage.getItem('InProgress'))
-for (let i = 0; i < getProgressList.length; i++ ) {
-     let x = getProgressList[i]
-     progressList[i] = JSON.parse(localStorage.getItem('progressItem' + [x]) || '')
-let progressList = []
-const getProgressList = JSON.parse(localStorage.getItem('InProgress') || '0')
-for (let i = 0; i < getProgressList.length; i++ ) {
-     let x = getProgressList[i]
-     progressList[i] = JSON.parse(localStorage.getItem('progressItem' + [x]) || '')
-
-}
-
-const Progress = Object.keys(progressList[0])
-*/
