@@ -13,6 +13,15 @@
   font-size: 2em;
 }
 
+.diary__header__chart {
+  width: 70%;
+  height: 40px;
+  margin: 0 auto;
+  font-size: 2em;
+  background-color: red;
+
+}
+
 .daily__value__box {
   width: 100%;
   height: 25vh;
@@ -72,11 +81,16 @@
   font-size: .7em;
 }
 .diary__post__button__delete {
-  font-size: 1.2em;
-  color: #0098c9;
+  padding: 3px;
+  font-size: 1em;
+  color: #fff;
+  border: 1px solid #0098c9;
+  border-radius: 5px;
+  background-color:  #0098c9;
 }
 .diary__post__button__delete:hover {
-  font-size: 2em;
+  color: #0098c9;
+  background-color: #fff;
 }
 
 .diary__form {

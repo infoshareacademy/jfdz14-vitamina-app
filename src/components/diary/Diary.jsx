@@ -1,13 +1,23 @@
 import React from "react";
 import DiaryChart from "./DiaryChart";
 import ButtonAdd from "./ButtonAdd";
-import { DeleteForever } from '@material-ui/icons';
+import DeleteIcon from '@material-ui/icons/Delete';
 import SearchAppBar from './SearchAppBar';
 import DiaryForm from './DiaryForm';
 import styles from './Diary.module.css';
 
 class Diary extends React.Component {
   state = {
+    chartValue: [
+      {name: `${new Date().getDate()}.${new Date().getMonth()+1}`, nastrój: 0},
+      {name: `${new Date().getDate()}.${new Date().getMonth()+1}`, nastrój: 2.5},
+      {name: `${new Date().getDate()}.${new Date().getMonth()+1}`, nastrój: 5},
+      {name: `${new Date().getDate()}.${new Date().getMonth()+1}`, nastrój: 0},
+      {name: `${new Date().getDate()}.${new Date().getMonth()+1}`, nastrój: 7.5},
+      {name: `${new Date().getDate()}.${new Date().getMonth()+1}`, nastrój: 8},
+      {name: `${new Date().getDate()}.${new Date().getMonth()+1}`, nastrój: 10},
+      {name: `${new Date().getDate()}.${new Date().getMonth()+1}`, nastrój: 5},
+    ],
     postId: 0,
     posts: [],
     diaryForm: false,
@@ -63,9 +73,21 @@ class Diary extends React.Component {
     localStorage.setItem('POSTS', JSON.stringify(newPost));
   }
 
-  // handleClickDelete = (e) => {
-
-  // }
+  handleClickDelete = (e) => {
+    const key = 'delete' + e.currentTarget.id;
+    const elementId = e.target.id;
+    if(elementId.includes(key)) {
+      console.log(`wcisnołeś usuń`);
+      const newPosts = this.state.posts.filter(post => post.id != e.currentTarget.id.toString());
+      console.log(newPosts);
+      this.setState({
+        posts: newPosts,
+      })
+      localStorage.setItem('POSTS', JSON.stringify(newPosts));
+    } else {
+      console.log('div - nic tu nie usuniesz');
+    }
+  }
 
   render() {
     return (
@@ -75,7 +97,7 @@ class Diary extends React.Component {
         ? <section className={styles.diary__section}>
             <header className={styles.diary__header}>
               <h1 className={styles.diary__header__title}>Twój dziennik nastrojów:</h1>
-              <DiaryChart />
+              <DiaryChart value={this.state.chartValue}/>
               <ButtonAdd onClickToForm={this.handleOnClickToForm}/>
             </header>
             <main>
@@ -83,18 +105,14 @@ class Diary extends React.Component {
               <div>
                   {
                     this.state.posts.map(post => (
-                      <div className={styles.diary__post__box} key={post.id} onClick={this.handleClickDelete}>
+                      <div id={post.id} className={styles.diary__post__box} key={post.id} onClick={this.handleClickDelete}>
                         <div className={styles.diary__post__content}>
                           <h3 className={styles.post__title}>{post.title}</h3>
                           <span className={styles.post__date}>{post.date}</span>
                           <p>{post.description}</p>
                         </div>
                         <div>
-                          {/* <div> */}
-                            <DeleteForever 
-                              className={styles.diary__post__button__delete} 
-                            />
-                          {/* </div> */}
+                          <button id={`delete${post.id}`} className={styles.diary__post__button__delete}>usuń</button>
                         </div>
                       </div>
                     ))

@@ -1,4 +1,5 @@
 import React from 'react';
+import DiaryFormChart from './DiaryFormChart';
 import styles from './Diary.module.css';
 
 class DiaryForm extends React.Component {
@@ -46,7 +47,10 @@ class DiaryForm extends React.Component {
             <h1 className={styles.diary__header__title}>Jak się dziś czujesz?</h1>
             <div className={styles.daily__value__box}>
               tu będzie input z oceną dnia
+              <DiaryFormChart />
             </div>
+          </header>
+          <main>
             <form className={styles.diary__form}>
               <div className={styles.form__header}>
                 <input 
@@ -75,9 +79,9 @@ class DiaryForm extends React.Component {
                 >Zapisz</button>
               </div>
             </form>
-          </header>
+          </main>
         </section>
-      </> 
+      </>
     );
   }
 }

@@ -1,36 +1,10 @@
 import React, { PureComponent } from 'react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
-const data = [
-  {
-    name: 'pon', nastrój: 0,
-  },
-  {
-    name: 'pon', nastrój: 2.5,
-  },
-  {
-    name: 'wt', nastrój: 5,
-  },
-  {
-    name: 'śr', nastrój: 0,
-  },
-  {
-    name: 'czw', nastrój: 7.5,
-  },
-  {
-    name: 'pt', nastrój: 8,
-  },
-  {
-    name: 'sb', nastrój: 10,
-  },
-  {
-    name: 'nd', nastrój: 5,
-  },
-];
-
 class DiaryChart extends PureComponent {
 
   render() {
+    const data = this.props.value;
     return (
       <ResponsiveContainer
         width='100%'
@@ -57,21 +31,6 @@ class DiaryChart extends PureComponent {
         <Tooltip />
         <Area type="monotone" dataKey="nastrój" stroke="#58798b" strokeWidth={2} fill="url(#colorUv)" />
       </AreaChart>
-        {/* <BarChart
-          // width={500}
-          // height={230}
-          data={data}
-          margin={{
-            top: 5, right: 30, left: 20, bottom: 5,
-          }}
-        >
-          <CartesianGrid vertical={false} />
-          <XAxis dataKey="name" />
-          <YAxis hide={true} />
-          <Tooltip />
-          <ReferenceLine y={0} stroke="#000" />
-          <Bar dataKey="nastrój" fill="#0098c9" />
-        </BarChart> */}
       </ResponsiveContainer>
     );
   }
