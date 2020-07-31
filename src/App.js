@@ -1,4 +1,7 @@
 import React from 'react';
+import OnBoarding from './components/OnBoarding/OnBoarding';
+import SignIn from './components/SignIn/SignIn';
+import SignUp from './components/SignUp/SignUp';
 import Home from './components/Home';
 import About from './components/About';
 import Favorite from './components/Challlenges';
@@ -12,6 +15,13 @@ import {makeStyles} from '@material-ui/core/styles';
 import { BrowserRouter, Switch, Route} from 'react-router-dom'
 import './App.css';
 import ChallengesList from './components/ChallengesList';
+
+
+
+const Logged = 'Logged'
+const Login = 'Login'
+const Register = 'Register'
+
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -31,7 +41,8 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function App() {
+
+function AppContent() {
   const classes = useStyles();
   return (
     <BrowserRouter>
@@ -68,6 +79,46 @@ function App() {
       </div>
     </BrowserRouter>
   );
+}
+
+class App extends React.Component {
+  state = {
+    user: null,
+    log: null
+  }
+  
+  handleApp= () => {
+    this.setState({
+      log: Logged
+    })
+  }
+
+  handleLogin = () => {
+    this.setState({
+      log: Login
+    })
+  }
+
+  handleRegister= () => {
+    this.setState({
+      log: Register
+    })
+  }
+
+  render() { 
+   
+    switch(this.state.log) {
+      case Logged:
+        return <AppContent />
+      case Login:
+        return <SignIn onApp={this.handleApp} />
+      case Register:
+        return <SignUp onLogin={this.handleLogin} onApp={this.handleApp} />
+      default:
+        return <OnBoarding onLogin={this.handleLogin} onRegister={this.handleRegister} />  
+    }
+  
+  }
 }
 
 export default App;
