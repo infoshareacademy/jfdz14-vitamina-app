@@ -5,7 +5,7 @@ import GridListTileBar from '@material-ui/core/GridListTileBar';
 import IconButton from '@material-ui/core/IconButton';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Link } from "react-router-dom";
-import { tileData } from './ChallengesList';
+import { tileData } from './ChallengeDescription';
 
 const Settings = () => {
      const useStyles = makeStyles((theme) => ({
