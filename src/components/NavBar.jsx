@@ -22,10 +22,13 @@ import NoteRoundedIcon from '@material-ui/icons/NoteRounded';
 import FormatListBulletedRoundedIcon from '@material-ui/icons/FormatListBulletedRounded';
 import InfoRoundedIcon from '@material-ui/icons/InfoRounded';
 import SettingsRoundedIcon from '@material-ui/icons/SettingsRounded';
+import FacebookIcon from '@material-ui/icons/Facebook';
+import { FacebookShareButton } from "react-share";
 import { NavLink } from 'react-router-dom';
 import Logo from './Logo';
 
 const drawerWidth = 240;
+const shareUrl = "http://app.vitamina.jfdz14.is-academy.pl/"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -193,6 +196,12 @@ export default function MiniDrawer() {
               <ListItemText primary='Ustawienia' />
             </ListItem>
           </NavLink>
+          <FacebookShareButton url={shareUrl}>
+            <ListItem button>
+              <ListItemIcon><FacebookIcon className={classes.iconStyle}/></ListItemIcon>
+              <ListItemText className={classes.listItem} primary='Udostępnij' />
+            </ListItem>
+          </FacebookShareButton>
         </List>
         <Divider />
       </Drawer>
