@@ -97,8 +97,14 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function SearchAppBar() {
+
+export default function SearchAppBar(props) {
   const classes = useStyles();
+
+  const handleSearch = (e) => {
+    props.onKeyUpSearch(e.target.value);
+  }
+
 
   return (
     <div className={classes.root}>
@@ -115,14 +121,14 @@ export default function SearchAppBar() {
           </Typography>
           </div>
           <div className={classes.div}>
-          <IconButton
+          {/* <IconButton
             edge="start"
             className={classes.menuButton}
             color="inherit"
             aria-label="open drawer"
           >
             <FilterListIcon />
-          </IconButton>
+          </IconButton> */}
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
@@ -134,6 +140,7 @@ export default function SearchAppBar() {
                 input: classes.inputInput,
               }}
               inputProps={{ 'aria-label': 'search' }}
+              onKeyUp={handleSearch}
             />
           </div>
           </div>

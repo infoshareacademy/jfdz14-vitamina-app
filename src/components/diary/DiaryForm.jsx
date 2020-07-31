@@ -14,7 +14,6 @@ class DiaryForm extends React.Component {
   }
 
   handleChangeCharForm = (value) => {
-    console.log(`zmieniam nastrój na ${value}`)
     this.setState({ 
      chartValue: {
        value: value,
@@ -67,9 +66,9 @@ class DiaryForm extends React.Component {
           <main>
             <form className={styles.diary__form}>
               <div className={styles.form__header}>
-                <input 
-                className={styles.form__input} 
-                type='text' 
+                <input
+                className={styles.form__input}
+                type='text'
                 placeholder='Tytył wpisu'
                 autoFocus={true}
                 autoComplete='off'
@@ -78,8 +77,8 @@ class DiaryForm extends React.Component {
                 required ={true}
                 />
               </div>
-              <textarea 
-                className={styles.form__textarea} 
+              <textarea
+                className={styles.form__textarea}
                 maxLength={1000}
                 placeholder='To jest mieisce na Twoje dzisiejsze przemyślenia, postanowienia, odczucia, lub cokolwiek tylko zechcesz.' 
                 onChange={this.handleChangeTextarea}
