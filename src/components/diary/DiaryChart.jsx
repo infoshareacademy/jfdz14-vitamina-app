@@ -4,7 +4,6 @@ import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 class DiaryChart extends PureComponent {
 
   render() {
-    const data = this.props.value;
     return (
       <ResponsiveContainer
         width='100%'
@@ -14,7 +13,7 @@ class DiaryChart extends PureComponent {
         <AreaChart
         width={500}
         height={400}
-        data={data}
+        data={this.props.data}
         margin={{
           top: 10, right: 0, left: 0, bottom: 0,
         }}
@@ -26,10 +25,10 @@ class DiaryChart extends PureComponent {
           </linearGradient>
         </defs>
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" stroke="#58798b" />
+        <XAxis dataKey="date" stroke="#58798b" />
         <YAxis hide={true}  />
         <Tooltip />
-        <Area type="monotone" dataKey="nastrój" stroke="#58798b" strokeWidth={2} fill="url(#colorUv)" />
+        <Area type="monotone" dataKey="value" stroke="#58798b" strokeWidth={2} fill="url(#colorUv)" />
       </AreaChart>
       </ResponsiveContainer>
     );

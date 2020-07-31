@@ -7,7 +7,10 @@ import styles from './Diary.module.css';
 
 class Diary extends React.Component {
   state = {
-    chartValue: [],
+    chartValue: [{
+      value: 0,
+      date: 0,
+    }],
     postId: 0,
     posts: [],
     diaryForm: false,
@@ -17,7 +20,11 @@ class Diary extends React.Component {
     if(localStorage.length > 0) {
       const getPosts = localStorage.getItem('POSTS');
       const POSTS = JSON.parse(getPosts);
+      const getChartValue = localStorage.getItem('DiaryChartValu')
+      const VALUE = JSON.parse(getChartValue);
+
       this.setState({
+        chartValue: VALUE,
         posts: POSTS,
         postId: POSTS.length,
       })
@@ -32,33 +39,30 @@ class Diary extends React.Component {
     })
   }
 
-  handleChangeCharForm = (value) => {
-    this.setState({ 
-     chartValue: [{
-       value: value,
-       date: `${new Date().getDate()}.${new Date().getMonth()+1}`,
-     }, ...this.state.chartValue]
-    });
-  }
-
   handleClickLeaveForm = () => {
     this.setState({
+      chartValue: this.state.chartValue,
       posts: this.state.posts,
       diaryForm: false,
       postId: this.state.postId,
     })
   }
 
-  handleClickSaveInForm = (title, description) => {
+  handleClickSaveInForm = (title, description, value) => {
     const newId = this.state.posts.length + 1;
 
     title.length <= 0
     ? this.setState({
+      chartValue: this.state.chartValue,
       posts: this.state.posts,
       diaryForm: true,
       postId: this.state.postId,
       })
     : this.setState({
+        chartValue: [...this.state.chartValue, {
+            value: value,
+            date: `${new Date().getDate()}.${new Date().getMonth()+1}`,
+          }],
         posts: [{
           id: newId,
           date: new Date().toLocaleDateString(),
@@ -68,18 +72,26 @@ class Diary extends React.Component {
         diaryForm: false,
         postId: newId,
       })
+      debugger;
 
       const newPost = [{
         id: newId,
         date: new Date().toLocaleDateString(),
         title: title,
         description: description,
-      }, ...this.state.posts]
+      }, ...this.state.posts];
 
-    
+      const newChartValue = [...this.state.chartValue,
+        {
+        value: value,
+        date: `${new Date().getDate()}.${new Date().getMonth()+1}`,
+      }]
+
     if(title.length > 0) {
       localStorage.setItem('POSTS', JSON.stringify(newPost));
+      localStorage.setItem('DiaryChartValue', JSON.stringify(newChartValue));
     }
+    debugger;
   }
 
   handleClickDelete = (e) => {
@@ -87,15 +99,16 @@ class Diary extends React.Component {
     const elementId = e.target.id;
     if(elementId.includes(key)) {
       console.log(`wcisnołeś usuń`);
-      const newPosts = this.state.posts.filter(post => post.id != e.currentTarget.id.toString());
+      const newPosts = this.state.posts.filter(post => post.id != e.currentTarget.id);
       console.log(newPosts);
       this.setState({
         posts: newPosts,
       })
       localStorage.setItem('POSTS', JSON.stringify(newPosts));
-    } else {
-      console.log('div - nic tu nie usuniesz');
     }
+    // } else {
+    //   console.log('div - nic tu nie usuniesz');
+    // }
   }
 
   render() {
@@ -106,7 +119,7 @@ class Diary extends React.Component {
         ? <section className={styles.diary__section}>
             <header className={styles.diary__header}>
               <h1 className={styles.diary__header__title}>Twój dziennik nastrojów:</h1>
-              <DiaryChart value={this.state.chartValue}/>
+              <DiaryChart data={this.state.chartValue}/>
               <ButtonAdd onClickToForm={this.handleOnClickToForm}/>
             </header>
             <main>
@@ -130,7 +143,8 @@ class Diary extends React.Component {
             </main>
           </section>
         : <DiaryForm 
-            onChangeInForm={this.handleChangeCharForm}
+            // chartValue={this.state.chartValue}
+            // onChangeInForm={this.handleChangeCharForm}
             onClickSaveInForm={this.handleClickSaveInForm}
             onClickLeaveTheForm={this.handleClickLeaveForm}
             />

@@ -4,11 +4,24 @@ import styles from './Diary.module.css';
 
 class DiaryForm extends React.Component {
   state = {
+    chartValue: {
+      value: 0,
+    },
     post: {
       title: '',
       description: '',
     }
   }
+
+  handleChangeCharForm = (value) => {
+    console.log(`zmieniam nastrój na ${value}`)
+    this.setState({ 
+     chartValue: {
+       value: value,
+     },
+    });
+  }
+
 
   handleChangeInput = (e) => {
     e.preventDefault();
@@ -36,7 +49,8 @@ class DiaryForm extends React.Component {
   handleOnClickSaveForm = () => {
     const title = this.state.post.title;
     const description = this.state.post.description;
-    this.props.onClickSaveInForm(title, description);
+    const value = this.state.chartValue.value;
+    this.props.onClickSaveInForm(title, description, value);
   }
 
 
@@ -47,7 +61,7 @@ class DiaryForm extends React.Component {
           <header className={styles.diary__header}>
             <h1 className={styles.diary__header__title}>Jak się dziś czujesz?</h1>
             <div className={styles.daily__value__box}>
-              <DiaryFormChart onChangeInForm={this.props.onChangeInForm}/>
+              <DiaryFormChart onChangeInForm={this.handleChangeCharForm}/>
             </div>
           </header>
           <main>
