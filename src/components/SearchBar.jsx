@@ -1,6 +1,4 @@
 import React from 'react';
-import SearchForm from './SearchForm';
-
 import SearchResults from './SearchResults';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
@@ -15,82 +13,104 @@ import clsx from 'clsx';
 import { Link } from "react-router-dom";
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import ListGroup from "react-bootstrap/ListGroup"
-//import Form from 'react-bootstrap/Form'
-//import AlbumsForm from './AlbumsForm'
+import SearchFilters from './SearchFilters';
+import SearchForm from './SearchForm';
+
+const ChallengesHeader = () => (
+	<div>
+			 <h1>Wyzwania</h1>
+	</div>
+);
 
 class SearchBar extends React.Component {
-
 
     constructor(props) {
       super(props);
 
-      console.log("PROPS START 2");
+		this.showFilters = this.showFilters.bind(this);
+		this.hideFilters = this.hideFilters.bind(this);
+		this.operateFilters = this.operateFilters.bind(this);
+
+		this.applyFilters = this.applyFilters.bind(this);
 
 
-      console.log(props);
-      console.log("PROPS END 2");
-  }
-
-    componentDidMount() {
-
-
-      const props = this.props;
-      console.log("Searchbar props");
-      console.log(props);
-      console.log("End");
-      this.setState({
-        articles: props.articles,
-        classes: props.classes,
-
-      })
-
-    }
+		this.state = {filtersOpen: false}
+	}
 
     handleOnFilterChange = (name, value) => {
-        console.log(name);
-        console.log(value);
-
         this.setState({
-          filter: name
+          filter: {text: name}
         });
+    }
 
+	applyFilters = (f1, f2, f3) => {
+
+		//document.querySelector(".filtersBar").display = "block";
+	}
+
+	showFilters = () => {
+		//document.querySelector(".filtersBar").display = "block";
+	}
+
+	
+	hideFilters = () => {
+		//document.querySelector(".filtersBar").display = "none";
+	}
+
+	operateFilters = () => {
+		if(this.state.filtersOpen){
+			this.hideFilters();
+
+			this.setState({
+				filtersOpen: false
+			});
+		}
+		else {
+			this.showFilters();
+
+			this.setState({
+				filtersOpen: true
+			});
+		}
+	}
+
+    handleMultiFilterChange = (grp, event ,val) => {
+
+        this.props.multiFilterChange(grp, event, val);
 
     }
-    
-    onRefresh = () => {
-      console.log("STATE SearchBar");
-      console.log(this.state);
+    handleFilterTextChange = (text) => {
+
+        this.props.multiFilterChange("filter_text", text);
+
+
     }
 
     render() {
 
-      if(this.state && this.state.classes){
+      if(this.props && this.props.classes){
+
         return (
-          <div className="m-4">
+          <div className="container" style={{display: 'flex', flexWrap: 'wrap', flexDirection: 'column'}}>
+						
+							<div className="search elements" style={{display: 'flex', flexWrap: 'nowrap', flexDirection: 'row', marginBottom: 20}}>
+								<div>
+											<SearchForm onFilterChange={this.handleFilterTextChange} style={{width:"100%"}}filter={this.props.filter}/>
+								</div>
+									{this.state.filtersOpen ? <div> <button onClick={this.operateFilters}>Schowaj filtry</button> <SearchFilters filter={this.props.filter} multiFilterChange={this.handleMultiFilterChange} categories={this.props.categories} applyFilters={this.applyFilters} /> </div>: <button onClick={this.operateFilters}>Pokaż filtry</button>}
+							</div>
 
-          <h1>challanges</h1>
+						<SearchResults classes={this.props.classes} categories={this.props.categories} articles={this.props.articles} filter={this.props.filter} onRefresh={this.onRefresh}/>
 
-          <SearchForm onFilterChange={this.handleOnFilterChange}
-              filter={this.state.filter}/>
-          <SearchResults classes={this.state.classes} articles={this.state.articles} filter={this.state.filter} onRefresh={this.onRefresh}/>
-          </div>
+					</div>
         )
       }
-      else
-
-      {
-        return ("<div>LOADING</div>");
-      }
+      else {
+				return
+			}
 
     }
 
 }
 
-
 export default SearchBar;
-
-//klasa a nie const bo chcemy pobierac dane z api
-//chcemy je wyswietlic
-//funkcyjny nie robi fetcha, nie bedzie wiedzial co zrobic z tymi danymi
-//a klasowy komponent bedzie w stanie przeladowac dane i sie zmienic 
-//klasa musi miec zawsze jedna funkcje zeby dzialala - funkcje render. I render musi cos zwrocic

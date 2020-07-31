@@ -14,93 +14,126 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import ListGroup from "react-bootstrap/ListGroup"
 
 
-    class SearchResults extends React.Component {
+class SearchResults extends React.Component {
 
 
 
-      constructor(props) {
-        super(props);
+	constructor(props) {
+		super(props);
+	}
+
+	getCategoryName = (id) => {
+
+		let catName = "Nieznana";
+
+		this.props.categories.forEach((item, index) => {
+			if(item.id === id){
+				catName = this.props.categories[index].title;
+			}
+		});
+
+		return catName;
+	}
+
+	render() {
 
 
-    }
-    componentDidMount() {
+		const props = this.props;
+
+		if (this.props.categories) {
+
+			return (
+			<div className={props.classes.root}>
+				<GridList cellHeight={180} cols={4}>
+					{
+						this.props.articles
+							.filter(article => {
+								const textFilter = (article.title ? article.title : "");
 
 
+								
+								let useCatFilter = false;
+								let categories = [];
+								let catFilterStatus = true;
 
-      console.log("Searchbar props");
-
-      this.setState({
-        articles: this.props.articles,
-        classes: this.props.classes,
-        filter: this.props.filter
-      });
-      console.log(this.state);
-      console.log("End");
-    }
-
-      render(){
-
-
-
-        const props = this.props;
-
-        if(this.props.filter){
+								if(this.props.categories) {
+									
+									this.props.categories.forEach((item, index) => {
+										if(item.selected){
+											useCatFilter = true;
+											categories.push(item.id);
+										}
+									});
+								}
 
 
-          console.log("Rendering Results...");
-          console.log(this.props);
-          console.log(this.props.articles);
-          console.log(this.props.filter);
-  
+								if(useCatFilter) {
+									catFilterStatus = false;
+									if(categories.includes(article.category)) {
+										catFilterStatus = true;
+									}
+								}
 
-        return (
+								if(this.props.filter.text && textFilter.length > 0){
 
-          <div className={props.classes.root}>
-<GridList cellHeight={180} cols={3}>
-            {
+									const textIncludes = textFilter.toLowerCase()
+										.includes(this.props.filter.text.toLowerCase());
 
-              this.props.articles
-                .filter(article => {
-                    const textFilter = article.title.toLowerCase()
-                        .includes(this.props.filter.toLowerCase());
+									return textIncludes;
+								}
 
-                        return textFilter;
-                })
-                .map((article) => (
-                  <GridListTile  key={article.id} className={props.classes.tileStyling, props.classes.boxShadow}>  
-      
-                    <img data-g="5" src={article.img} alt={article.title}/>
-                    <Link to={`challenges/${article.id}`}>
-                    <GridListTileBar
-                      title={article.title+"asdsad"}
-                      subtitle={<span>{article.category}</span>}
-                      actionIcon={
-                        <IconButton aria-label={`info about ${article.title}`} className={props.classes.icon}>
-                        </IconButton>
-                      }
-                    />
-                    </Link>
-                  </GridListTile>
-              ))
-            }
-      </GridList>
-          </div>
-        );
-          }
-          else{
-
-            this.props.onRefresh();
-            console.log(this.state);
-            console.log("FILTER BY: "+props.filter);
-            console.log(props);
+								let isOkPeriod = true;
 
 
-            return ("<div>OK XX</div>");
-          }
+								if(this.props.filter.period){
 
-      }
-  
+									isOkPeriod = false;
+									if(article.period >= this.props.filter.period[0]
+									&& article.period <= this.props.filter.period[1]){
+										isOkPeriod = true;
+									}
+								}
+
+								if(catFilterStatus && isOkPeriod){
+									return true;
+								}
+
+							})
+							.map((article) => (
+							
+							
+							<GridListTile key=
+								{article.id} className=
+								{props.classes.tileStyling, props.classes.boxShadow}>  <img data-g="5"src =
+								{article.img}alt =
+								{article.title}/>
+								
+								<Link to={`challenges/${article.id}`} >
+									<GridListTileBar
+										title={article.title}
+										subtitle={<span>{this.getCategoryName(article.category)} {article.period} dni</span>}
+										actionIcon=
+										{
+											<IconButton 
+											aria-label={`info about $ {article.title}`}
+											className={props.classes.icon}>
+											</IconButton > }
+											/>
+								</Link >
+							</GridListTile>))
+						}
+						
+						</GridList>
+						</div >);
+		}
+		else {
+
+			this.props.onRefresh();
+			return (<div>Brak elementów spełniających kryteria</div>);
+		}
+
+	}
+
 }
 
-
-export default SearchResults;
+export default SearchResults; 
