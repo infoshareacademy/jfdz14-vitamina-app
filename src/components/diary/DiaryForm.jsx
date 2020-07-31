@@ -11,6 +11,7 @@ class DiaryForm extends React.Component {
   }
 
   handleChangeInput = (e) => {
+    e.preventDefault();
     this.setState({
       post:{
         title: e.target.value,
@@ -46,26 +47,27 @@ class DiaryForm extends React.Component {
           <header className={styles.diary__header}>
             <h1 className={styles.diary__header__title}>Jak się dziś czujesz?</h1>
             <div className={styles.daily__value__box}>
-              tu będzie input z oceną dnia
-              <DiaryFormChart />
+              <DiaryFormChart onChangeInForm={this.props.onChangeInForm}/>
             </div>
           </header>
           <main>
             <form className={styles.diary__form}>
               <div className={styles.form__header}>
                 <input 
+                className={styles.form__input} 
                 type='text' 
                 placeholder='Tytył wpisu'
-                className={styles.form__input} 
+                autoFocus={true}
                 autoComplete='off'
                 onChange={this.handleChangeInput}
+                onKeyPress={(e) => { e.key === 'Enter' && e.preventDefault(); }}
                 required ={true}
                 />
               </div>
               <textarea 
-                maxLength={360}
-                placeholder='To jest mieisce na Twoje dzisiejsze przemyślenia, postanowienia, odczucia, lub cokolwiek tylko zechcesz.' 
                 className={styles.form__textarea} 
+                maxLength={1000}
+                placeholder='To jest mieisce na Twoje dzisiejsze przemyślenia, postanowienia, odczucia, lub cokolwiek tylko zechcesz.' 
                 onChange={this.handleChangeTextarea}
                 />
               <div className={styles.form__button__box}>

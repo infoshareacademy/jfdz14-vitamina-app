@@ -1,23 +1,13 @@
 import React from "react";
 import DiaryChart from "./DiaryChart";
 import ButtonAdd from "./ButtonAdd";
-import DeleteIcon from '@material-ui/icons/Delete';
 import SearchAppBar from './SearchAppBar';
 import DiaryForm from './DiaryForm';
 import styles from './Diary.module.css';
 
 class Diary extends React.Component {
   state = {
-    chartValue: [
-      {name: `${new Date().getDate()}.${new Date().getMonth()+1}`, nastrój: 0},
-      {name: `${new Date().getDate()}.${new Date().getMonth()+1}`, nastrój: 2.5},
-      {name: `${new Date().getDate()}.${new Date().getMonth()+1}`, nastrój: 5},
-      {name: `${new Date().getDate()}.${new Date().getMonth()+1}`, nastrój: 0},
-      {name: `${new Date().getDate()}.${new Date().getMonth()+1}`, nastrój: 7.5},
-      {name: `${new Date().getDate()}.${new Date().getMonth()+1}`, nastrój: 8},
-      {name: `${new Date().getDate()}.${new Date().getMonth()+1}`, nastrój: 10},
-      {name: `${new Date().getDate()}.${new Date().getMonth()+1}`, nastrój: 5},
-    ],
+    chartValue: [],
     postId: 0,
     posts: [],
     diaryForm: false,
@@ -42,6 +32,15 @@ class Diary extends React.Component {
     })
   }
 
+  handleChangeCharForm = (value) => {
+    this.setState({ 
+     chartValue: [{
+       value: value,
+       date: `${new Date().getDate()}.${new Date().getMonth()+1}`,
+     }, ...this.state.chartValue]
+    });
+  }
+
   handleClickLeaveForm = () => {
     this.setState({
       posts: this.state.posts,
@@ -53,24 +52,34 @@ class Diary extends React.Component {
   handleClickSaveInForm = (title, description) => {
     const newId = this.state.posts.length + 1;
 
-    this.setState({
-      posts: [{
+    title.length <= 0
+    ? this.setState({
+      posts: this.state.posts,
+      diaryForm: true,
+      postId: this.state.postId,
+      })
+    : this.setState({
+        posts: [{
+          id: newId,
+          date: new Date().toLocaleDateString(),
+          title: title,
+          description: description,
+        }, ...this.state.posts],
+        diaryForm: false,
+        postId: newId,
+      })
+
+      const newPost = [{
         id: newId,
         date: new Date().toLocaleDateString(),
         title: title,
         description: description,
-      }, ...this.state.posts],
-      diaryForm: false,
-      postId: newId,
-    })
+      }, ...this.state.posts]
 
-    const newPost = [{
-      id: newId,
-      date: new Date().toLocaleDateString(),
-      title: title,
-      description: description,
-    }, ...this.state.posts]
-    localStorage.setItem('POSTS', JSON.stringify(newPost));
+    
+    if(title.length > 0) {
+      localStorage.setItem('POSTS', JSON.stringify(newPost));
+    }
   }
 
   handleClickDelete = (e) => {
@@ -121,6 +130,7 @@ class Diary extends React.Component {
             </main>
           </section>
         : <DiaryForm 
+            onChangeInForm={this.handleChangeCharForm}
             onClickSaveInForm={this.handleClickSaveInForm}
             onClickLeaveTheForm={this.handleClickLeaveForm}
             />
