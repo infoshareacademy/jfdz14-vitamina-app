@@ -8,6 +8,7 @@ import styles from './Diary.module.css';
 class Diary extends React.Component {
   state = {
     chartValue: [{
+      chartId: 0,
       value: 0,
       date: 0,
     }],
@@ -22,16 +23,26 @@ class Diary extends React.Component {
       const POSTS = JSON.parse(getPosts);
       const getChartValue = localStorage.getItem('DiaryChartValu')
       const VALUE = JSON.parse(getChartValue);
-
+      if(POSTS.length > 0) {
+        this.setState({
+          chartValue: VALUE,
+          posts: POSTS,
+          postId: POSTS.length,
+        })
+      } else {
       this.setState({
-        chartValue: VALUE,
-        posts: POSTS,
-        postId: POSTS.length,
+        chartValue: [{
+          chartId: 0,
+          value: 0,
+          date: 0,
+        }],
+        postId: 0,
+        posts: [],
+        diaryForm: false,
       })
-    } else {
-      return null;
     }
   }
+}
 
   handleOnClickToForm = () => {
     this.setState({
@@ -50,6 +61,11 @@ class Diary extends React.Component {
 
   handleClickSaveInForm = (title, description, value) => {
     const newId = this.state.posts.length + 1;
+    if(value <= 0) {
+      value = 0;
+    } else {
+      value = value
+    }
 
     title.length <= 0
     ? this.setState({
@@ -60,6 +76,7 @@ class Diary extends React.Component {
       })
     : this.setState({
         chartValue: [...this.state.chartValue, {
+            chartId: newId,
             value: value,
             date: `${new Date().getDate()}.${new Date().getMonth()+1}`,
           }],
@@ -72,7 +89,6 @@ class Diary extends React.Component {
         diaryForm: false,
         postId: newId,
       })
-      debugger;
 
       const newPost = [{
         id: newId,
@@ -83,6 +99,7 @@ class Diary extends React.Component {
 
       const newChartValue = [...this.state.chartValue,
         {
+        chartId: newId,
         value: value,
         date: `${new Date().getDate()}.${new Date().getMonth()+1}`,
       }]
@@ -91,7 +108,6 @@ class Diary extends React.Component {
       localStorage.setItem('POSTS', JSON.stringify(newPost));
       localStorage.setItem('DiaryChartValue', JSON.stringify(newChartValue));
     }
-    debugger;
   }
 
   handleClickDelete = (e) => {
@@ -100,11 +116,14 @@ class Diary extends React.Component {
     if(elementId.includes(key)) {
       console.log(`wcisnołeś usuń`);
       const newPosts = this.state.posts.filter(post => post.id != e.currentTarget.id);
+      const newValue = this.state.chartValue.filter(value => value.chartId != e.currentTarget.id)
       console.log(newPosts);
       this.setState({
+        chartValue: newValue,
         posts: newPosts,
       })
       localStorage.setItem('POSTS', JSON.stringify(newPosts));
+      localStorage.setItem('DiaryChartValue', JSON.stringify(newValue));
     }
     // } else {
     //   console.log('div - nic tu nie usuniesz');
