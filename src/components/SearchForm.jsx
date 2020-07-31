@@ -8,12 +8,10 @@ class SearchForm extends React.Component {
         filter: this.props.filter
     }
 
-    handleOnChange = (event) => {
-
+    handleOnChange = (event, name, value) => {
         this.setState({
-            filter: event.target.value
+            filter:{text: event.target.value}
         });
-
         this.props.onFilterChange(event.target.value);
     }
 
@@ -21,8 +19,8 @@ class SearchForm extends React.Component {
         return (
             <Form.Group>
                 <Form.Control type="text" 
-                placeholder="Search articles" 
-                value={this.state.filter} 
+                placeholder="Wyszukaj wyzania" 
+                value={this.state.filter.text} 
                 onChange={this.handleOnChange}
                 />
             </Form.Group>

@@ -12,12 +12,6 @@ import clsx from 'clsx';
 import { Link } from "react-router-dom";
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 
-
-
-
-  // The example data is structured as follows:
-
-
   const catName = [
    "Sylwetka", "Witalność", "Zwyczaje", "Dieta"
   ]
