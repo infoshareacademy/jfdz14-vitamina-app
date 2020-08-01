@@ -1,13 +1,13 @@
 import React from 'react';
+import Dashboard from './components/dashboard/Dashboard';
 import OnBoarding from './components/OnBoarding/OnBoarding';
 import SignIn from './components/SignIn/SignIn';
 import SignUp from './components/SignUp/SignUp';
-import Home from './components/Home';
 import About from './components/About';
 import Favorite from './components/Challlenges';
 import ChallengeDescription from './components/ChallengeDescription';
 import UserProfile from './components/UserProfile';
-import Diary from './components/Diary';
+import Diary from './components/diary/Diary';
 import Settings from './components/Settings';
 import NavBar from './components/NavBar';
 import {makeStyles} from '@material-ui/core/styles';
@@ -37,15 +37,19 @@ const useStyles = makeStyles(theme => ({
     ...theme.mixins.toolbar,
   },
   content: {
+    minHeight: '100vh',
     flexGrow: 1,
-    padding: theme.spacing(3),
+    backgroundColor: '#eef1f3',
+    padding: '10px',
   },
 }));
 
 
 function AppContent() {
   const classes = useStyles();
+
   return (
+    <>
     <BrowserRouter>
       <div className={classes.root}>
         <header>
@@ -73,12 +77,13 @@ function AppContent() {
               <Settings />
             </Route>
             <Route path="/">
-              <Home />
+              <Dashboard />
             </Route>
           </Switch>
         </main>
       </div>
     </BrowserRouter>
+    </>
   );
 }
 
