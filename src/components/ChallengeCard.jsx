@@ -87,10 +87,7 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
           flexWrap: 'wrap',
           justifyContent: 'flex-start',
           overflow: 'hidden'
-        },
-
-        
-
+        },      
         gridList: {
           width: 500,
           height: 450,
@@ -98,8 +95,6 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
         tileStyling: {
           width: 100,
           height: 450,
-          
-
         },
         boxShadow:{
           boxShadow: '3px 3px 5px #aaaaaa',
