@@ -5,6 +5,7 @@ import SignIn from './components/SignIn/SignIn';
 import SignUp from './components/SignUp/SignUp';
 import About from './components/About';
 import Favorite from './components/Challlenges';
+import ChallengeDescription from './components/ChallengeDescription';
 import UserProfile from './components/UserProfile';
 import Diary from './components/diary/Diary';
 import Settings from './components/Settings';
@@ -13,7 +14,9 @@ import {makeStyles} from '@material-ui/core/styles';
 
 import { BrowserRouter, Switch, Route} from 'react-router-dom'
 import './App.css';
+import ChallengesList from './components/ChallengesList';
 
+import ChallengeDescriptionRouter from './components/ChallengeDescription';
 
 
 const Logged = 'Logged'
@@ -59,7 +62,10 @@ function AppContent() {
               <About />
             </Route>
             <Route exact path="/challenges">
-              <Favorite />
+            <ChallengesList />
+            </Route>
+            <Route path="/challenges/:id">
+              <ChallengeDescription />
             </Route>
             <Route path="/userProfile">
               <UserProfile />
@@ -84,7 +90,7 @@ function AppContent() {
 class App extends React.Component {
   state = {
     user: null,
-    log: Logged,
+    log: null,
   }
   
   handleApp= () => {
