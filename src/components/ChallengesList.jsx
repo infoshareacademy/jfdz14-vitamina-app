@@ -15,7 +15,6 @@ import ListGroup from "react-bootstrap/ListGroup"
 import SearchBar from './SearchBar';
 import Grid from '@material-ui/core/Grid';
 
-
 import {withStyles } from '@material-ui/core/styles';
 
   // The example data is structured as follows:
