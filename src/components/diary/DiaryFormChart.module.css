@@ -4,6 +4,7 @@
   margin: 0 auto;
 
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 
@@ -11,6 +12,8 @@
 
 .chart__range {
   width: 70%;
+  height: 50px;
+  color: #000000;
   background: transparent;
   -webkit-appearance: none;
 }
@@ -23,7 +26,7 @@
   width: 32px;
   margin-top: -8px;
   background: #eef1f3;
-  border: 1px solid #0098c9;
+  border: 2px solid #364954;
   border-radius: 100%;
   cursor: pointer;
 }
@@ -48,7 +51,12 @@
   border: 2px solid #0098c9;
 }
 .chart__range::-webkit-slider-runnable-track {
-  background: #eef1f3;
+  background: linear-gradient(90deg,
+                    rgba(230,38,64,1) 0%,
+                    rgba(101,118,176,1) 31%,
+                    rgba(38,157,230,1) 55%,
+                    rgba(47,170,179,1) 82%,
+                    rgba(77,213,12,1) 125%);
 }
 
 .chart__range::-moz-range-track {
@@ -59,4 +67,12 @@
   background: #3071a9;
   border-radius: 1.3px;
   border: 0.2px solid #010101;
+}
+
+.chart__emots {
+  width: 70%;
+  font-size: 2.5em;
+  color: #0098c9;
+  display: flex;
+  justify-content: space-between;
 }

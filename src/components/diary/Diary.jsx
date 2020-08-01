@@ -5,12 +5,17 @@ import DiaryDashboard from "./DiaryDashboard";
 class Diary extends React.Component {
   state = {
     chartValue: [{
-      chartId: 0,
+      chartId: 1,
       value: 0,
       date: 0,
     }],
-    postId: 0,
-    posts: [],
+    postId: 1,
+    posts: [{
+      id: 1,
+      date: new Date().toLocaleDateString(),
+      title: 'Jak się dziś czujesz?',
+      description: 'To mieisce na Twoje przemyślenia, wraenia i doznania, których doświadczasz kadego dnia...',
+    }],
     diaryForm: false,
     postFilter: '',
   }
@@ -21,12 +26,26 @@ class Diary extends React.Component {
     const POSTS = JSON.parse(getPosts);
     const getChartValue = localStorage.getItem('DiaryChartValue')
     const VALUE = JSON.parse(getChartValue);
-    if(Object.keys(localStorage).includes("DiaryChartValue")){
 
+    if(Object.keys(localStorage).includes("DiaryChartValue") && VALUE.length > 0){
       this.setState({
         chartValue: VALUE,
         posts: POSTS,
         postId: POSTS.length,
+      })
+    } else {
+      this.setState({
+        chartValue: [{
+          chartId: 1,
+          value: 0,
+        }],
+        postId: 1,
+        posts: [{
+          id: 1,
+          date: new Date().toLocaleDateString(),
+          title: 'Jak się dziś czujesz?',
+          description: 'To mieisce na Twoje przemyślenia, wraenia i doznania, których doświadczasz kadego dnia...',
+        }],
       })
     }
   }
@@ -49,10 +68,11 @@ class Diary extends React.Component {
 
   handleClickSaveInForm = (title, description, value) => {
     const newId = this.state.posts.length + 1;
+    const newValue = value;
     if(value <= 0) {
       value = 0;
     } else {
-      value = value
+      value = newValue
     }
 
     title.length <= 0

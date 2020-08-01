@@ -84,14 +84,12 @@ class DiaryForm extends React.Component {
                 onChange={this.handleChangeTextarea}
                 />
               <div className={styles.form__button__box}>
-                <button
-                  className={styles.form__button}
-                  onClick={this.handleOnClickLeaveForm}
-                >Anuluj</button>
-                <button type='submit'
-                className={styles.form__button}
-                onClick={this.handleOnClickSaveForm}
-                >Zapisz</button>
+                <button className={styles.form__button} onClick={this.handleOnClickLeaveForm}>
+                  Anuluj
+                </button>
+                <button type='submit' className={styles.form__button} onClick={this.handleOnClickSaveForm}>
+                  Zapisz
+                </button>
               </div>
             </form>
           </main>

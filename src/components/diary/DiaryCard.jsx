@@ -7,7 +7,7 @@ const DiaryCard = (props) => (
       props.posts
         .filter(post => {
           const textFilter = post.title.toLowerCase().includes(props.postFilter.toLowerCase());
-          const dateFilter = post.date.toString().includes(props.postFilter.toString());
+          const dateFilter = post.date.includes(props.postFilter);
 
           if(dateFilter) {
             return dateFilter;

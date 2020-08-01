@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './DiaryFormChart.module.css';
+import { AiOutlineFrown,  AiOutlineMeh,  AiOutlineSmile } from "react-icons/ai";
 
 class DiaryFormChart extends React.Component {
 
@@ -18,9 +19,11 @@ class DiaryFormChart extends React.Component {
           onChange={this.handleChange}
           className={styles.chart__range}
         />
-        <datalist id='tickmarks'>
-          <option value='0'></option>
-        </datalist>
+        <div className={styles.chart__emots}>
+          <AiOutlineFrown />
+          <AiOutlineMeh />
+          <AiOutlineSmile />
+        </div>
       </div>
     );
   }
