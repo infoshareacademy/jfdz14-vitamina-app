@@ -4,14 +4,12 @@ import Chip from '@material-ui/core/Chip';
 import Paper from '@material-ui/core/Paper';
 import TagFacesIcon from '@material-ui/icons/TagFaces';
 import Avatar from '@material-ui/core/Avatar';
-
 import FaceIcon from '@material-ui/icons/Face';
 import DoneIcon from '@material-ui/icons/Done';
 import {withStyles } from '@material-ui/core/styles';
 
 	const styles = {
 		root: {
-
 		display: 'flex',
 		justifyContent: 'center',
 		flexWrap: 'wrap',
@@ -36,7 +34,7 @@ floatLeft:{
 		boxShadow:{
 			boxShadow: '3px 3px 5px #aaaaaa',
 			margin: '5px',
-			padding: '0 !important'
+			padding: '5 !important'
 		},
 
 		chip: {
@@ -94,7 +92,7 @@ class ChipsArray extends React.Component {
 
   }
   else{
-	  return (<div>xD</div>);
+	  return 
   }
   	}
 }

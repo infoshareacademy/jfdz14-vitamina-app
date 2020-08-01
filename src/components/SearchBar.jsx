@@ -16,12 +16,6 @@ import ListGroup from "react-bootstrap/ListGroup"
 import SearchFilters from './SearchFilters';
 import SearchForm from './SearchForm';
 
-const ChallengesHeader = () => (
-	<div>
-			 <h1>Wyzwania</h1>
-	</div>
-);
-
 class SearchBar extends React.Component {
 
     constructor(props) {
@@ -87,6 +81,8 @@ class SearchBar extends React.Component {
     }
 
     render() {
+
+
 
       if(this.props && this.props.classes){
 
