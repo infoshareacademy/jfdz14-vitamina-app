@@ -8,30 +8,18 @@ import { Link } from "react-router-dom";
 import { tileData } from './ChallengeDescription';
 
 const Progress = () => {
-     const useStyles = makeStyles((theme) => ({
-          root: {
-            display: 'flex',
-            flexWrap: 'wrap',
-            justifyContent: 'center',
-            alignItems: 'center',
-            overflow: 'hidden'
-          },
-  
-          gridList: {
-            width: 500,
-            height: 450,
-          },
-          tileStyling: {
-            width: 100,
-            height: 450,
-            
-  
-          },
-          boxShadow:{
-            boxShadow: '3px 3px 5px #aaaaaa',
-            margin: '5px',
-            padding: '0 !important'
-          }
+  const useStyles = makeStyles((theme) => ({   
+    gridList: {
+      height: 450,
+    },
+    tileStyling: {
+      width: 100,
+      height: 450,
+      padding: '10px'
+    },
+    boxShadow:{
+      boxShadow: '3px 3px 5px #aaaaaa',
+    }
   
         }));
         const classes = useStyles();
@@ -45,15 +33,15 @@ const Progress = () => {
 
         return (
 
-          <div className={classes.root}>
+          <div>
                <h1 style={{margin: '1%'}}>Wyzwania w trakcie realizacji</h1>
-      <GridList cellHeight={180} cols={3} style={{textAlgin: 'center', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+      <GridList cellHeight={180} cols={2}>
         {tileData.map(tile => {
                         if(challengeList.includes(`InProgress${tile.id}`)){
                             return (
-            <GridListTile key={tile.id} className={classes.tileStyling, classes.boxShadow}>  
+            <GridListTile key={tile.id} className={classes.tileStyling}>  
 
-              <img src={tile.img} alt={tile.title}/>
+              <img className={classes.boxShadow} src={tile.img} alt={tile.title}/>
               <Link to={`challenges/${tile.id}`}>
               <GridListTileBar
                 title={tile.title}
@@ -68,13 +56,13 @@ const Progress = () => {
         ) } })}
       </GridList>
       <h1 style={{margin: '1%'}}>Wyzwania zakończone</h1>
-      <GridList cellHeight={180} cols={3} style={{textAlgin: 'center', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+      <GridList cellHeight={180} cols={2}>
         {tileData.map(tile => {
                         if(challengeList.includes(`Finished${tile.id}`)){
                             return (
-            <GridListTile key={tile.id} className={classes.tileStyling, classes.boxShadow}>  
+            <GridListTile key={tile.id} className={classes.tileStyling}>  
 
-              <img src={tile.img} alt={tile.title}/>
+              <img className={classes.boxShadow} src={tile.img} alt={tile.title}/>
               <Link to={`challenges/${tile.id}`}>
               <GridListTileBar
                 title={tile.title}

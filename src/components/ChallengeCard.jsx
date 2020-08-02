@@ -81,26 +81,17 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 
     export default function TitlebarGridList() {
 
-      const useStyles = makeStyles((theme) => ({
-        root: {
-          display: 'flex',
-          flexWrap: 'wrap',
-          justifyContent: 'center',
-          alignItems: 'center',
-          overflow: 'hidden'
-        },      
+      const useStyles = makeStyles((theme) => ({   
         gridList: {
-          width: 500,
           height: 450,
         },
         tileStyling: {
           width: 100,
           height: 450,
+          padding: '10px'
         },
         boxShadow:{
           boxShadow: '3px 3px 5px #aaaaaa',
-          margin: '5px',
-          padding: '0 !important'
         }
 
  
@@ -117,16 +108,16 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 classes={{tile: classes.boxShadow}} 
 */
 
-    <div className={classes.root}>
+    <div>
        <h1 style={{margin: '1%'}}>Twoje wyzwania na dziś</h1>
-      <GridList cellHeight={180} cols={3} style={{textAlgin: 'center', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+      <GridList cellHeight={180} cols={2}>
         {tileData.map((tile) => (
-            <GridListTile  key={tile.img} className={classes.tileStyling, classes.boxShadow}>  
+            <GridListTile  key={tile.img} className={classes.tileStyling}>  
             
                  
   
 
-              <img src={tile.img} alt={tile.title}/>
+              <img className={classes.boxShadow} src={tile.img} alt={tile.title}/>
               <Link to={`challenges/${tile.id}`}>
               <GridListTileBar
                 title={tile.title}
