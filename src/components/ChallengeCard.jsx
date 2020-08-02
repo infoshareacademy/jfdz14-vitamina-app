@@ -8,6 +8,14 @@ import InfoIcon from '@material-ui/icons/Info';
 import ChallengeImage1 from "./image/challenge1.jpg";
 import ChallengeImage2 from "./image/challenge2.jpg";
 import ChallengeImage3 from "./image/challenge3.jpg";
+import ChallengeImage4 from "./image/challenge4.jpg";
+import ChallengeImage5 from "./image/challenge5.jpg";
+import ChallengeImage6 from "./image/challenge6.jpg";
+import ChallengeImage7 from "./image/challenge7.jpg";
+import ChallengeImage8 from "./image/challenge8.jpg";
+import ChallengeImage9 from "./image/challenge9.jpg";
+import ChallengeImage10 from "./image/challenge10.jpg";
+
 import clsx from 'clsx';
 import { Link } from "react-router-dom";
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -33,50 +41,50 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
       img: ChallengeImage3,
       title: 'Pij wodę, będziesz wielki.',
       id: 3,
-      category: catName[3]
+      category: catName[2]
     },
     {
-      img: ChallengeImage3,
-      title: 'Pij wodę, będziesz wielki.',
+      img: ChallengeImage5,
+      title: 'Ulepsz swoją dietę.',
       id: 4,
-      category: catName[0]
-    },
-    {
-      img: ChallengeImage3,
-      title: 'Pij wodę, będziesz wielki.',
-      id: 5,
-      category: catName[2]
-    },
-    {
-      img: ChallengeImage3,
-      title: 'Pij wodę, będziesz wielki.',
-      id: 6,
-      category: catName[0]
-    },
-    {
-      img: ChallengeImage3,
-      title: 'Pij wodę, będziesz wielki.',
-      id: 7,
-      category: catName[1]
-    },
-    {
-      img: ChallengeImage3,
-      title: 'Pij wodę, będziesz wielki.',
-      id: 8,
-      category: catName[2]
-    },
-    {
-      img: ChallengeImage3,
-      title: 'Pij wodę, będziesz wielki.',
-      id: 9,
       category: catName[3]
     },
     {
-      img: ChallengeImage3,
-      title: 'Pij wodę, będziesz wielki.',
-      id: 0,
+      img: ChallengeImage6,
+      title: 'Rozciągnij się.',
+      id: 5,
       category: catName[1]
     },
+    {
+      img: ChallengeImage4,
+      title: 'Uśmiechnij się.',
+      id: 6,
+      category: catName[2]
+    },
+    {
+      img: ChallengeImage7,
+      title: 'Czas na ćwiczenia.',
+      id: 7,
+      category: catName[0]
+    },
+    {
+      img: ChallengeImage8,
+      title: 'Skup się na swoim wnętrzu.',
+      id: 8,
+      category: catName[1]
+    },
+    {
+      img: ChallengeImage9,
+      title: 'Czas na hobby.',
+      id: 9,
+      category: catName[2]
+    },
+    {
+      img: ChallengeImage10,
+      title: 'Chwila dla relaksu.',
+      id: 10,
+      category: catName[2]
+    }
   ]
 
     export default function TitlebarGridList() {
