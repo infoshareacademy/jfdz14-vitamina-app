@@ -8,6 +8,13 @@ import InfoIcon from '@material-ui/icons/Info';
 import ChallengeImage1 from "./image/challenge1.jpg";
 import ChallengeImage2 from "./image/challenge2.jpg";
 import ChallengeImage3 from "./image/challenge3.jpg";
+import ChallengeImage4 from "./image/challenge4.jpg";
+import ChallengeImage5 from "./image/challenge5.jpg";
+import ChallengeImage6 from "./image/challenge6.jpg";
+import ChallengeImage7 from "./image/challenge7.jpg";
+import ChallengeImage8 from "./image/challenge8.jpg";
+import ChallengeImage9 from "./image/challenge9.jpg";
+
 import clsx from 'clsx';
 import { Link } from "react-router-dom";
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -89,57 +96,48 @@ import {withStyles } from '@material-ui/core/styles';
 						period: 5
 					},
 					{
-						img: ChallengeImage3,
-						title: 'Pij wodę, będziesz wielki.',
+						img: ChallengeImage5,
+						title: 'Ulepsz swoją dietę',
 						id: 4,
-						category: 3,
-						period: 5
-					},
-					{
-						img: ChallengeImage3,
-						title: 'Pij wodę, będziesz wielki.',
-						id: 5,
 						category: 0,
-						period: 5
+						period: 25
 					},
 					{
-						img: ChallengeImage3,
-						title: 'Pij wodę, będziesz wielki.',
-						id: 6,
+						img: ChallengeImage6,
+						title: 'Rozciągnij się.',
+						id: 5,
 						category: 1,
 						period: 5
 					},
 					{
-						img: ChallengeImage3,
-						title: 'Pij wodę, będziesz wielki.',
+						img: ChallengeImage4,
+						title: 'Uśmiechnij się.',
+						id: 6,
+						category: 2,
+						period: 1
+					},
+					{
+						img: ChallengeImage7,
+						title: 'Czas na ćwiczenia.',
 						id: 7,
-						category: 2,
+						category: 0,
 						period: 1
 					},
 					{
-						img: ChallengeImage3,
-						title: 'Pij wodę, będziesz wielki.',
+						img: ChallengeImage8,
+						title: 'Skup się na swoim wnętrzu.',
 						id: 8,
-						category: 3,
+						category: 1,
 						period: 1
 					},
 					{
-						img: ChallengeImage3,
-						title: 'Pij wodę, będziesz wielki.',
+						img: ChallengeImage9,
+						title: 'Czas na hobby.',
 						id: 9,
-						category: 3,
-						period: 5
-					},
-					{
-						img: ChallengeImage3,
-						title: 'Pij wodę, będziesz wielki.',
-						id: 0,
 						category: 2,
-						period: 5
-					},
+						period: 1
+					}
 				]
-
-
 			};
 		}
 
