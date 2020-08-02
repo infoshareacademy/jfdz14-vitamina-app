@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
   },
   boxShadow: {
-    boxShadow: '10px 10px 10px red',
+    boxShadow: '3px 3px 5px #aaaaaa',
   }
 }));
 

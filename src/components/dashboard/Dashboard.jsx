@@ -2,6 +2,8 @@ import React from 'react';
 import ChartPie from './ChartPie';
 import ChartLine from './ChartLine';
 import styles from './Dashboard.module.css';
+import Progress from "../Progress"
+import ChallengeCard from "../ChallengeCard"
 
 class Dashboard extends React.Component {
   render() {
@@ -16,6 +18,8 @@ class Dashboard extends React.Component {
             <h2 className={styles.chart__box__header}>Poziom wytrwałości</h2>
             <ChartLine />
           </div>
+          <ChallengeCard />
+          <Progress />
         </section>
       </>
     );

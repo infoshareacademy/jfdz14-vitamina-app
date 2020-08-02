@@ -85,7 +85,8 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
         root: {
           display: 'flex',
           flexWrap: 'wrap',
-          justifyContent: 'flex-start',
+          justifyContent: 'center',
+          alignItems: 'center',
           overflow: 'hidden'
         },      
         gridList: {
@@ -117,7 +118,8 @@ classes={{tile: classes.boxShadow}}
 */
 
     <div className={classes.root}>
-      <GridList cellHeight={180} cols={3}>
+       <h1 style={{margin: '1%'}}>Twoje wyzwania na dziś</h1>
+      <GridList cellHeight={180} cols={3} style={{textAlgin: 'center', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
         {tileData.map((tile) => (
             <GridListTile  key={tile.img} className={classes.tileStyling, classes.boxShadow}>  
             

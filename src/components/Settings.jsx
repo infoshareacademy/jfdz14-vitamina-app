@@ -45,48 +45,8 @@ const Settings = () => {
      return (
 
           <div className={classes.root}>
-               <h1>Wyzwania w trakcie</h1>
-      <GridList cellHeight={180} cols={3}>
-        {tileData.map(tile => {
-                        if(challengeList.includes(`InProgress${tile.id}`)){
-                            return (
-            <GridListTile key={tile.id} className={classes.tileStyling, classes.boxShadow}>  
-
-              <img src={tile.img} alt={tile.title}/>
-              <Link to={`challenges/${tile.id}`}>
-              <GridListTileBar
-                title={tile.title}
-                subtitle={<span>{tile.category}</span>}
-                actionIcon={
-                  <IconButton aria-label={`info about ${tile.title}`} className={classes.icon}>
-                  </IconButton>
-                }
-              />
-               </Link>
-            </GridListTile>
-        ) } })}
-      </GridList>
-      <h1>Wyzwania zrobione!</h1>
-      <GridList cellHeight={180} cols={3}>
-        {tileData.map(tile => {
-                        if(challengeList.includes(`Finished${tile.id}`)){
-                            return (
-            <GridListTile key={tile.id} className={classes.tileStyling, classes.boxShadow}>  
-
-              <img src={tile.img} alt={tile.title}/>
-              <Link to={`challenges/${tile.id}`}>
-              <GridListTileBar
-                title={tile.title}
-                subtitle={<span>{tile.category}</span>}
-                actionIcon={
-                  <IconButton aria-label={`info about ${tile.title}`} className={classes.icon}>
-                  </IconButton>
-                }
-              />
-               </Link>
-            </GridListTile>
-        ) } })}
-      </GridList>
+               <h1>Ustawienia</h1>
+      
     </div>
           )
    
