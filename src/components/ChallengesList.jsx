@@ -25,7 +25,8 @@ import {withStyles } from '@material-ui/core/styles';
 			flexWrap: 'wrap',
 			justifyContent: 'flex-start',
 			overflow: 'hidden',
-			padding: 0
+			padding: 0,
+
 
 		},
 		// x: {
@@ -213,7 +214,7 @@ import {withStyles } from '@material-ui/core/styles';
 		const {classes } = this.props;
 		
 		return (
-			<Grid item xs={9} className={classes.x}>
+			<Grid item xs={9} className={classes.x} style={{marginLeft: 'auto', marginRight: 'auto'}}>
 
 			<div>
 					<h1 style={{marginTop: 0}}>Wyzwania</h1>
