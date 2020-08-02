@@ -38,7 +38,7 @@ floatLeft:{
 		},
 
 		chip: {
-			margin: "theme.spacing(0.5)"
+			margin: "2px",
 		},
 	};
 

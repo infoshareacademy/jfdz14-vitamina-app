@@ -97,14 +97,11 @@ class SearchBar extends React.Component {
         return (
           <div className="container" style={{display: 'flex', flexWrap: 'wrap', flexDirection: 'column'}}>
 						
-							<div className="search elements" style={{display: 'flex', flexWrap: 'nowrap', flexDirection: 'row', marginBottom: 20}}>
-								<div>
-											<SearchForm onFilterChange={this.handleFilterTextChange} style={{width:"100%"}}filter={this.props.filter}/>
-								</div>
+							<div className="search elements" style={{marginBottom: 20,}}>
+									<SearchForm onFilterChange={this.handleFilterTextChange} style={{width:"100%"}}filter={this.props.filter}/>
 									{this.state.filtersOpen ? <div> <button onClick={this.operateFilters}>Schowaj filtry</button> <SearchFilters filter={this.props.filter} multiFilterChange={this.handleMultiFilterChange} categories={this.props.categories} applyFilters={this.applyFilters} /> </div>: <button onClick={this.operateFilters}>Pokaż filtry</button>}
 							</div>
-
-						<SearchResults classes={this.props.classes} categories={this.props.categories} challanges={this.props.challanges} filter={this.props.filter} onRefresh={this.onRefresh}/>
+							<SearchResults classes={this.props.classes} categories={this.props.categories} challanges={this.props.challanges} filter={this.props.filter} onRefresh={this.onRefresh}/>
 
 					</div>
         )

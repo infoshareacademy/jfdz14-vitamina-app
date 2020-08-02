@@ -49,7 +49,6 @@ import {withStyles } from '@material-ui/core/styles';
 
 		constructor(props){
 			super(props);
-			// :D
 		}
 
 
@@ -58,17 +57,13 @@ import {withStyles } from '@material-ui/core/styles';
 		const {classes } = this.props;
 		
 		return (
-			<Grid item xs={9} className={classes.x}>
-
+			<Grid item xs={9} className={classes.x} style={{marginLeft: 'auto', marginRight: 'auto'}}>
 			<div>
 					<h1 style={{marginTop: 0}}>Wyzwania</h1>
 			</div>
-			
 			<div className={classes.root}>
 			<SearchBar multiFilterChange={this.props.multiFilterChange} filter={this.props.filter} challanges={this.props.challanges} categories={this.props.categories} classes={classes}/>
 			</div>
-
-
 			</Grid>
 		);
 	}
