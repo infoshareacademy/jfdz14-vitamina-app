@@ -17,73 +17,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const catName = [
-  "Sylwetka", "Witalność", "Zwyczaje", "Dieta"
- ]
 
- const tileData = [
-   {
-     img: ChallengeImage1,
-     title: 'Spacer dla Twojego umysłu.',
-     id: 1,
-     category: catName[1]
-   },
-   {
-     img: ChallengeImage2,
-     title: 'Wyśnij sobie spokój.',
-     id: 2,
-     category: catName[2]
-   },
-   {
-     img: ChallengeImage3,
-     title: 'Pij wodę, będziesz wielki.',
-     id: 3,
-     category: catName[3]
-   },
-   {
-     img: ChallengeImage3,
-     title: 'Pij wodę, będziesz wielki.',
-     id: 4,
-     category: catName[0]
-   },
-   {
-     img: ChallengeImage3,
-     title: 'Pij wodę, będziesz wielki.',
-     id: 5,
-     category: catName[2]
-   },
-   {
-     img: ChallengeImage3,
-     title: 'Pij wodę, będziesz wielki.',
-     id: 6,
-     category: catName[0]
-   },
-   {
-     img: ChallengeImage3,
-     title: 'Pij wodę, będziesz wielki.',
-     id: 7,
-     category: catName[1]
-   },
-   {
-     img: ChallengeImage3,
-     title: 'Pij wodę, będziesz wielki.',
-     id: 8,
-     category: catName[2]
-   },
-   {
-     img: ChallengeImage3,
-     title: 'Pij wodę, będziesz wielki.',
-     id: 9,
-     category: catName[3]
-   },
-   {
-     img: ChallengeImage3,
-     title: 'Pij wodę, będziesz wielki.',
-     id: 0,
-     category: catName[1]
-   },
- ]
-  
 const ChallengeDescription = (props) => {
   
   const classes = useStyles();
@@ -92,7 +26,7 @@ const ChallengeDescription = (props) => {
   const [finished, setFinished] = useState(null)
 
   let { id } = useParams()
-  const challenge = tileData.find(challenge => challenge.id.toString() === id);
+  const challenge = props.challanges.find(challenge => challenge.id.toString() === id);
 
  const handleInProgress = () => {
     setFinished(false)
@@ -136,4 +70,3 @@ return (
 
 
 export default ChallengeDescription;
-export { tileData };

@@ -45,8 +45,6 @@ class SearchFilters extends React.Component {
       };
     });
   }
-
-
     handleOnChangePeriod = (e, val) => {
 		this.setState({
 			filterPeriodRange: val
@@ -70,8 +68,6 @@ class SearchFilters extends React.Component {
 		this.props.multiFilterChange("filter_text", name);
     }
 
-
-
 	handleOnCategorySelect = (e, val) => {
 		this.props.multiFilterChange("category", e,val);
 	}
@@ -91,7 +87,6 @@ class SearchFilters extends React.Component {
 		this.setState({
 			chips: newChips
 		});
-
 
 		this.props.multiFilterChange("filter_groups", newChips);
 	}
@@ -129,8 +124,6 @@ const some = {
 const floatLeft = {
 	justifyContent: 'left'
 };
-
-
         return (
           <Grid item xs={8}>
 			<br/><br/>

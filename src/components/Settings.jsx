@@ -7,7 +7,7 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Link } from "react-router-dom";
 import { tileData } from './ChallengeDescription';
 
-const Settings = () => {
+const Settings = (props) => {
      const useStyles = makeStyles((theme) => ({
           root: {
             display: 'flex',
@@ -47,18 +47,18 @@ const Settings = () => {
           <div className={classes.root}>
                <h1>Wyzwania w trakcie</h1>
       <GridList cellHeight={180} cols={3}>
-        {tileData.map(tile => {
-                        if(challengeList.includes(`InProgress${tile.id}`)){
+        {props.challanges.map(challange => {
+                        if(challengeList.includes(`InProgress${challange.id}`)){
                             return (
-            <GridListTile key={tile.id} className={classes.tileStyling, classes.boxShadow}>  
+            <GridListTile key={challange.id} className={classes.tileStyling, classes.boxShadow}>  
 
-              <img src={tile.img} alt={tile.title}/>
-              <Link to={`challenges/${tile.id}`}>
+              <img src={challange.img} alt={challange.title}/>
+              <Link to={`challenges/${challange.id}`}>
               <GridListTileBar
-                title={tile.title}
-                subtitle={<span>{tile.category}</span>}
+                title={challange.title}
+                subtitle={<span>{challange.category}</span>}
                 actionIcon={
-                  <IconButton aria-label={`info about ${tile.title}`} className={classes.icon}>
+                  <IconButton aria-label={`info about ${challange.title}`} className={classes.icon}>
                   </IconButton>
                 }
               />
@@ -68,24 +68,26 @@ const Settings = () => {
       </GridList>
       <h1>Wyzwania zrobione!</h1>
       <GridList cellHeight={180} cols={3}>
-        {tileData.map(tile => {
-                        if(challengeList.includes(`Finished${tile.id}`)){
-                            return (
-            <GridListTile key={tile.id} className={classes.tileStyling, classes.boxShadow}>  
+        {props.challanges.map(challange => {
+          if(challengeList.includes(`Finished${challange.id}`)){
+            return (
+              <GridListTile key={challange.id} className={classes.tileStyling, classes.boxShadow}>  
 
-              <img src={tile.img} alt={tile.title}/>
-              <Link to={`challenges/${tile.id}`}>
-              <GridListTileBar
-                title={tile.title}
-                subtitle={<span>{tile.category}</span>}
-                actionIcon={
-                  <IconButton aria-label={`info about ${tile.title}`} className={classes.icon}>
-                  </IconButton>
-                }
-              />
-               </Link>
-            </GridListTile>
-        ) } })}
+                <img src={challange.img} alt={challange.title}/>
+                <Link to={`challenges/${challange.id}`}>
+                <GridListTileBar
+                  title={challange.title}
+                  subtitle={<span>{challange.category}</span>}
+                  actionIcon={
+                    <IconButton aria-label={`info about ${challange.title}`} className={classes.icon}>
+                    </IconButton>
+                  }
+                />
+                </Link>
+              </GridListTile>
+            )
+          }
+        })}
       </GridList>
     </div>
           )

@@ -16,6 +16,12 @@ import ListGroup from "react-bootstrap/ListGroup"
 import SearchFilters from './SearchFilters';
 import SearchForm from './SearchForm';
 
+export const ChallengesHeader = () => (
+	<div>
+			 <h1>Wyzwania</h1>
+	</div>
+);
+
 class SearchBar extends React.Component {
 
     constructor(props) {
@@ -75,14 +81,16 @@ class SearchBar extends React.Component {
     }
     handleFilterTextChange = (text) => {
 
-        this.props.multiFilterChange("filter_text", text);
+
+
+
+			console.log("PROPS", this.props);
+        //this.props.multiFilterChange("filter_text", text);
 
 
     }
 
     render() {
-
-
 
       if(this.props && this.props.classes){
 
@@ -96,7 +104,7 @@ class SearchBar extends React.Component {
 									{this.state.filtersOpen ? <div> <button onClick={this.operateFilters}>Schowaj filtry</button> <SearchFilters filter={this.props.filter} multiFilterChange={this.handleMultiFilterChange} categories={this.props.categories} applyFilters={this.applyFilters} /> </div>: <button onClick={this.operateFilters}>Pokaż filtry</button>}
 							</div>
 
-						<SearchResults classes={this.props.classes} categories={this.props.categories} articles={this.props.articles} filter={this.props.filter} onRefresh={this.onRefresh}/>
+						<SearchResults classes={this.props.classes} categories={this.props.categories} challanges={this.props.challanges} filter={this.props.filter} onRefresh={this.onRefresh}/>
 
 					</div>
         )

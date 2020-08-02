@@ -28,9 +28,6 @@ import {withStyles } from '@material-ui/core/styles';
 			padding: 0
 
 		},
-		// x: {
-		// 	margin: 50
-		// },
 		gridList: {
 			width: 500,
 			height: 450,
@@ -52,161 +49,9 @@ import {withStyles } from '@material-ui/core/styles';
 
 		constructor(props){
 			super(props);
-			new Date();
-
-			this.state = {
-				filter: {
-					period: [1,30],
-					text: "",
-					groups: [0,1,2,3]
-				},
-				categories: [
-					{id: 0, title:"Sylwetka", value:5, selected: false},
-					{id: 1, title: "Witalność", value:5, selected: false}, 
-					{id: 2, title: "Zwyczaje", value:5, selected: false}, 
-					{id: 3, title: "Dieta", value:5, selected: false}
-				],
-				challanges: [
-					{
-						img: ChallengeImage1,
-						title: 'Spacer dla Twojego umysłu.',
-						id: 1,
-						category: 0,
-						period: 5
-					},
-					{
-						img: ChallengeImage2,
-						title: 'Wyśnij sobie spokój.',
-						id: 2,
-						category: 1,
-						period: 25
-					},
-					{
-						img: ChallengeImage3,
-						title: 'Pij wodę, będziesz wielki.',
-						id: 3,
-						category: 2,
-						period: 5
-					},
-					{
-						img: ChallengeImage3,
-						title: 'Pij wodę, będziesz wielki.',
-						id: 4,
-						category: 3,
-						period: 5
-					},
-					{
-						img: ChallengeImage3,
-						title: 'Pij wodę, będziesz wielki.',
-						id: 5,
-						category: 0,
-						period: 5
-					},
-					{
-						img: ChallengeImage3,
-						title: 'Pij wodę, będziesz wielki.',
-						id: 6,
-						category: 1,
-						period: 5
-					},
-					{
-						img: ChallengeImage3,
-						title: 'Pij wodę, będziesz wielki.',
-						id: 7,
-						category: 2,
-						period: 1
-					},
-					{
-						img: ChallengeImage3,
-						title: 'Pij wodę, będziesz wielki.',
-						id: 8,
-						category: 3,
-						period: 1
-					},
-					{
-						img: ChallengeImage3,
-						title: 'Pij wodę, będziesz wielki.',
-						id: 9,
-						category: 3,
-						period: 5
-					},
-					{
-						img: ChallengeImage3,
-						title: 'Pij wodę, będziesz wielki.',
-						id: 0,
-						category: 2,
-						period: 5
-					},
-				]
-
-
-			};
+			// :D
 		}
 
-
-		handleMultiFilterChange = (grp, event, val) => {
-
-			switch(grp){
-				case "category":
-
-						// 1. Make a shallow copy of the items
-						let categories = [...this.state.categories];
-						// 2. Make a shallow copy of the item you want to mutate
-
-						categories.forEach((category, catIndex) => {
-
-							category.selected = false;
-							
-							val.forEach((value,valueIndex) => {
-							
-								if(value.id === category.id){
-									category.selected = true;
-									categories[catIndex] = category;
-								}
-							});
-						});
-
-						this.setState({categories});
-					break;
-				case "filter_text":
-					
-					this.setState({
-						filter:{
-							text: event
-						}
-					});
-					break;
-
-				case "filter_period":
-					
-					this.setState({
-						filter:{
-							period: val
-						}
-					});
-					break;
-				case "filter_groups":
-					let groups = event;
-
-					let newGroupsArr = [];
-
-					groups.forEach((item, index) => {
-						if(item.selected){
-							newGroupsArr.push(item.key);
-						}
-					});
-
-					this.setState({
-						filter:{
-							groups: newGroupsArr
-						}
-					});
-					break;
-				default:
-			}
-			
-
-		}
 
 		render() {
 		
@@ -220,7 +65,7 @@ import {withStyles } from '@material-ui/core/styles';
 			</div>
 			
 			<div className={classes.root}>
-			<SearchBar multiFilterChange={this.handleMultiFilterChange} filter={this.state.filter} articles={this.state.challanges} categories={this.state.categories} classes={classes}/>
+			<SearchBar multiFilterChange={this.props.multiFilterChange} filter={this.props.filter} challanges={this.props.challanges} categories={this.props.categories} classes={classes}/>
 			</div>
 
 

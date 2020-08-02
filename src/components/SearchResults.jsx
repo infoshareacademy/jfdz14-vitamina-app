@@ -46,9 +46,9 @@ class SearchResults extends React.Component {
 			<div className={props.classes.root}>
 				<GridList cellHeight={180} cols={4}>
 					{
-						this.props.articles
-							.filter(article => {
-								const textFilter = (article.title ? article.title : "");
+						this.props.challanges
+							.filter(challange => {
+								const textFilter = (challange.title ? challange.title : "");
 
 
 								
@@ -69,7 +69,7 @@ class SearchResults extends React.Component {
 
 								if(useCatFilter) {
 									catFilterStatus = false;
-									if(categories.includes(article.category)) {
+									if(categories.includes(challange.category)) {
 										catFilterStatus = true;
 									}
 								}
@@ -88,8 +88,8 @@ class SearchResults extends React.Component {
 								if(this.props.filter.period){
 
 									isOkPeriod = false;
-									if(article.period >= this.props.filter.period[0]
-									&& article.period <= this.props.filter.period[1]){
+									if(challange.period >= this.props.filter.period[0]
+									&& challange.period <= this.props.filter.period[1]){
 										isOkPeriod = true;
 									}
 								}
@@ -99,23 +99,20 @@ class SearchResults extends React.Component {
 								}
 
 							})
-							.map((article) => (
+							.map((challange) => (
 							
 							
-							<GridListTile key=
-								{article.id} className=
-								{props.classes.tileStyling, props.classes.boxShadow}>  <img data-g="5"src =
-								{article.img}alt =
-								{article.title}/>
+							<GridListTile key={challange.id} className={props.classes.tileStyling, props.classes.boxShadow}>
+								<img src={challange.img} alt={challange.title} />
 								
-								<Link to={`challenges/${article.id}`} >
+								<Link to={`challenges/${challange.id}`} >
 									<GridListTileBar
-										title={article.title}
-										subtitle={<span>{this.getCategoryName(article.category)} {article.period} dni</span>}
+										title={challange.title}
+										subtitle={<span>{this.getCategoryName(challange.category)} {challange.period} dni</span>}
 										actionIcon=
 										{
 											<IconButton 
-											aria-label={`info about $ {article.title}`}
+											aria-label={`info about $ {challange.title}`}
 											className={props.classes.icon}>
 											</IconButton > }
 											/>
