@@ -19,7 +19,7 @@ class SearchForm extends React.Component {
         return (
             <Form.Group>
                 <Form.Control type="text" 
-                placeholder="Wyszukaj wyzania" 
+                placeholder="Wyszukaj po nazwie" 
                 value={this.state.filter.text} 
                 onChange={this.handleOnChange}
                 />

@@ -111,7 +111,7 @@ class SearchResults extends React.Component {
 								<Link to={`challenges/${article.id}`} >
 									<GridListTileBar
 										title={article.title}
-										subtitle={<span>{this.getCategoryName(article.category)} {article.period} dni</span>}
+										subtitle={<span>{this.getCategoryName(article.category)} {`(${article.period} dni)`}</span>}
 										actionIcon=
 										{
 											<IconButton 
