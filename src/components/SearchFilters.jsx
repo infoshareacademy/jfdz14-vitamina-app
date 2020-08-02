@@ -136,15 +136,15 @@ const floatLeft = {
 			<br/><br/>
 
 		<div>
-			<label>Wybierz grupę</label>
+			
 
 
-<ChipsArray chips={this.state.chips} onDeleteChips={this.handleOnDeleteChips} onClickChips={this.handleOnClickChips} />
-<br/><br/>
-		</div>
+{/* <ChipsArray chips={this.state.chips} onDeleteChips={this.handleOnDeleteChips} onClickChips={this.handleOnClickChips} />
+<br/><br/>*/}
+		</div> 
 
 		<div>
-			<label>Długość wyzwania [dni]</label>
+			<label>Długość wyzwania (dni)</label>
 
 			<Slider
 				value={this.props.filter.period}

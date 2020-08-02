@@ -67,14 +67,8 @@ function AppContent() {
             <Route path="/challenges/:id">
               <ChallengeDescription />
             </Route>
-            <Route path="/userProfile">
-              <UserProfile />
-            </Route>
             <Route path="/diary">
               <Diary />
-            </Route>
-            <Route path="/settings">
-              <Settings />
             </Route>
             <Route path="/">
               <Dashboard />
