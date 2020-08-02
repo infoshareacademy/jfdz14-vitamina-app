@@ -97,7 +97,7 @@ import {withStyles } from '@material-ui/core/styles';
 					},
 					{
 						img: ChallengeImage5,
-						title: 'Ulepsz swoją dietę',
+						title: 'Ulepsz swoją dietę.',
 						id: 4,
 						category: 0,
 						period: 25
