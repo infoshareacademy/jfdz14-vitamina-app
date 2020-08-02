@@ -131,9 +131,6 @@ classes={{tile: classes.boxShadow}}
         {tileData.map((tile) => (
             <GridListTile  key={tile.img} className={classes.tileStyling, classes.boxShadow}>  
             
-                 
-  
-
               <img src={tile.img} alt={tile.title}/>
               <Link to={`challenges/${tile.id}`}>
               <GridListTileBar
