@@ -90,7 +90,7 @@ function AppContent() {
 class App extends React.Component {
   state = {
     user: null,
-    log: Logged,
+    log: null,
   }
   
   handleApp= () => {
