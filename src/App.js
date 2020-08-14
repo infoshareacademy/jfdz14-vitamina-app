@@ -58,21 +58,11 @@ function AppContent() {
         <main className={classes.content}>
           <div className={classes.toolbar} />
           <Switch>
-            <Route path="/about">
-              <About />
-            </Route>
-            <Route exact path="/challenges">
-            <ChallengesList />
-            </Route>
-            <Route path="/challenges/:id">
-              <ChallengeDescription />
-            </Route>
-            <Route path="/diary">
-              <Diary />
-            </Route>
-            <Route path="/">
-              <Dashboard />
-            </Route>
+            <Route path="/about" component={About} />
+            <Route exact path="/challenges" component={ChallengesList} />
+            <Route path="/challenges/:id" component={ChallengeDescription} />
+            <Route path="/diary" component={Diary} />
+            <Route exact path="/" component={Dashboard} />
           </Switch>
         </main>
       </div>
@@ -84,7 +74,7 @@ function AppContent() {
 class App extends React.Component {
   state = {
     user: null,
-    log: null,
+    log: 'Logged',
   }
   
   handleApp= () => {

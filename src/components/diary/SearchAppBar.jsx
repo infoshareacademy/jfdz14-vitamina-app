@@ -64,14 +64,14 @@ const useStyles = makeStyles((theme) => ({
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('xs')]: {
-      width: '1px',
+      width: '65px',
       '&:focus': {
         width: '10ch',
         border: '1px solid #ccc',
       },
     },
     [theme.breakpoints.up('sm')]: {
-      width: '1px',
+      width: '65px',
       '&:focus': {
         width: '20ch',
         border: '1px solid #ccc',

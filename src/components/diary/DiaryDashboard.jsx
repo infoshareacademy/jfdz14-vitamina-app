@@ -15,7 +15,7 @@ const DiaryDashboard = (props) => (
     </header>
     <main>
       <SearchAppBar onKeyUpSearch={props.onKeyUpSearch} />
-      <DiaryCard posts={props.posts} postFilter={props.postFilter} onClickedDelete={props.onClickedDelete} />
+      <DiaryCard posts={props.posts} postFilter={props.postFilter} onDelete={props.onDelete} />
     </main>
   </section>
 );

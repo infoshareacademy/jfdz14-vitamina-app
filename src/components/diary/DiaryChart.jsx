@@ -1,9 +1,19 @@
 import React, { PureComponent } from 'react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { DATABASE_URL } from '../../index';
 
 class DiaryChart extends PureComponent {
 
+  startChartValue = [{
+      id: null,
+      value: 0,
+      date: '0',
+  }]
+
+
   render() {
+    console.log(this.state)
+    console.log(this.props.data)
     return (
       <ResponsiveContainer
         width='100%'
@@ -13,7 +23,7 @@ class DiaryChart extends PureComponent {
         <AreaChart
         width={500}
         height={400}
-        data={this.props.data}
+        data={[...this.startChartValue, ...this.props.data]}
         margin={{
           top: 10, right: 0, left: 0, bottom: 0,
         }}
