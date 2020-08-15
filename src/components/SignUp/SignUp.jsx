@@ -2,8 +2,8 @@ import React from 'react';
 
 import { Container, Button, Link, TextField } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-/* import { Formik, Form } from 'formik'; */
-import * as Yup from 'yup';
+/* import { Formik, Form } from 'formik'; 
+import * as Yup from 'yup'; */
 import firebase from "firebase";
 import logo from '../image/logo.png';
 import google from './google.svg';
@@ -73,7 +73,6 @@ const styles = theme => ({
     border: '1px solid #272727',
     borderRadius: '8px',
   },
- 
 });
 
 
@@ -98,15 +97,22 @@ handleOnSubmit = (event) => {
   firebase.auth()
     .createUserWithEmailAndPassword(this.state.email, this.state.password)
     .then((userData) => {
-      console.log(userData)
-      const user = firebase.auth().currentUser;
-      user.updateProfile({
-        displayName: this.state.name
-      }).then((data) => {
-        console.log(data)
-          this.props.onApp();
+        console.log(userData)
+        const user = firebase.auth().currentUser;
+        user.updateProfile({
+          displayName: this.state.name
       })
-    })
+          .then(() => {
+            firebase
+                .database()
+                .ref(`/users/${user.uid}`)
+                .set({
+                  name: this.state.name,
+                  email: this.state.email
+                })
+              })
+      this.props.onApp();
+        })
     .catch((error) => {
       this.setState({
         error: 'Nieudana rejestracja',
@@ -137,7 +143,6 @@ setLogin = (event) => {
                      <img src={google} alt="" style={{margin: '0px 5px',width: '22px'}} /> Google
             </Button>
             <p>Lub <span style={{fontWeight:'600'}}>zarejestruj się</span> za pomocą poczty <span style={{fontWeight:'600'}}>e-mail</span>.</p>
-
             
                 <form  className={classes.form} onSubmit={this.handleOnSubmit}>
                   <TextField
@@ -203,7 +208,6 @@ setLogin = (event) => {
     )
 }
 }
-
 
 export default withStyles(styles)(SignUp);
 

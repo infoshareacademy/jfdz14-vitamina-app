@@ -2,13 +2,13 @@ import React from 'react';
 
 import { Container, Button, Link, TextField } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-/*import { Formik, Form } from 'formik'; */
-import * as Yup from 'yup';
+/*import { Formik, Form } from 'formik'; 
+import * as Yup from 'yup'; */
 
 import "./SignIn.css";
 import logo from '../image/logo.png';
 import signin from './signin.svg';
-import {DATABASE_URL} from "../../index";
+/* import {DATABASE_URL} from "../../index"; */
 import firebase from "firebase";
 
 const styles = theme => ({
