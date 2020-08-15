@@ -1,14 +1,17 @@
 import React from 'react';
 
-import { Container, Button, Link, TextField, makeStyles } from '@material-ui/core';
-import { Formik, Form } from 'formik';
+import { Container, Button, Link, TextField } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+/*import { Formik, Form } from 'formik'; */
 import * as Yup from 'yup';
 
 import "./SignIn.css";
 import logo from '../image/logo.png';
 import signin from './signin.svg';
+import {DATABASE_URL} from "../../index";
+import firebase from "firebase";
 
-const useStyles = makeStyles((theme) => ({
+const styles = theme => ({
   root: {
     height: '100vh', 
     fontFamily: 'Source Sans Pro', 
@@ -63,7 +66,8 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: '#0098C9',
     },
   },
-}));
+});
+/*
 
 const SignInSchema = Yup.object().shape({
   email: Yup.string()
@@ -72,7 +76,7 @@ const SignInSchema = Yup.object().shape({
   password: Yup.string()
     .required('To pole jest wymagane.'),
 });
-
+*/
 
 const PasswordText = () => {
     const preventDefault = (event) => event.preventDefault();
@@ -83,6 +87,91 @@ const PasswordText = () => {
     )
 }
 
+
+class SignIn extends React.Component {
+
+  state = {
+      email: '',
+      password: '',
+      error: '',
+      errorStyle: false
+  }
+
+  handleOnChange = (event) => {
+    this.setState({
+        [event.target.name]: event.target.value
+    })
+}
+
+  handleOnSubmit = (event) => {
+    event.preventDefault();
+    firebase.auth()
+            .signInWithEmailAndPassword(this.state.email, this.state.password)
+            .then((userData) => {
+                console.log(userData)
+                this.props.onApp();
+            })
+            .catch((error) => {
+              this.setState({
+                error: 'Nieudana próba logowania.',
+                errorStyle: true
+            })
+            })
+  }
+
+  render() {
+    const { classes } = this.props;
+    return (
+        <>
+        <Container maxWidth="sm" className={classes.root}>
+            <img src={logo} className="logo" alt=""/>
+            <img src={signin} className="signin-image" alt=""/>
+              
+                <form className={classes.form} onSubmit={this.handleOnSubmit}>
+                <TextField
+                    className={classes.input}
+                    label="E-mail"
+                    name="email" 
+                    variant="outlined" 
+                    size="small" 
+                    value={this.state.email}
+                    onChange={this.handleOnChange}
+                    error={this.state.errorStyle}
+                    /*onBlur={handleBlur}
+                    error={errors.email && touched.email}
+                    helperText={(errors.email && touched.email) && errors.email}*/
+                  />
+                <TextField 
+                    className={classes.input}
+                    type="password"
+                    label="Hasło"
+                    name="password" 
+                    variant="outlined"
+                    size="small" 
+                    value={this.state.password}
+                    onChange={this.handleOnChange}
+                    helperText={this.state.error}
+                    error={this.state.errorStyle}
+                 /*   onBlur={handleBlur} */
+                   /* helperText={(errors.password && touched.password) && errors.password}*/
+                  />
+                  <Button 
+                  className={classes.submit} 
+                  type="submit" 
+                  variant="contained">
+                    Zaloguj się
+                    </Button>
+                </form>
+               
+            
+            <PasswordText />
+        </Container>
+        </>
+    )
+  }
+
+}
+/*
 const SignIn = (props) => {
   const classes = useStyles();
 
@@ -151,8 +240,8 @@ const SignIn = (props) => {
         </>
     )
 }
-
-export default SignIn;
+*/
+export default withStyles(styles)(SignIn);
 
 
 /* <Field type="email" id="firstName" name="firstName" placeholder="Jane" component={TextField} variant="outlined"  size="small" />

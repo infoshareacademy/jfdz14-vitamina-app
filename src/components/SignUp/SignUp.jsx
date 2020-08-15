@@ -1,13 +1,14 @@
 import React from 'react';
 
-import { Container, Button, Link, TextField, makeStyles } from '@material-ui/core';
-import { Formik, Form } from 'formik';
+import { Container, Button, Link, TextField } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+/* import { Formik, Form } from 'formik'; */
 import * as Yup from 'yup';
-
+import firebase from "firebase";
 import logo from '../image/logo.png';
 import google from './google.svg';
 
-const useStyles = makeStyles((theme) => ({
+const styles = theme => ({
   root: {
     height: '100vh', 
     fontFamily: 'Source Sans Pro', 
@@ -61,8 +62,157 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: '#0098C9',
     },
   },
-}));
+  googleButton: {
+    width: '100%',
+    maxWidth: '430px',
+    backgroundColor: '#ffff',
+    fontFamily: 'Source Sans Pro', 
+    fontSize: '16px', 
+    color: '#272727', 
+    textTransform: 'none',
+    border: '1px solid #272727',
+    borderRadius: '8px',
+  },
+ 
+});
 
+
+class SignUp extends React.Component {
+
+  state = {
+      name: '',
+      email: '',
+      password: '',
+      error: '',
+      errorStyle: false
+}
+
+handleOnChange = (event) => {
+  this.setState({
+      [event.target.name]: event.target.value
+  })
+}
+
+handleOnSubmit = (event) => {
+  event.preventDefault();
+  firebase.auth()
+    .createUserWithEmailAndPassword(this.state.email, this.state.password)
+    .then((userData) => {
+      console.log(userData)
+      const user = firebase.auth().currentUser;
+      user.updateProfile({
+        displayName: this.state.name
+      }).then((data) => {
+        console.log(data)
+          this.props.onApp();
+      })
+    })
+    .catch((error) => {
+      this.setState({
+        error: 'Nieudana rejestracja',
+        errorStyle: true
+    })
+    })
+}
+
+ /*(setApp = (event) => {
+  this.props.onApp();
+}*/
+
+setLogin = (event) => {
+  event.preventDefault();
+  this.props.onLogin();
+}
+
+  render() {
+    const { classes } = this.props;
+    return (
+      <>
+    <Container maxWidth="sm" className={classes.root}>
+            <img src={logo} className="logo" alt=""/>
+            <p><span style={{fontWeight:'600'}}>Kontynuuj</span> rejestrację za pomocą <span style={{fontWeight:'600'}}>konta</span>:</p>
+            <Button 
+                className={classes.googleButton}
+                onClick={(event) => event.preventDefault()} >
+                     <img src={google} alt="" style={{margin: '0px 5px',width: '22px'}} /> Google
+            </Button>
+            <p>Lub <span style={{fontWeight:'600'}}>zarejestruj się</span> za pomocą poczty <span style={{fontWeight:'600'}}>e-mail</span>.</p>
+
+            
+                <form  className={classes.form} onSubmit={this.handleOnSubmit}>
+                  <TextField
+                    className={classes.input}
+                    label="Imię"
+                    name="name" 
+                    variant="outlined" 
+                    size="small" 
+                    value={this.state.name}
+                    onChange={this.handleOnChange}
+                    error={this.state.errorStyle}
+                   /* onBlur={handleBlur}
+                    error={errors.name && touched.name}
+                    helperText={(errors.name && touched.name) && errors.name}*/
+                  />
+                <TextField
+                    className={classes.input}
+                    label="E-mail"
+                    name="email" 
+                    variant="outlined" 
+                    size="small" 
+                    value={this.state.email}
+                    onChange={this.handleOnChange}
+                    error={this.state.errorStyle}
+                  /*  onBlur={handleBlur}
+                    error={errors.email && touched.email}
+                    helperText={(errors.email && touched.email) && errors.email}*/
+                  />
+                <TextField 
+                className={classes.input}
+                    type="password"
+                    label="Hasło"
+                    name="password" 
+                    variant="outlined"
+                    size="small" 
+                    value={this.state.password}
+                    onChange={this.handleOnChange}
+                    error={this.state.errorStyle}
+                    helperText={this.state.error}
+                   /* onBlur={handleBlur}
+                    error={errors.password && touched.password}
+                    helperText={(errors.password && touched.password) && errors.password} */
+                  />
+                  <Button 
+                  className={classes.submit} 
+                  type="submit" 
+                  variant="contained">
+                    Zarejestruj się
+                    </Button>
+                </form>
+               
+            <p style={{margin: '0px 0px 5% 0px', fontSize: '12px'}}>Kontynuując <span style={{fontWeight: '600'}}>zgadzasz się</span> na naszą <Link onClick={(event) => event.preventDefault()} style={{color: '#0098C9', fontWeight: '600', cursor: 'pointer'}}>
+              politykę prywatności.
+              </Link>
+            </p>
+            <p>Posiadasz już konto? <Link onClick={this.setLogin} style={{color: '#0098C9', fontWeight: '600', cursor: 'pointer'}}>
+              Zaloguj się.
+              </Link>
+            </p>
+
+        </Container>
+        </>
+    )
+}
+}
+
+
+export default withStyles(styles)(SignUp);
+
+
+
+
+
+
+/*
 const SignUpSchema = Yup.object().shape({
   name: Yup.string()
     .required('To pole jest wymagane.'),
@@ -188,7 +338,4 @@ const SignUp = (props) => {
         </>
   )
 }
-
-export default SignUp;
-
-
+*/

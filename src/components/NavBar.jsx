@@ -96,6 +96,9 @@ const useStyles = makeStyles((theme) => ({
     color: '#0098c9',
     textDecoration: 'none',
   },
+  btnShare: {
+    width: '100%'
+  },
   iconStyle: {
     color:'#0098c9',
   }
@@ -184,7 +187,7 @@ export default function MiniDrawer() {
               <ListItemText primary='O nas' />
             </ListItem>
           </NavLink>
-          <FacebookShareButton url={shareUrl}>
+          <FacebookShareButton url={shareUrl} className={classes.btnShare}>
             <ListItem button>
               <ListItemIcon><FacebookIcon className={classes.iconStyle}/></ListItemIcon>
               <ListItemText className={classes.listItem} primary='Udostępnij' />
