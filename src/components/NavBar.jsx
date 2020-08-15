@@ -23,9 +23,11 @@ import FormatListBulletedRoundedIcon from '@material-ui/icons/FormatListBulleted
 import InfoRoundedIcon from '@material-ui/icons/InfoRounded';
 import SettingsRoundedIcon from '@material-ui/icons/SettingsRounded';
 import FacebookIcon from '@material-ui/icons/Facebook';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { FacebookShareButton } from "react-share";
 import { NavLink } from 'react-router-dom';
 import Logo from './Logo';
+import firebase from 'firebase';
 
 const drawerWidth = 240;
 const shareUrl = "http://app.vitamina.jfdz14.is-academy.pl/"
@@ -118,6 +120,11 @@ export default function MiniDrawer() {
     setOpen(false);
   };
 
+  const handleOnSignOutClick = () => {
+    firebase.auth().signOut();
+}
+
+
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -195,6 +202,12 @@ export default function MiniDrawer() {
           </FacebookShareButton>
         </List>
         <Divider />
+        <NavLink to="/" onClick={handleOnSignOutClick} className={classes.listItem}>
+            <ListItem button>
+              <ListItemIcon><ExitToAppIcon className={classes.iconStyle}/></ListItemIcon>
+              <ListItemText primary='Wyloguj się' />
+            </ListItem>
+          </NavLink>
       </Drawer>
     </div>
   );

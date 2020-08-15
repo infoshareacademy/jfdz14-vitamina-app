@@ -109,7 +109,7 @@ class SignIn extends React.Component {
             .signInWithEmailAndPassword(this.state.email, this.state.password)
             .then((userData) => {
                 console.log(userData)
-                this.props.onApp();
+                /*this.props.onApp();*/
             })
             .catch((error) => {
               this.setState({

@@ -8,7 +8,6 @@ import Favorite from './components/Challlenges';
 import ChallengeDescription from './components/ChallengeDescription';
 import UserProfile from './components/UserProfile';
 import Diary from './components/diary/Diary';
-import Settings from './components/Settings';
 import NavBar from './components/NavBar';
 import {makeStyles} from '@material-ui/core/styles';
 
@@ -16,8 +15,7 @@ import { BrowserRouter, Switch, Route} from 'react-router-dom'
 import './App.css';
 import ChallengesList from './components/ChallengesList';
 
-import ChallengeDescriptionRouter from './components/ChallengeDescription';
-
+import firebase from "firebase";
 
 const Logged = 'Logged'
 const Login = 'Login'
@@ -44,6 +42,33 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+
+/*
+class Auth extends React.Component {
+  state = {
+    user: null
+  }
+
+  componentDidMount() {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (firebase.auth().currentUser) {
+        this.setState({
+          user: Logged
+        })
+      } else {
+        this.setState({
+          user: null
+        })
+      }
+    });
+  }
+
+render() {
+  return user
+}
+}
+
+*/
 
 function AppContent() {
   const classes = useStyles();
@@ -82,32 +107,66 @@ function AppContent() {
 }
 
 class App extends React.Component {
+ 
   state = {
     user: null,
-    log: null,
   }
   
-  handleApp= () => {
+  /*handleApp= () => {
     this.setState({
-      log: Logged
+      user: Logged
     })
-  }
+  }*/
 
   handleLogin = () => {
     this.setState({
-      log: Login
+      user: Login
     })
   }
 
   handleRegister= () => {
     this.setState({
-      log: Register
+      user: Register
     })
+  }
+
+  componentDidMount() {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (firebase.auth().currentUser) {
+        this.setState({
+          user: Logged
+        })
+        console.log(user)
+      } else {
+        this.setState({
+          user: null
+        })
+      }
+    });
   }
 
   render() { 
    
-    switch(this.state.log) {
+    switch(this.state.user) {
+      case Logged:
+        return <AppContent />
+      case Login:
+        return <SignIn onRegister={this.handleRegister} />
+      case Register:
+        return <SignUp onLogin={this.handleLogin} />
+      default:
+        return <OnBoarding onLogin={this.handleLogin} onRegister={this.handleRegister} />  
+    }
+  
+  }
+}
+
+export default App;
+
+
+/* render() { 
+   
+    switch(this.state.user) {
       case Logged:
         return <AppContent />
       case Login:
@@ -119,6 +178,5 @@ class App extends React.Component {
     }
   
   }
-}
 
-export default App;
+  */

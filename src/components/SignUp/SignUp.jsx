@@ -111,17 +111,19 @@ handleOnSubmit = (event) => {
                   email: this.state.email
                 })
               })
-      this.props.onApp();
+      /*this.props.onApp();*/
         })
     .catch((error) => {
       this.setState({
-        error: 'Nieudana rejestracja',
         errorStyle: true
     })
+    console.log(error)
     })
 }
-
- /*(setApp = (event) => {
+/*
+'The email address is badly formatted.'
+'The password must be 6 characters long or more.'
+ (setApp = (event) => {
   this.props.onApp();
 }*/
 
@@ -144,7 +146,7 @@ setLogin = (event) => {
             </Button>
             <p>Lub <span style={{fontWeight:'600'}}>zarejestruj się</span> za pomocą poczty <span style={{fontWeight:'600'}}>e-mail</span>.</p>
             
-                <form  className={classes.form} onSubmit={this.handleOnSubmit}>
+                <form className={classes.form} onSubmit={this.handleOnSubmit}>
                   <TextField
                     className={classes.input}
                     label="Imię"
