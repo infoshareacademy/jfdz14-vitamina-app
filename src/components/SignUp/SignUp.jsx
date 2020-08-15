@@ -91,6 +91,17 @@ handleOnChange = (event) => {
       [event.target.name]: event.target.value
   })
 }
+validation = (error) => {
+  if(error.message === 'The email address is badly formatted.') {
+    return ('Niepoprawny adres email.')
+  } else if (error.message === 'The password must be 6 characters long or more.') {
+    return ('Hasło musi posiadać co najmniej 6 znaków.')
+  } else if (this.state.name === '') {
+    return ('Wpisz swoje imię.')
+  } else {
+    return ('Nieudana próba rejestracji.')
+  }
+}
 
 handleOnSubmit = (event) => {
   event.preventDefault();
@@ -115,9 +126,10 @@ handleOnSubmit = (event) => {
         })
     .catch((error) => {
       this.setState({
+        error: this.validation(error),
         errorStyle: true
     })
-    console.log(error)
+    console.log(error.message)
     })
 }
 /*
