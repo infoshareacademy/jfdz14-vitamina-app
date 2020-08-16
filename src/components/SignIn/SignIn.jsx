@@ -7,8 +7,8 @@ import * as Yup from 'yup'; */
 
 import "./SignIn.css";
 import logo from '../image/logo.png';
+import google from '../SignUp/google.svg';
 import signin from './signin.svg';
-/* import {DATABASE_URL} from "../../index"; */
 import firebase from "firebase";
 
 const styles = theme => ({
@@ -66,6 +66,17 @@ const styles = theme => ({
       backgroundColor: '#0098C9',
     },
   },
+  googleButton: {
+    width: '100%',
+    maxWidth: '430px',
+    backgroundColor: '#ffff',
+    fontFamily: 'Source Sans Pro', 
+    fontSize: '16px', 
+    color: '#272727', 
+    textTransform: 'none',
+    border: '1px solid #272727',
+    borderRadius: '8px',
+  },
 });
 /*
 
@@ -116,7 +127,39 @@ class SignIn extends React.Component {
                 error: 'Nieudana próba logowania.',
                 errorStyle: true
             })
-            })
+    })
+  }
+
+  setRegister = (event) => {
+    event.preventDefault();
+    this.props.onRegister();
+  }
+  
+
+  handleOnLoginWithGoogle = (event) => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().languageCode = "pl";
+    provider.setCustomParameters({
+      'login_hint': 'user@example.com'
+    });
+    firebase.auth()
+            .signInWithPopup(provider)
+              .then((result) => {
+                const user = result.user
+                firebase
+                .database()
+                .ref(`/users/${user.uid}`)
+                .set({
+                  name: user.displayName,
+                  email: user.email
+                })
+    }).catch((error) => {
+      this.setState({
+        error: 'Nieudane logowanie za pomocą konta Google.',
+        errorStyle: true
+    })
+    });
+  
   }
 
   render() {
@@ -126,14 +169,21 @@ class SignIn extends React.Component {
         <Container maxWidth="sm" className={classes.root}>
             <img src={logo} className="logo" alt=""/>
             <img src={signin} className="signin-image" alt=""/>
-              
-                <form className={classes.form} onSubmit={this.handleOnSubmit}>
+            <p><span style={{fontWeight:'600'}}>Kontynuuj</span> logowanie za pomocą <span style={{fontWeight:'600'}}>konta</span>:</p>
+            <Button 
+                className={classes.googleButton}
+                onClick={this.handleOnLoginWithGoogle} >
+                     <img src={google} alt="" style={{margin: '0px 5px',width: '22px'}} /> Google
+            </Button>
+            <p>Lub <span style={{fontWeight:'600'}}>zaloguj się</span> za pomocą poczty <span style={{fontWeight:'600'}}>e-mail</span>.</p>
+                <form className={classes.form} onSubmit={this.handleOnSubmit} noValidate>
                 <TextField
                     className={classes.input}
                     label="E-mail"
                     name="email" 
                     variant="outlined" 
                     size="small" 
+                    autoComplete="username"
                     value={this.state.email}
                     onChange={this.handleOnChange}
                     error={this.state.errorStyle}
@@ -148,6 +198,7 @@ class SignIn extends React.Component {
                     name="password" 
                     variant="outlined"
                     size="small" 
+                    autoComplete="current-password"
                     value={this.state.password}
                     onChange={this.handleOnChange}
                     helperText={this.state.error}
@@ -163,7 +214,10 @@ class SignIn extends React.Component {
                     </Button>
                 </form>
                
-            
+                <p style={{alignSelf: 'center'}}>Nie posiadasz jeszcze konta? <Link onClick={this.setRegister} style={{color: '#0098C9', fontWeight: '600', cursor: 'pointer'}}>
+              Zarejestruj się.
+              </Link>
+            </p>
             <PasswordText />
         </Container>
         </>

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Container, Button, Link, TextField } from '@material-ui/core';
+import { Container, Button, Link, TextField, Autocomplete } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 /* import { Formik, Form } from 'formik'; 
 import * as Yup from 'yup'; */
@@ -92,12 +92,10 @@ handleOnChange = (event) => {
   })
 }
 validation = (error) => {
-  if(error.message === 'The email address is badly formatted.') {
+  if(error.code == 'auth/invalid-email') {
     return ('Niepoprawny adres email.')
-  } else if (error.message === 'The password must be 6 characters long or more.') {
+  } else if (error.code == 'auth/weak-password') {
     return ('Hasło musi posiadać co najmniej 6 znaków.')
-  } else if (this.state.name === '') {
-    return ('Wpisz swoje imię.')
   } else {
     return ('Nieudana próba rejestracji.')
   }
@@ -129,8 +127,34 @@ handleOnSubmit = (event) => {
         error: this.validation(error),
         errorStyle: true
     })
-    console.log(error.message)
+    console.log(error.code)
     })
+}
+
+handleOnLoginWithGoogle = (event) => {
+  const provider = new firebase.auth.GoogleAuthProvider();
+  firebase.auth().languageCode = "pl";
+  provider.setCustomParameters({
+    'login_hint': 'user@example.com'
+  });
+  firebase.auth()
+          .signInWithPopup(provider)
+            .then((result) => {
+              const user = result.user
+                firebase
+                .database()
+                .ref(`/users/${user.uid}`)
+                .set({
+                  name: user.displayName,
+                  email: user.email
+                })
+  }).catch((error) => {
+    this.setState({
+      error: 'Nieudana rejestracja za pomocą konta Google.',
+      errorStyle: true
+  })
+  });
+
 }
 /*
 'The email address is badly formatted.'
@@ -153,12 +177,12 @@ setLogin = (event) => {
             <p><span style={{fontWeight:'600'}}>Kontynuuj</span> rejestrację za pomocą <span style={{fontWeight:'600'}}>konta</span>:</p>
             <Button 
                 className={classes.googleButton}
-                onClick={(event) => event.preventDefault()} >
+                onClick={this.handleOnLoginWithGoogle} >
                      <img src={google} alt="" style={{margin: '0px 5px',width: '22px'}} /> Google
             </Button>
             <p>Lub <span style={{fontWeight:'600'}}>zarejestruj się</span> za pomocą poczty <span style={{fontWeight:'600'}}>e-mail</span>.</p>
             
-                <form className={classes.form} onSubmit={this.handleOnSubmit}>
+                <form className={classes.form} onSubmit={this.handleOnSubmit} noValidate >
                   <TextField
                     className={classes.input}
                     label="Imię"
@@ -177,7 +201,8 @@ setLogin = (event) => {
                     label="E-mail"
                     name="email" 
                     variant="outlined" 
-                    size="small" 
+                    size="small"
+                    autoComplete="username"
                     value={this.state.email}
                     onChange={this.handleOnChange}
                     error={this.state.errorStyle}
@@ -192,6 +217,7 @@ setLogin = (event) => {
                     name="password" 
                     variant="outlined"
                     size="small" 
+                    autoComplete="current-password"
                     value={this.state.password}
                     onChange={this.handleOnChange}
                     error={this.state.errorStyle}
