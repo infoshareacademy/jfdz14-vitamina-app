@@ -3,6 +3,7 @@ import Dashboard from './components/dashboard/Dashboard';
 import OnBoarding from './components/OnBoarding/OnBoarding';
 import SignIn from './components/SignIn/SignIn';
 import SignUp from './components/SignUp/SignUp';
+import PasswordReset from './components/SignIn/PasswordReset';
 import About from './components/About';
 import Favorite from './components/Challlenges';
 import ChallengeDescription from './components/ChallengeDescription';
@@ -16,10 +17,12 @@ import './App.css';
 import ChallengesList from './components/ChallengesList';
 
 import firebase from "firebase";
+/* import Password from 'antd/lib/input/Password'; */
 
 const Logged = 'Logged'
 const Login = 'Login'
 const Register = 'Register'
+const Password = 'Password'
 
 
 const useStyles = makeStyles(theme => ({
@@ -41,34 +44,6 @@ const useStyles = makeStyles(theme => ({
     padding: '10px',
   },
 }));
-
-
-/*
-class Auth extends React.Component {
-  state = {
-    user: null
-  }
-
-  componentDidMount() {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (firebase.auth().currentUser) {
-        this.setState({
-          user: Logged
-        })
-      } else {
-        this.setState({
-          user: null
-        })
-      }
-    });
-  }
-
-render() {
-  return user
-}
-}
-
-*/
 
 function AppContent() {
   const classes = useStyles();
@@ -112,21 +87,21 @@ class App extends React.Component {
     user: null,
   }
   
-  /*handleApp= () => {
-    this.setState({
-      user: Logged
-    })
-  }*/
-
   handleLogin = () => {
     this.setState({
       user: Login
     })
   }
 
-  handleRegister= () => {
+  handleRegister = () => {
     this.setState({
       user: Register
+    })
+  }
+
+  handlePassword = () => {
+    this.setState({
+      user: Password
     })
   }
 
@@ -136,7 +111,6 @@ class App extends React.Component {
         this.setState({
           user: Logged
         })
-        console.log(user)
       } else {
         this.setState({
           user: null
@@ -151,9 +125,11 @@ class App extends React.Component {
       case Logged:
         return <AppContent />
       case Login:
-        return <SignIn onRegister={this.handleRegister} />
+        return <SignIn onRegister={this.handleRegister} onPassword={this.handlePassword} />
       case Register:
         return <SignUp onLogin={this.handleLogin} />
+      case Password:
+        return <PasswordReset onLogin={this.handleLogin} onRegister={this.handleRegister} />
       default:
         return <OnBoarding onLogin={this.handleLogin} onRegister={this.handleRegister} />  
     }
@@ -162,21 +138,3 @@ class App extends React.Component {
 }
 
 export default App;
-
-
-/* render() { 
-   
-    switch(this.state.user) {
-      case Logged:
-        return <AppContent />
-      case Login:
-        return <SignIn onApp={this.handleApp} />
-      case Register:
-        return <SignUp onLogin={this.handleLogin} onApp={this.handleApp} />
-      default:
-        return <OnBoarding onLogin={this.handleLogin} onRegister={this.handleRegister} />  
-    }
-  
-  }
-
-  */
