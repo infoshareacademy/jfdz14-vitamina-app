@@ -12,12 +12,11 @@ import Settings from './components/Settings';
 import NavBar from './components/NavBar';
 import {makeStyles} from '@material-ui/core/styles';
 
-import { BrowserRouter, Switch, Route} from 'react-router-dom'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import './App.css';
 import ChallengesList from './components/ChallengesList';
 
 import ChallengeDescriptionRouter from './components/ChallengeDescription';
-
 
 const Logged = 'Logged'
 const Login = 'Login'
@@ -84,7 +83,7 @@ function AppContent() {
 class App extends React.Component {
   state = {
     user: null,
-    log: null,
+    log: Logged,
   }
   
   handleApp= () => {
