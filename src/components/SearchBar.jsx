@@ -99,7 +99,6 @@ class SearchBar extends React.Component {
 =======
 							<div className="search elements" style={{marginBottom: 20}}>
 								<div style={{display: 'flex'}}>
->>>>>>> a680dd07a714f4c9d211d86abd5994eb6c19f65f
 											<SearchForm onFilterChange={this.handleFilterTextChange} style={{width:"100%"}}filter={this.props.filter}/>
 											{this.state.filtersOpen 
 												? <button onClick={this.operateFilters}>Schowaj filtry</button> 
