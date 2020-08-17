@@ -166,12 +166,6 @@ export default function MiniDrawer() {
               <ListItemText primary='Home' />
             </ListItem>
           </NavLink>
-          <NavLink to="/userProfile" className={classes.listItem}>
-            <ListItem button>
-              <ListItemIcon><PersonRoundedIcon className={classes.iconStyle}/></ListItemIcon>
-              <ListItemText primary='Profile' />
-            </ListItem>
-          </NavLink>
           <NavLink to="/diary" className={classes.listItem}>
             <ListItem button>
               <ListItemIcon><NoteRoundedIcon className={classes.iconStyle}/></ListItemIcon>
@@ -188,12 +182,6 @@ export default function MiniDrawer() {
             <ListItem button>
               <ListItemIcon><InfoRoundedIcon className={classes.iconStyle}/></ListItemIcon>
               <ListItemText primary='O nas' />
-            </ListItem>
-          </NavLink>
-          <NavLink to="/settings" className={classes.listItem}>
-            <ListItem button>
-              <ListItemIcon><SettingsRoundedIcon className={classes.iconStyle}/></ListItemIcon>
-              <ListItemText primary='Ustawienia' />
             </ListItem>
           </NavLink>
           <FacebookShareButton url={shareUrl}>

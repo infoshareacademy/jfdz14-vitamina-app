@@ -93,11 +93,22 @@ class SearchBar extends React.Component {
         return (
           <div className="container" style={{display: 'flex', flexWrap: 'wrap', flexDirection: 'column'}}>
 						
+<<<<<<< HEAD
 							<div className="search elements">
 								<div>
+=======
+							<div className="search elements" style={{marginBottom: 20}}>
+								<div style={{display: 'flex'}}>
+>>>>>>> a680dd07a714f4c9d211d86abd5994eb6c19f65f
 											<SearchForm onFilterChange={this.handleFilterTextChange} style={{width:"100%"}}filter={this.props.filter}/>
+											{this.state.filtersOpen 
+												? <button onClick={this.operateFilters}>Schowaj filtry</button> 
+												: <button onClick={this.operateFilters}>Pokaż filtry</button>
+											}
 								</div>
-									{this.state.filtersOpen ? <div> <button onClick={this.operateFilters}>Schowaj filtry</button> <SearchFilters filter={this.props.filter} multiFilterChange={this.handleMultiFilterChange} categories={this.props.categories} applyFilters={this.applyFilters} /> </div>: <button onClick={this.operateFilters}>Pokaż filtry</button>}
+									{this.state.filtersOpen &&
+										<SearchFilters filter={this.props.filter} multiFilterChange={this.handleMultiFilterChange} categories={this.props.categories} applyFilters={this.applyFilters} /> 
+									}
 							</div>
 
 						<SearchResults classes={this.props.classes} categories={this.props.categories} articles={this.props.articles} filter={this.props.filter} onRefresh={this.onRefresh}/>
