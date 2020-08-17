@@ -16,11 +16,10 @@ class Diary extends React.Component {
   state = {
     posts: [{
       id: null,
-      date: '',
       value: 0,
       date: '',
-      title: 'Jak się dziś czujesz?',
-      description: 'To mieisce na Twoje przemyślenia, wraenia i doznania, których doświadczasz kadego dnia...',
+      title: '',
+      description: '',
     }],
     diaryForm: false,
     postFilter: '',
@@ -50,7 +49,6 @@ class Diary extends React.Component {
     this.fetchData();
   }
 
-
   handleOnClickToForm = () => {
     this.setState({
       diaryForm: true,
@@ -61,14 +59,6 @@ class Diary extends React.Component {
     this.setState({
       diaryForm: false,
     })
-  }
-
-  handleClickDelete = (id) => {
-    fetch(`${DATABASE_URL}/diary/${id}.json`, {
-      method: "DELETE"
-    }).then(() => {
-      this.fetchData()
-    });
   }
 
   handleSearch = (text) => {
@@ -89,7 +79,7 @@ class Diary extends React.Component {
               data={this.state.posts}
               onKeyUpSearch={this.handleSearch}
               onClickToForm={this.handleOnClickToForm}
-              onDelete={this.handleClickDelete}
+              onDelete={this.fetchData}
             />
           : <DiaryForm
               onClickSaveInForm={this.handleClickSaveInForm}

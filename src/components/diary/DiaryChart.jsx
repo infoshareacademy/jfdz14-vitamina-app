@@ -12,17 +12,12 @@ class DiaryChart extends PureComponent {
 
 
   render() {
-    console.log(this.state)
-    console.log(this.props.data)
     return (
       <ResponsiveContainer
-        width='100%'
+        width='99%'
         minHeight={150}
-        // height={230}
       >
         <AreaChart
-        width={500}
-        height={400}
         data={[...this.startChartValue, ...this.props.data]}
         margin={{
           top: 10, right: 0, left: 0, bottom: 0,
