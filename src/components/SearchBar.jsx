@@ -92,11 +92,6 @@ class SearchBar extends React.Component {
 
         return (
           <div className="container" style={{display: 'flex', flexWrap: 'wrap', flexDirection: 'column'}}>
-						
-<<<<<<< HEAD
-							<div className="search elements">
-								<div>
-=======
 							<div className="search elements" style={{marginBottom: 20}}>
 								<div style={{display: 'flex'}}>
 											<SearchForm onFilterChange={this.handleFilterTextChange} style={{width:"100%"}}filter={this.props.filter}/>
