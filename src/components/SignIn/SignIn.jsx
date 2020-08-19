@@ -1,14 +1,15 @@
 import React from 'react';
 
-import { Container, Button, Link, TextField, makeStyles } from '@material-ui/core';
-import { Formik, Form } from 'formik';
-import * as Yup from 'yup';
+import { Container, Button, Link, TextField } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
 
 import "./SignIn.css";
 import logo from '../image/logo.png';
+import google from '../SignUp/google.svg';
 import signin from './signin.svg';
+import firebase from "firebase";
 
-const useStyles = makeStyles((theme) => ({
+const styles = theme => ({
   root: {
     height: '100vh', 
     fontFamily: 'Source Sans Pro', 
@@ -47,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     maxWidth: '430px',
     color: '#272727',
-    marginBottom: theme.spacing(3),
+    marginBottom: theme.spacing(2),
   },
   submit: {
     width: '100%',
@@ -63,79 +64,125 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: '#0098C9',
     },
   },
-}));
-
-const SignInSchema = Yup.object().shape({
-  email: Yup.string()
-    .email('Nieprawidłowy adres e-mail.')
-    .required('To pole jest wyamgane.'),
-  password: Yup.string()
-    .required('To pole jest wymagane.'),
+  googleButton: {
+    width: '100%',
+    marginBottom: '2%',
+    maxWidth: '430px',
+    backgroundColor: '#ffff',
+    fontFamily: 'Source Sans Pro', 
+    fontSize: '16px', 
+    color: '#272727', 
+    textTransform: 'none',
+    border: '1px solid #272727',
+    borderRadius: '8px',
+  },
 });
+class SignIn extends React.Component {
 
+  state = {
+      email: '',
+      password: '',
+      error: '',
+      errorStyle: false
+  }
 
-const PasswordText = () => {
-    const preventDefault = (event) => event.preventDefault();
-    return (
-        <p>Zapomniane hasło? <Link href="/przypomninamy" onClick={preventDefault} style={{color: '#0098C9', fontWeight: '600'}}>
-        Przypomnimy.
-      </Link></p>
-    )
+  handleOnChange = (event) => {
+    this.setState({
+        [event.target.name]: event.target.value
+    })
 }
 
-const SignIn = (props) => {
-  const classes = useStyles();
-
-  const setApp = (event) => {
-    props.onApp();
+  handleOnSubmit = (event) => {
+    event.preventDefault();
+    firebase.auth()
+            .signInWithEmailAndPassword(this.state.email, this.state.password)
+            .then((userData) => {
+                console.log(userData)
+                /*this.props.onApp();*/
+            })
+            .catch((error) => {
+              this.setState({
+                error: 'Nieudana próba logowania.',
+                errorStyle: true
+            })
+    })
   }
+
+  setRegister = (event) => {
+    event.preventDefault();
+    this.props.onRegister();
+  }
+
+  setPassword = (event) => {
+    event.preventDefault();
+    this.props.onPassword();
+  }
+  
+
+  handleOnLoginWithGoogle = (event) => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().languageCode = "pl";
+    provider.setCustomParameters({
+      'login_hint': 'user@example.com'
+    });
+    firebase.auth()
+            .signInWithPopup(provider)
+              .then((result) => {
+                const user = result.user
+                firebase
+                .database()
+                .ref(`/users/${user.uid}`)
+                .set({
+                  name: user.displayName,
+                  email: user.email
+                })
+    }).catch((error) => {
+      this.setState({
+        error: 'Nieudane logowanie za pomocą konta Google.',
+        errorStyle: true
+    })
+    });
+  
+  }
+
+  render() {
+    const { classes } = this.props;
     return (
         <>
         <Container maxWidth="sm" className={classes.root}>
             <img src={logo} className="logo" alt=""/>
             <img src={signin} className="signin-image" alt=""/>
-              <Formik
-                initialValues={{
-                  email: '',
-                  password: '',
-                }}
-                  validationSchema={SignInSchema}
-                  onSubmit={(values, props) => {
-                    console.log(values);
-                    setApp();
-                  }}
-              >
-            {({ values,
-                errors, 
-                touched,
-                handleChange,
-                handleBlur,
-                handleSubmit, }) => (
-                <Form  className={classes.form} onSubmit={handleSubmit}>
+            <p><span style={{fontWeight:'600'}}>Kontynuuj</span> logowanie za pomocą <span style={{fontWeight:'600'}}>konta</span>:</p>
+            <Button 
+                className={classes.googleButton}
+                onClick={this.handleOnLoginWithGoogle} >
+                     <img src={google} alt="" style={{margin: '0px 5px',width: '22px'}} /> Google
+            </Button>
+            <p>Lub <span style={{fontWeight:'600'}}>zaloguj się</span> za pomocą poczty <span style={{fontWeight:'600'}}>e-mail</span>.</p>
+                <form className={classes.form} onSubmit={this.handleOnSubmit} noValidate>
                 <TextField
                     className={classes.input}
                     label="E-mail"
                     name="email" 
                     variant="outlined" 
                     size="small" 
-                    value={values.email}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    error={errors.email && touched.email}
-                    helperText={(errors.email && touched.email) && errors.email}
+                    autoComplete="username"
+                    value={this.state.email}
+                    onChange={this.handleOnChange}
+                    error={this.state.errorStyle}
                   />
                 <TextField 
-                className={classes.input}
+                    className={classes.input}
                     type="password"
                     label="Hasło"
                     name="password" 
                     variant="outlined"
                     size="small" 
-                    value={values.password}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    error={errors.password && touched.password}
-                    helperText={(errors.password && touched.password) && errors.password}
+                    autoComplete="current-password"
+                    value={this.state.password}
+                    onChange={this.handleOnChange}
+                    helperText={this.state.error}
+                    error={this.state.errorStyle}
                   />
                   <Button 
                   className={classes.submit} 
@@ -143,24 +190,19 @@ const SignIn = (props) => {
                   variant="contained">
                     Zaloguj się
                     </Button>
-                </Form>
-                )}
-            </Formik>
-            <PasswordText />
+                </form>
+               
+                <p style={{textAlign: 'center'}}>Nie posiadasz jeszcze konta? <Link onClick={this.setRegister} style={{color: '#0098C9', fontWeight: '600', cursor: 'pointer'}}>
+              Zarejestruj się.
+              </Link>
+            </p>
+            <p>Zapomniane hasło? <Link onClick={this.setPassword} style={{color: '#0098C9', fontWeight: '600'}}>
+              Przypomnimy.
+            </Link></p>
         </Container>
         </>
     )
+  }
 }
 
-export default SignIn;
-
-
-/* <Field type="email" id="firstName" name="firstName" placeholder="Jane" component={TextField} variant="outlined"  size="small" />
-                <Field type="password" id="outlined-basic" name="password"  placeholder="Jane" component={TextField} variant="outlined"  size="small" />  */
-
-/*  
-  '& .MuiTextField-root': {
-      margin: theme.spacing(2),
-      textAligin: 'center'
-    },
-*/
+export default withStyles(styles)(SignIn);
