@@ -2,7 +2,10 @@ import React, { Fragment } from "react";
 
 import TeamMemberCard from "./TeamMemberCard.jsx";
 import { MembersList } from "./TeamMemberList";
-import "./TeamMemberCard.css"
+import "./TeamMemberCard.css";
+import TeamMembersListComponent from "./TeamMembersList";
+import ImageCarousel from "./AboutUsCarousel";
+import AboutUsContent from "./AboutUsContent";
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
@@ -11,47 +14,47 @@ import Container from '@material-ui/core/Container';
 import {withStyles } from '@material-ui/core/styles';
 
 import Grid from '@material-ui/core/Grid';
+import { List } from "@material-ui/core";
+
 
   // The example data is structured as follows:
 
-	const styles = {
-		root: {
-			display: 'flex',
-			flexWrap: 'wrap',
-			justifyContent: 'flex-start',
-			overflow: 'hidden',
-			padding: 0
-		},
-		x: {
-			margin: 50
-		},
-		gridList: {
-			width: 500,
-      height: 450,
-      
-      display: 'flex',
-      flexWrap: 'wrap',
-			justifyContent: 'flex-start',
-			overflow: 'hidden',
-			padding: 0
+const styles = {
+	root: {
+		display: 'flex',
+		flexWrap: 'wrap',
+		justifyContent: 'flex-start',
+		overflow: 'hidden',
+		padding: 0
+	},
+	x: {
+		margin: 50
+  }, 
+
+  container: {
+    width: '90%',
+    height: '90%',
+    padding: '0px',
+    
+    display: "flex",
+    flexWrap: "nowrap",
+
+    boxShadow: "3px 3px 5px #aaaaaa"
+    },
+
+    imgCarousel: {
+      gridArea:'img',
+      width: '40%', 
+      height: '100%'
+    },
+
+    infoContent: {
+      gridArea: 'content',
+      width: '60%'
     }
-    
-    
-		// tileStyling: {
-		// 	width: 100,
-		// 	height: 450,
-    // },
-    
-		// boxShadow:{
-		// 	boxShadow: '3px 3px 5px #aaaaaa',
-		// 	margin: '5px',
-		// 	padding: '0 !important'
-		// }
-	};
+};
 
-  const classes = styles;
-
-
+const classes = styles;
 
 const About = () => (
 
@@ -61,30 +64,15 @@ const About = () => (
       <div>
         <h1 style={{marginTop: 0}}>About Us</h1>
       </div>
+      
+      <Container style={classes.container}>
 
-      <Container className={classes.gridList} style={{width: '95%'}}>
-        <ul className="team-card" style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          justifyContent: 'flex-start',
-          
-          listStyleType: 'none',
+        <ImageCarousel style={classes.imgCarousel} />
 
-          padding: '0px'
-        }}
-        >
+        <AboutUsContent style={classes.infoContent} />
 
-          {
-            MembersList.map((member) => (
-              <li key={member.id} style={{margin: '20px 30px', boxShadow: '3px 3px 5px #aaaaaa'}}>
-                <TeamMemberCard card={member} />
-              </li>
-            ))
-          }
-        </ul>
       </Container>
-
-    </Grid>
+    </Grid>    
 
   </Fragment>
 );
