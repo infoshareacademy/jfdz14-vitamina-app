@@ -12,12 +12,25 @@ import clsx from 'clsx';
 import { Link } from "react-router-dom";
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import ListGroup from "react-bootstrap/ListGroup"
+import { withStyles } from '@material-ui/core/styles';
+import { red } from '@material-ui/core/colors';
 
+const styles = {
+	gridList: {
+		height: 450,
+	},
+	tileStyling: {
+		width: 100,
+		height: 450,
+		padding: '5px !important'
+	},
+	tileStyle: {
+		borderRadius: '8px',
+		boxShadow: 'rgba(39, 39, 39, 0.2) 2px 2px 4px',
+	}
+};
 
 class SearchResults extends React.Component {
-
-
-
 	constructor(props) {
 		super(props);
 	}
@@ -36,21 +49,17 @@ class SearchResults extends React.Component {
 	}
 
 	render() {
-
-
 		const props = this.props;
+		const classes = this.props.classes;
 
 		if (this.props.categories) {
 
 			return (
-			<div className={props.classes.root}>
-				<GridList cellHeight={180} cols={4}>
+				<GridList cellHeight={180} cols={2}>
 					{
 						this.props.articles
 							.filter(article => {
 								const textFilter = (article.title ? article.title : "");
-
-
 								
 								let useCatFilter = false;
 								let categories = [];
@@ -102,11 +111,16 @@ class SearchResults extends React.Component {
 							.map((article) => (
 							
 							
-							<GridListTile key=
-								{article.id} className=
-								{props.classes.tileStyling, props.classes.boxShadow}>  <img data-g="5"src =
-								{article.img}alt =
-								{article.title}/>
+							<GridListTile
+								key={article.id}
+								style={{ width: '50%'}}
+								classes={{ tile: classes.tileStyle }}
+								className={classes.tileStyling}
+							>
+								<img data-g="5"
+										src={article.img}
+										alt={article.title}
+								/>
 								
 								<Link to={`challenges/${article.id}`} >
 									<GridListTileBar
@@ -116,7 +130,7 @@ class SearchResults extends React.Component {
 										{
 											<IconButton 
 											aria-label={`info about $ {article.title}`}
-											className={props.classes.icon}>
+											className={classes.icon}>
 											</IconButton > }
 											/>
 								</Link >
@@ -124,7 +138,7 @@ class SearchResults extends React.Component {
 						}
 						
 						</GridList>
-						</div >);
+				);
 		}
 		else {
 
@@ -136,4 +150,4 @@ class SearchResults extends React.Component {
 
 }
 
-export default SearchResults; 
+export default withStyles(styles)(SearchResults); 

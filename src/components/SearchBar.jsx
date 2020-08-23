@@ -105,8 +105,7 @@ class SearchBar extends React.Component {
 									}
 							</div>
 
-						<SearchResults classes={this.props.classes} categories={this.props.categories} articles={this.props.articles} filter={this.props.filter} onRefresh={this.onRefresh}/>
-
+						<SearchResults categories={this.props.categories} articles={this.props.articles} filter={this.props.filter} onRefresh={this.onRefresh}/>
 					</div>
         )
       }

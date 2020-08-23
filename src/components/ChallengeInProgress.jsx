@@ -21,7 +21,7 @@ const ChallengeInProgress = () => {
     },
     tileStyle: {
       borderRadius: '8px',
-      boxShadow: '3px 3px 5px #aaaaaa'
+      boxShadow: 'rgba(39, 39, 39, 0.2) 2px 2px 4px'
     }
   
         }));
