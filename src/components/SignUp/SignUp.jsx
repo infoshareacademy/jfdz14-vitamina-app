@@ -1,13 +1,12 @@
 import React from 'react';
 
-import { Container, Button, Link, TextField, makeStyles } from '@material-ui/core';
-import { Formik, Form } from 'formik';
-import * as Yup from 'yup';
-
+import { Container, Button, Link, TextField, Autocomplete } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+import firebase from "firebase";
 import logo from '../image/logo.png';
 import google from './google.svg';
 
-const useStyles = makeStyles((theme) => ({
+const styles = theme => ({
   root: {
     height: '100vh', 
     fontFamily: 'Source Sans Pro', 
@@ -61,97 +60,140 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: '#0098C9',
     },
   },
-}));
-
-const SignUpSchema = Yup.object().shape({
-  name: Yup.string()
-    .required('To pole jest wymagane.'),
-  email: Yup.string()
-    .email('Nieprawidłowy adres e-mail.')
-    .required('To pole jest wyamgane.'),
-  password: Yup.string()
-    .min(5, 'Minimum 5 znaków.')
-    .required('To pole jest wymagane.'),
+  googleButton: {
+    width: '100%',
+    marginBottom: '2%',
+    maxWidth: '430px',
+    backgroundColor: '#ffff',
+    fontFamily: 'Source Sans Pro', 
+    fontSize: '16px', 
+    color: '#272727', 
+    textTransform: 'none',
+    border: '1px solid #272727',
+    borderRadius: '8px',
+  },
 });
 
 
-const SignUp = (props) => {
-  const classes = useStyles();
-  
-  const setApp = (event) => {
-    props.onApp();
-  }
+class SignUp extends React.Component {
 
-  const setLogin = (event) => {
-    event.preventDefault();
-    props.onLogin();
-  }
+  state = {
+      name: '',
+      email: '',
+      password: '',
+      error: '',
+      errorStyle: false
+}
 
-  return (
+handleOnChange = (event) => {
+  this.setState({
+      [event.target.name]: event.target.value
+  })
+}
+validation = (error) => {
+  if(error.code == 'auth/invalid-email') {
+    return ('Niepoprawny adres e-mail.')
+  } else if (error.code == 'auth/weak-password') {
+    return ('Hasło musi posiadać co najmniej 6 znaków.')
+  } else {
+    return ('Nieudana próba rejestracji.')
+  }
+}
+
+handleOnSubmit = (event) => {
+  event.preventDefault();
+  firebase.auth()
+    .createUserWithEmailAndPassword(this.state.email, this.state.password)
+    .then((userData) => {
+        console.log(userData)
+        const user = firebase.auth().currentUser;
+        user.updateProfile({
+          displayName: this.state.name
+      })
+          .then(() => {
+            firebase
+                .database()
+                .ref(`/users/${user.uid}`)
+                .set({
+                  name: this.state.name,
+                  email: this.state.email
+                })
+              })
+        })
+    .catch((error) => {
+      this.setState({
+        error: this.validation(error),
+        errorStyle: true
+    })
+    console.log(error.code)
+    })
+}
+
+handleOnLoginWithGoogle = (event) => {
+  const provider = new firebase.auth.GoogleAuthProvider();
+  firebase.auth().languageCode = "pl";
+  provider.setCustomParameters({
+    'login_hint': 'user@example.com'
+  });
+  firebase.auth()
+          .signInWithPopup(provider)
+            .then((result) => {
+              const user = result.user
+                firebase
+                .database()
+                .ref(`/users/${user.uid}`)
+                .set({
+                  name: user.displayName,
+                  email: user.email
+                })
+  }).catch((error) => {
+    this.setState({
+      error: 'Nieudana rejestracja za pomocą konta Google.',
+      errorStyle: true
+  })
+  });
+
+}
+setLogin = (event) => {
+  event.preventDefault();
+  this.props.onLogin();
+}
+
+  render() {
+    const { classes } = this.props;
+    return (
       <>
     <Container maxWidth="sm" className={classes.root}>
             <img src={logo} className="logo" alt=""/>
             <p><span style={{fontWeight:'600'}}>Kontynuuj</span> rejestrację za pomocą <span style={{fontWeight:'600'}}>konta</span>:</p>
-            <Button onClick={(event) => event.preventDefault()}
-                  style={{
-                    width: '100%',
-                    maxWidth: '430px',
-                    backgroundColor: '#ffff',
-                    fontFamily: 'Source Sans Pro', 
-                    fontSize: '16px', 
-                    color: '#272727', 
-                    textTransform: 'none',
-                    border: '1px solid #272727',
-                    borderRadius: '8px',
-                    }} 
-                   >
+            <Button 
+                className={classes.googleButton}
+                onClick={this.handleOnLoginWithGoogle} >
                      <img src={google} alt="" style={{margin: '0px 5px',width: '22px'}} /> Google
-                    </Button>
+            </Button>
             <p>Lub <span style={{fontWeight:'600'}}>zarejestruj się</span> za pomocą poczty <span style={{fontWeight:'600'}}>e-mail</span>.</p>
-
-              <Formik
-                initialValues={{
-                  name: '',
-                  email: '',
-                  password: '',
-                }}
-                  validationSchema={SignUpSchema}
-                  onSubmit={(values, props) => {
-                    console.log(values);
-                    setApp();
-                  }}
-              >
-            {({ values,
-                errors, 
-                touched,
-                handleChange,
-                handleBlur,
-                handleSubmit, 
-            }) => (
-                <Form  className={classes.form} onSubmit={handleSubmit}>
+            
+                <form className={classes.form} onSubmit={this.handleOnSubmit} noValidate >
                   <TextField
                     className={classes.input}
                     label="Imię"
                     name="name" 
                     variant="outlined" 
                     size="small" 
-                    value={values.name}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    error={errors.name && touched.name}
-                    helperText={(errors.name && touched.name) && errors.name}
+                    value={this.state.name}
+                    onChange={this.handleOnChange}
+                    error={this.state.errorStyle}
                   />
                 <TextField
                     className={classes.input}
                     label="E-mail"
                     name="email" 
                     variant="outlined" 
-                    size="small" 
-                    value={values.email}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    error={errors.email && touched.email}
-                    helperText={(errors.email && touched.email) && errors.email}
+                    size="small"
+                    autoComplete="username"
+                    value={this.state.email}
+                    onChange={this.handleOnChange}
+                    error={this.state.errorStyle}
                   />
                 <TextField 
                 className={classes.input}
@@ -160,11 +202,11 @@ const SignUp = (props) => {
                     name="password" 
                     variant="outlined"
                     size="small" 
-                    value={values.password}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    error={errors.password && touched.password}
-                    helperText={(errors.password && touched.password) && errors.password}
+                    autoComplete="current-password"
+                    value={this.state.password}
+                    onChange={this.handleOnChange}
+                    error={this.state.errorStyle}
+                    helperText={this.state.error}
                   />
                   <Button 
                   className={classes.submit} 
@@ -172,23 +214,21 @@ const SignUp = (props) => {
                   variant="contained">
                     Zarejestruj się
                     </Button>
-                </Form>
-                )}
-            </Formik>
-            <p style={{margin: '0px 0px 5% 0px', fontSize: '12px'}}>Kontynuując <span style={{fontWeight: '600'}}>zgadzasz się</span> na naszą <Link onClick={(event) => event.preventDefault()} style={{color: '#0098C9', fontWeight: '600', cursor: 'pointer'}}>
+                </form>
+               
+            <p style={{margin: '0px 0px 5% 0px', fontSize: '12px', textAlign: 'center'}}>Kontynuując <span style={{fontWeight: '600'}}>zgadzasz się</span> na naszą <Link onClick={(event) => event.preventDefault()} style={{color: '#0098C9', fontWeight: '600', cursor: 'pointer'}}>
               politykę prywatności.
               </Link>
             </p>
-            <p>Posiadasz już konto? <Link onClick={setLogin} style={{color: '#0098C9', fontWeight: '600', cursor: 'pointer'}}>
+            <p>Posiadasz już konto? <Link onClick={this.setLogin} style={{color: '#0098C9', fontWeight: '600', cursor: 'pointer'}}>
               Zaloguj się.
               </Link>
             </p>
 
         </Container>
         </>
-  )
+    )
+}
 }
 
-export default SignUp;
-
-
+export default withStyles(styles)(SignUp);
