@@ -23,9 +23,11 @@ import FormatListBulletedRoundedIcon from '@material-ui/icons/FormatListBulleted
 import InfoRoundedIcon from '@material-ui/icons/InfoRounded';
 import SettingsRoundedIcon from '@material-ui/icons/SettingsRounded';
 import FacebookIcon from '@material-ui/icons/Facebook';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { FacebookShareButton } from "react-share";
 import { NavLink } from 'react-router-dom';
 import Logo from './Logo';
+import firebase from 'firebase';
 
 const drawerWidth = 240;
 const shareUrl = "http://app.vitamina.jfdz14.is-academy.pl/"
@@ -96,6 +98,9 @@ const useStyles = makeStyles((theme) => ({
     color: '#0098c9',
     textDecoration: 'none',
   },
+  btnShare: {
+    width: '100%'
+  },
   iconStyle: {
     color:'#0098c9',
   }
@@ -114,6 +119,11 @@ export default function MiniDrawer() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const handleOnSignOutClick = () => {
+    firebase.auth().signOut();
+}
+
 
   return (
     <div className={classes.root}>
@@ -184,7 +194,7 @@ export default function MiniDrawer() {
               <ListItemText primary='O nas' />
             </ListItem>
           </NavLink>
-          <FacebookShareButton url={shareUrl}>
+          <FacebookShareButton url={shareUrl} className={classes.btnShare}>
             <ListItem button>
               <ListItemIcon><FacebookIcon className={classes.iconStyle}/></ListItemIcon>
               <ListItemText className={classes.listItem} primary='Udostępnij' />
@@ -192,6 +202,12 @@ export default function MiniDrawer() {
           </FacebookShareButton>
         </List>
         <Divider />
+        <NavLink to="/" onClick={handleOnSignOutClick} className={classes.listItem}>
+            <ListItem button>
+              <ListItemIcon><ExitToAppIcon className={classes.iconStyle}/></ListItemIcon>
+              <ListItemText primary='Wyloguj się' />
+            </ListItem>
+          </NavLink>
       </Drawer>
     </div>
   );
