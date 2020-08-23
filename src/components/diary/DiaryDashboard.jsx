@@ -13,14 +13,12 @@ const DiaryDashboard = ({ posts, postFilter, onDelete, onKeyUpSearch, onClickToF
       <DiaryChart data={data}/>
       <ButtonAdd onClickToForm={onClickToForm}/>
     </header>
-    <main>
       <SearchAppBar onKeyUpSearch={onKeyUpSearch} />
       <DiaryItemCard
         posts={posts}
         postFilter={postFilter}
         onDelete={onDelete}
       />
-    </main>
   </section>
 );
 

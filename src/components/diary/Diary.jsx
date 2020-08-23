@@ -92,3 +92,10 @@ class Diary extends React.Component {
 }
 
 export default Diary;
+
+
+
+
+// fetch('https://javasy-vitamina-app.firebaseio.com/diary.json?orderBy="$key"&equalTo="-MFRAgObzG1CYNdGzaOW"').then(res => res.json()).then(console.log);
+
+// fetch('https://javasy-vitamina-app.firebaseio.com/diary.json?orderBy="title"&equalTo="rr"').then(res => res.json()).then(console.log);
