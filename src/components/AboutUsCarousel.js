@@ -1,10 +1,11 @@
 import React from 'react';
-
+import "./AboutUsCarousel.css";
 
 import Leaf from './image/leaf.jpeg'
 import Meditation from './image/modal.jpg'
 import Healthy from './image/stay_healthy.jpg'
 import { makeStyles } from '@material-ui/core';
+
 
 const ImageCarousel = () => {
 
@@ -33,8 +34,8 @@ const classes = styles;
 
   return (
 
-    <figure style={classes.imgContainer}>
-      <img src={Leaf} alt={"Side picture - well-being"} style={classes.carouselImg} />
+    <figure className='imgContainer' style={styles.imgContainer}>
+      <img src={Leaf} alt={"Side picture - well-being"} style={styles.carouselImg} />
     </figure>
   )
 }

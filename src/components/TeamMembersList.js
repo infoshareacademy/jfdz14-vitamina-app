@@ -53,7 +53,7 @@ const TeamMembersListComponent = () => (
 
       {
         MembersList.map((member) => (
-          <li key={member.id} style={{width: '160px', height: '300px', margin: '5% 3%', boxShadow: '3px 3px 5px #aaaaaa'}}>
+          <li key={member.id} style={{width: '160px', height: '280px', margin: '5% 3%', boxShadow: '3px 3px 5px #aaaaaa'}}>
             <TeamMemberCard card={member} />
           </li>
         ))

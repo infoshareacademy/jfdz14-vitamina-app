@@ -60,10 +60,6 @@ const About = () => (
 
   <Fragment>
     <Grid xs={12} className={classes.root}>
-
-      <div>
-        <h1 style={{marginTop: 0}}>About Us</h1>
-      </div>
       
       <Container style={classes.container}>
 

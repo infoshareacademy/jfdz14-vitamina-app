@@ -27,7 +27,7 @@ const TeamMemberCard = ( {card} ) => (
 
       <figure style={{
         width: '100%', 
-        height: '60%', 
+        height: '57.5%', 
         overflow: 'hidden', 
         margin: '0'
       }}>
