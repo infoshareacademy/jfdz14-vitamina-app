@@ -15,10 +15,12 @@ import ChallengeImage7 from "./image/challenge7.jpg";
 import ChallengeImage8 from "./image/challenge8.jpg";
 import ChallengeImage9 from "./image/challenge9.jpg";
 import ChallengeImage10 from "./image/challenge10.jpg";
+import { useHistory } from 'react-router-dom';
 
 import clsx from 'clsx';
 import { Link } from "react-router-dom";
 import { makeStyles, useTheme } from '@material-ui/core/styles';
+
 
   const catName = [
    "Sylwetka", "Witalność", "Zwyczaje", "Dieta"
@@ -87,7 +89,8 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
     }
   ]
 
-    export default function TitlebarGridList() {
+    export default function TitlebarGridList(props) {
+      const history = useHistory();
 
       const useStyles = makeStyles((theme) => ({   
         gridList: {
@@ -96,21 +99,29 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
         tileStyling: {
           width: 100,
           height: 450,
-          padding: '10px'
+          padding: '5px !important'
         },
-        boxShadow:{
-          boxShadow: '3px 3px 5px #aaaaaa',
-        }
-
- 
-     
-
+        tileStyle:{
+          borderRadius: '8px',
+          boxShadow: 'rgba(39, 39, 39, 0.2) 2px 2px 4px'
+        },
       }));
+
+
+
       const classes = useStyles();
+
+
+      function goToChallange(id) {
+        let path = 'challenges/'+id;
+
+        history.push(path);
+      }
 
 
 
   return (
+
 
 /*
 classes={{tile: classes.boxShadow}} 
@@ -120,13 +131,10 @@ classes={{tile: classes.boxShadow}}
        <h1 style={{margin: '1%'}}>Twoje wyzwania na dziś</h1>
       <GridList cellHeight={180} cols={2}>
         {tileData.map((tile) => (
-            <GridListTile  key={tile.img} className={classes.tileStyling}>  
-            
-                 
-  
+          //<Link to={`challenges/${tile.id}`}>
+            <GridListTile style={{cursor:'pointer'}} classes={{ tile: classes.tileStyle}} onClick={() => goToChallange(tile.id)} key={tile.img} className={classes.tileStyling}>  
 
-              <img className={classes.boxShadow} src={tile.img} alt={tile.title}/>
-              <Link to={`challenges/${tile.id}`}>
+              <img className={classes.tileStyle} src={tile.img} alt={tile.title}/>
               <GridListTileBar
                 title={tile.title}
                 subtitle={<span>{tile.category}</span>}
@@ -135,8 +143,8 @@ classes={{tile: classes.boxShadow}}
                   </IconButton>
                 }
               />
-               </Link>
             </GridListTile>
+          //</Link>
         ))}
       </GridList>
     </div>
