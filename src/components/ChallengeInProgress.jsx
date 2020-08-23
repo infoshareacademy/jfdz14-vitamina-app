@@ -18,10 +18,10 @@ const ChallengeInProgress = () => {
       width: 100,
       height: 450,
       padding: '10px',
-      borderRadius: '8px'
     },
-    boxShadow:{
-      boxShadow: '3px 3px 5px #aaaaaa',
+    tileStyle: {
+      borderRadius: '8px',
+      boxShadow: '3px 3px 5px #aaaaaa'
     }
   
         }));
@@ -51,9 +51,9 @@ const ChallengeInProgress = () => {
               {tileData.map(tile => {
                               if(challengeList.includes(`InProgress${tile.id}`)){
                                   return (
-                  <GridListTile key={tile.id} className={classes.tileStyling} style={{cursor:'pointer'}}>  
+                  <GridListTile key={tile.id} classes={{ tile: classes.tileStyle}} style={{cursor:'pointer'}}>  
 
-                    <img className={classes.boxShadow} src={tile.img} alt={tile.title}/>
+                    <img className={classes.tileStyle} src={tile.img} alt={tile.title}/>
                     <Link to={`challenges/${tile.id}`}>
                     <GridListTileBar
                       title={tile.title}
