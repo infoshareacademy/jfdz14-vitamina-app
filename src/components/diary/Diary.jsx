@@ -82,7 +82,7 @@ class Diary extends React.Component {
               onDelete={this.fetchData}
             />
           : <DiaryForm
-              onClickSaveInForm={this.handleClickSaveInForm}
+              onSaveForm={this.fetchData}
               onClickLeaveTheForm={this.handleClickLeaveForm}
               />
         }

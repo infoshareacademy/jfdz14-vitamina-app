@@ -2,6 +2,7 @@ import React from 'react';
 import DiaryFormChart from './DiaryFormChart';
 import styles from './Diary.module.css';
 import { DATABASE_URL } from '../../index';
+import firebase from 'firebase';
 
 class DiaryForm extends React.Component {
   state = {
@@ -9,6 +10,7 @@ class DiaryForm extends React.Component {
     date: new Date().toLocaleDateString(),
     title: '',
     description: '',
+    identity: firebase.auth().currentUser.email,
   }
 
   handleChangeCharForm = (value) => {
@@ -28,11 +30,14 @@ class DiaryForm extends React.Component {
     this.props.onClickLeaveTheForm();
   }
 
-  handleOnClickSaveForm = () => {
+  handleOnClickSaveForm = (e) => {
+    e.preventDefault();
     fetch(`${DATABASE_URL}/diary.json`, {
       method: "POST",
       body: JSON.stringify(this.state),
     })
+    this.props.onClickLeaveTheForm();
+    this.props.onSaveForm();
   }
 
 

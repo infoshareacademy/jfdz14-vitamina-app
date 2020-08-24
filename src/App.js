@@ -109,8 +109,7 @@ class App extends React.Component {
     });
   }
 
-  render() { 
-   
+  render() {
     switch(this.state.user) {
       case Logged:
         return <AppContent />
@@ -123,7 +122,6 @@ class App extends React.Component {
       default:
         return <OnBoarding onLogin={this.handleLogin} onRegister={this.handleRegister} />  
     }
-  
   }
 }
 
