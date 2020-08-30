@@ -15,10 +15,12 @@ const ChallengeFinished = () => {
     tileStyling: {
       width: 100,
       height: 450,
-      padding: '10px'
+      padding: '10px',
+      borderRadius: '8px'
     },
-    boxShadow:{
-      boxShadow: '3px 3px 5px #aaaaaa',
+    tileStyle: {
+      borderRadius: '8px',
+      boxShadow: 'rgba(39, 39, 39, 0.2) 2px 2px 4px'
     }
   
         }));
@@ -38,9 +40,9 @@ const ChallengeFinished = () => {
           {tileData.map(tile => {
                           if(challengeList.includes(`Finished${tile.id}`)){
                               return (
-              <GridListTile key={tile.id} className={classes.tileStyling} style={{cursor:'pointer'}}>  
+              <GridListTile key={tile.id} classes={{ tile: classes.tileStyle}} style={{cursor:'pointer'}}>  
 
-                <img className={classes.boxShadow} src={tile.img} alt={tile.title} />
+                <img className={classes.tileStyle} src={tile.img} alt={tile.title} />
                 <Link to={`challenges/${tile.id}`}>
                 <GridListTileBar
                   title={tile.title}
