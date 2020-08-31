@@ -17,136 +17,230 @@ import ChallengeImage9 from "./image/challenge9.jpg";
 import ChallengeImage10 from "./image/challenge10.jpg";
 import { useHistory } from 'react-router-dom';
 
+import {connect} from 'react-redux';
+import { fetchChallenges } from '../state/challenges';
+
 import clsx from 'clsx';
 import { Link } from "react-router-dom";
 import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { DATABASE_URL } from '../index';
 
 
-  const catName = [
-   "Sylwetka", "Witalność", "Zwyczaje", "Dieta"
-  ]
+  // const catName = [
+  //  "Sylwetka", "Witalność", "Zwyczaje", "Dieta"
+  // ]
 
-  const tileData = [
-    {
-      img: ChallengeImage1,
-      title: 'Spacer dla Twojego umysłu.',
-      id: 1,
-      category: catName[1]
-    },
-    {
-      img: ChallengeImage2,
-      title: 'Wyśnij sobie spokój.',
-      id: 2,
-      category: catName[2]
-    },
-    {
-      img: ChallengeImage3,
-      title: 'Pij wodę, będziesz wielki.',
-      id: 3,
-      category: catName[2]
-    },
-    {
-      img: ChallengeImage5,
-      title: 'Ulepsz swoją dietę.',
-      id: 4,
-      category: catName[3]
-    },
-    {
-      img: ChallengeImage6,
-      title: 'Rozciągnij się.',
-      id: 5,
-      category: catName[1]
-    },
-    {
-      img: ChallengeImage4,
-      title: 'Uśmiechnij się.',
-      id: 6,
-      category: catName[2]
-    },
-    {
-      img: ChallengeImage7,
-      title: 'Czas na ćwiczenia.',
-      id: 7,
-      category: catName[0]
-    },
-    {
-      img: ChallengeImage8,
-      title: 'Skup się na swoim wnętrzu.',
-      id: 8,
-      category: catName[1]
-    },
-    {
-      img: ChallengeImage9,
-      title: 'Czas na hobby.',
-      id: 9,
-      category: catName[2]
-    },
-    {
-      img: ChallengeImage10,
-      title: 'Chwila dla relaksu.',
-      id: 10,
-      category: catName[2]
+  // const tileData = [
+  //   {
+  //     img: ChallengeImage1,
+  //     title: 'Spacer dla Twojego umysłu.',
+  //     id: 1,
+  //     category: catName[1]
+  //   },
+  //   {
+  //     img: ChallengeImage2,
+  //     title: 'Wyśnij sobie spokój.',
+  //     id: 2,
+  //     category: catName[2]
+  //   },
+  //   {
+  //     img: ChallengeImage3,
+  //     title: 'Pij wodę, będziesz wielki.',
+  //     id: 3,
+  //     category: catName[2]
+  //   },
+  //   {
+  //     img: ChallengeImage5,
+  //     title: 'Ulepsz swoją dietę.',
+  //     id: 4,
+  //     category: catName[3]
+  //   },
+  //   {
+  //     img: ChallengeImage6,
+  //     title: 'Rozciągnij się.',
+  //     id: 5,
+  //     category: catName[1]
+  //   },
+  //   {
+  //     img: ChallengeImage4,
+  //     title: 'Uśmiechnij się.',
+  //     id: 6,
+  //     category: catName[2]
+  //   },
+  //   {
+  //     img: ChallengeImage7,
+  //     title: 'Czas na ćwiczenia.',
+  //     id: 7,
+  //     category: catName[0]
+  //   },
+  //   {
+  //     img: ChallengeImage8,
+  //     title: 'Skup się na swoim wnętrzu.',
+  //     id: 8,
+  //     category: catName[1]
+  //   },
+  //   {
+  //     img: ChallengeImage9,
+  //     title: 'Czas na hobby.',
+  //     id: 9,
+  //     category: catName[2]
+  //   },
+  //   {
+  //     img: ChallengeImage10,
+  //     title: 'Chwila dla relaksu.',
+  //     id: 10,
+  //     category: catName[2]
+  //   }
+  // ]
+
+  // const history = useHistory();
+
+  // const useStyles = makeStyles((theme) => ({   
+  //   gridList: {
+  //     height: 450,
+  //   },
+  //   tileStyling: {
+  //     width: 100,
+  //     height: 450,
+  //     padding: '5px !important'
+  //   },
+  //   tileStyle:{
+  //     borderRadius: '8px',
+  //     boxShadow: 'rgba(39, 39, 39, 0.2) 2px 2px 4px'
+  //   },
+  // }));
+
+  // const classes = useStyles();
+
+  class ChellengeCard extends React.Component {
+    state = {
+      challenges: [],
     }
-  ]
 
-    export default function TitlebarGridList(props) {
-      const history = useHistory();
+    // goToChallange = (id) => {
+    //   let path = 'challenges/'+id;
+    //   history.push(path);
+    // }
 
-      const useStyles = makeStyles((theme) => ({   
-        gridList: {
-          height: 450,
-        },
-        tileStyling: {
-          width: 100,
-          height: 450,
-          padding: '5px !important'
-        },
-        tileStyle:{
-          borderRadius: '8px',
-          boxShadow: 'rgba(39, 39, 39, 0.2) 2px 2px 4px'
-        },
-      }));
+    componentDidMount() {
+      this.props.fetchChallenges();
+    }
+
+    render() {
+      return (
+        <div>
+        <h1 style={{margin: '1%'}}>Twoje wyzwania na dziś</h1>
+        <GridList cellHeight={180} cols={2}>
+          {/* {tileData.map((tile) => (
+            //<Link to={`challenges/${tile.id}`}>
+              <GridListTile
+                style={{cursor:'pointer'}}
+                classes={{ tile: classes.tileStyle}}
+                onClick={() => this.goToChallange(tile.id)}
+                key={tile.img}
+                // className={classes.tileStyling}
+                >
+                <img className={classes.tileStyle} src={tile.img} alt={tile.title}/>
+                <GridListTileBar
+                  title={tile.title}
+                  subtitle={<span>{tile.category}</span>}
+                  actionIcon={
+                    <IconButton aria-label={`info about ${tile.title}`} className={classes.icon}>
+                    </IconButton>
+                  }
+                />
+                </GridListTile>
+              //</Link>
+            ))} */}
+          </GridList>
+        </div>
+      );
+    }
+  }
+
+  const mapStateProps = (state) => ({
+    challenges: state.challenges.data,
+    status: state.challenges.statue
+  });
+
+  const mapDispatchProps = {
+    fetchChallenges,
+  }
+
+  export default connect(
+    mapStateProps,
+    mapDispatchProps
+  )(ChellengeCard);
 
 
 
-      const classes = useStyles();
-
-
-      function goToChallange(id) {
-        let path = 'challenges/'+id;
-
-        history.push(path);
-      }
 
 
 
-  return (
 
 
-/*
-classes={{tile: classes.boxShadow}} 
-*/
+//     export default function TitlebarGridList(props) {
+//       const history = useHistory();
 
-    <div>
-       <h1 style={{margin: '1%'}}>Twoje wyzwania na dziś</h1>
-      <GridList cellHeight={180} cols={2}>
-        {tileData.map((tile) => (
-          //<Link to={`challenges/${tile.id}`}>
-            <GridListTile style={{cursor:'pointer'}} classes={{ tile: classes.tileStyle}} onClick={() => goToChallange(tile.id)} key={tile.img} className={classes.tileStyling}>  
+//       const useStyles = makeStyles((theme) => ({   
+//         gridList: {
+//           height: 450,
+//         },
+//         tileStyling: {
+//           width: 100,
+//           height: 450,
+//           padding: '5px !important'
+//         },
+//         tileStyle:{
+//           borderRadius: '8px',
+//           boxShadow: 'rgba(39, 39, 39, 0.2) 2px 2px 4px'
+//         },
+//       }));
 
-              <img className={classes.tileStyle} src={tile.img} alt={tile.title}/>
-              <GridListTileBar
-                title={tile.title}
-                subtitle={<span>{tile.category}</span>}
-                actionIcon={
-                  <IconButton aria-label={`info about ${tile.title}`} className={classes.icon}>
-                  </IconButton>
-                }
-              />
-            </GridListTile>
-          //</Link>
-        ))}
-      </GridList>
-    </div>
-  );
-}
+//       const classes = useStyles();
+
+
+//       function goToChallange(id) {
+//         let path = 'challenges/'+id;
+
+//         history.push(path);
+//       }
+
+
+
+//   return (
+
+
+// /*
+// classes={{tile: classes.boxShadow}} 
+// */
+
+//     <div>
+//        <h1 style={{margin: '1%'}}>Twoje wyzwania na dziś</h1>
+//       <GridList cellHeight={180} cols={2}>
+//         {tileData.map((tile) => (
+//           //<Link to={`challenges/${tile.id}`}>
+//             <GridListTile
+//               style={{cursor:'pointer'}}
+//               classes={{ tile: classes.tileStyle}}
+//               onClick={() => goToChallange(tile.id)}
+//               key={tile.img}
+//               // className={classes.tileStyling}
+//               >
+
+//               <img className={classes.tileStyle} src={tile.img} alt={tile.title}/>
+//               <GridListTileBar
+//                 title={tile.title}
+//                 subtitle={<span>{tile.category}</span>}
+//                 actionIcon={
+//                   <IconButton aria-label={`info about ${tile.title}`} className={classes.icon}>
+//                   </IconButton>
+//                 }
+//               />
+//             </GridListTile>
+//           //</Link>
+//         ))}
+//       </GridList>
+//     </div>
+//   );
+// }
