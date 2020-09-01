@@ -32,7 +32,8 @@ import {withStyles } from '@material-ui/core/styles';
 			flexWrap: 'wrap',
 			justifyContent: 'flex-start',
 			overflow: 'hidden',
-			padding: 0
+			padding: 0,
+
 
 		},
 		// x: {

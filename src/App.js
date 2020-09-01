@@ -12,7 +12,7 @@ import Diary from './components/diary/Diary';
 import NavBar from './components/NavBar';
 import {makeStyles} from '@material-ui/core/styles';
 
-import { BrowserRouter, Switch, Route} from 'react-router-dom'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import './App.css';
 import ChallengesList from './components/ChallengesList';
 
