@@ -7,8 +7,16 @@ import ChipsArray from './ChipsArray';
 import CategoryCheckbox from  './CategoryCheckbox';
 import Slider from '@material-ui/core/Slider';
 import Grid from '@material-ui/core/Grid';
+import { withStyles } from '@material-ui/core/styles';
 
 
+const styles = theme => ({
+some: {
+		margin: '10px',
+		width: 480,
+		color: '#0098C9',
+	}
+})
 
 class SearchFilters extends React.Component {
 
@@ -121,10 +129,7 @@ class SearchFilters extends React.Component {
 	}
 
     render() {
-
-const some = {
-  margin: '10px'
-};
+			const { classes } = this.props;
 
 const floatLeft = {
 	justifyContent: 'left'
@@ -154,7 +159,7 @@ const floatLeft = {
 				max={30}
 				valueLabelDisplay="auto"
 				aria-labelledby="range-slider"
-				style={some}
+				className={classes.some}
 
 				/>
 
@@ -176,4 +181,4 @@ const floatLeft = {
 }
 
 
-export default SearchFilters;
+export default withStyles(styles)(SearchFilters);
