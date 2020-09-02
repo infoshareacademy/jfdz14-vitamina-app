@@ -21,10 +21,12 @@ class Dashboard extends React.Component {
             <h2 className={styles.chart__box__header}>Poziom wytrwałości</h2>
             <ChartLine />
           </div>
-          <ChallengeInProgress/>
-          <ChallengeCard />
-          <ChallengeFinished />
-          
+          <div style={{textAlign: 'left'}}>
+            <ChallengeInProgress/>
+            <h2 style={{margin: '1%'}}>Twoje wyzwania na dziś</h2>
+            <ChallengeCard />
+            <ChallengeFinished />
+          </div>
         </section>
       </>
     );

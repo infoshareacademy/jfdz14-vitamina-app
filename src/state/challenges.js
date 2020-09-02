@@ -30,10 +30,20 @@ export const fetchChallenges = () => {
       .then(data => {
         const formattedData = data
         ? Object.keys(data)
-            .map(key => ({...data[key]}))
+            .map(key => ({id: key, ...data[key]}))
         : []
 
         dispatch(setChanllenges(formattedData))
       })
+  }
+}
+
+export const changeStatusOnProggres = (challengeId, data) => {
+  return (dispatch) => {
+    fetch(`${DATABASE_URL}/challenges/${challengeId}.json`, {
+      method: 'PUT',
+      body: JSON.stringify(data)
+    })
+    .then(() => dispatch(fetchChallenges()))
   }
 }

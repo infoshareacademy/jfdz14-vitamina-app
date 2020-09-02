@@ -14,7 +14,7 @@ import {makeStyles} from '@material-ui/core/styles';
 
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import './App.css';
-import ChallengesList from './components/ChallengesList';
+import ChallengesList from './components/ChallengesList-old';
 
 import firebase from "firebase";
 /* import Password from 'antd/lib/input/Password'; */
