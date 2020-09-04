@@ -5,7 +5,7 @@ import SignIn from './components/SignIn/SignIn';
 import SignUp from './components/SignUp/SignUp';
 import PasswordReset from './components/SignIn/PasswordReset';
 import About from './components/About';
-import Favorite from './components/Challlenges';
+import Favorite from './components/Challenges';
 import ChallengeDescription from './components/ChallengeDescription';
 import UserProfile from './components/UserProfile';
 import Diary from './components/diary/Diary';
@@ -14,7 +14,7 @@ import {makeStyles} from '@material-ui/core/styles';
 
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import './App.css';
-import ChallengesList from './components/ChallengesList-old';
+import Challenges from './components/Challenges';
 
 import firebase from "firebase";
 /* import Password from 'antd/lib/input/Password'; */
@@ -59,7 +59,7 @@ function AppContent() {
           <div className={classes.toolbar} />
           <Switch>
             <Route path="/about" component={About} />
-            <Route exact path="/challenges" component={ChallengesList} />
+            <Route exact path="/challenges" component={Challenges} />
             <Route path="/challenges/:id" component={ChallengeDescription} />
             <Route path="/diary" component={Diary} />
             <Route exact path="/" component={Dashboard} />

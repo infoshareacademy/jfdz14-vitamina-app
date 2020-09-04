@@ -1,5 +1,5 @@
 .diary__section {
-  width: min(980px, 100%);
+  width: min(1024psx, 100%);
   margin: 0 auto;
 
   display: flex;

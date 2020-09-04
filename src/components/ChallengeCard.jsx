@@ -17,80 +17,100 @@ import ChallengeImage9 from "./image/challenge9.jpg";
 import ChallengeImage10 from "./image/challenge10.jpg";
 
 import styles from './Challenges.module.css';
-import {connect} from 'react-redux';
-import { fetchChallenges,changeStatusOnProggres } from '../state/challenges';
 
 
+const ChallengeCard = ({id, title, category, status}) => (
+  <GridListTile
+    classes={{ tile: styles.card}}
+    // onClick={() => this.goToChallenge(challenge.id)}
+    // key={id}
+    >
+    <img
+      className={styles.img_style}
+      src={ChallengeImage1}
+      alt={title}
+    />
+    <GridListTileBar
+      title={title}
+      subtitle={<span>{category}</span>}
+      actionIcon={<IconButton
+            aria-label={`info about ${title}`}
+        />}
+    />
+  </GridListTile>
+);
 
-  class ChellengeCard extends React.Component {
+export default ChallengeCard;
 
 
-    goToChallenge = (challengeId) => {
-      let data = {};
-      this.props.challenges.map(challenge => {
-        if(challenge.id === challengeId) {
-          data = {
-            category: challenge.category,
-            description: challenge.description,
-            id: challenge.id,
-            img: challenge.img,
-            title: challenge.title,
-            status:  "inProgress",
-          }
-        };
-        return challenge;
-      })
-      // console.log(data)
-      this.props.changeStatusOnProggres(challengeId, data);
-    }
+//   class ChellengeCard extends React.Component {
 
-    componentDidMount() {
-      this.props.fetchChallenges();
-    }
 
-    render() {
-      return (
-        // <div>
-        // <h1 style={{margin: '1%'}}>Twoje wyzwania na dziś</h1>
-        <GridList cellHeight={180} cols={2}>
-          {
-            this.props.challenges.map(challenge => {
-              return (
-                <GridListTile
-                  style={{cursor:'pointer',  padding: '5px'}}
-                  classes={{ tile: styles.card}}
-                  onClick={() => this.goToChallenge(challenge.id)}
-                  key={challenge.img}
-                  >
-                  <img
-                    className={styles.img_style}
-                    src={ChallengeImage1}
-                    alt={challenge.title}
-                  />
-                  <GridListTileBar
-                    title={challenge.title}
-                    subtitle={<span>{challenge.category}</span>}
-                    actionIcon={<IconButton
-                          aria-label={`info about ${challenge.title}`}
-                      />}
-                  />
-                  </GridListTile>
-              )
-            })
-          }
-          </GridList>
-        // </div>
-      );
-    }
-  }
+//     // goToChallenge = (challengeId) => {
+//     //   let data = {};
+//     //   this.props.challenges.map(challenge => {
+//     //     if(challenge.id === challengeId) {
+//     //       data = {
+//     //         category: challenge.category,
+//     //         description: challenge.description,
+//     //         id: challenge.id,
+//     //         img: challenge.img,
+//     //         title: challenge.title,
+//     //         status:  "inProgress",
+//     //       }
+//     //     };
+//     //     return challenge;
+//     //   })
+//     //   // console.log(data)
+//     //   this.props.changeStatusOnProggres(challengeId, data);
+//     // }
 
-  const mapStateProps = (state) => ({
-    challenges: state.challenges.data,
-  });
+//     // componentDidMount() {
+//     //   this.props.fetchChallenges();
+//     // }
 
-  const mapDispatchProps = {
-    fetchChallenges,
-    changeStatusOnProggres,
-  }
+//     render() {
+//       return (
+//         // <div>
+//         // <h1 style={{margin: '1%'}}>Twoje wyzwania na dziś</h1>
+//         <GridList cellHeight={180} cols={2}>
+//           {
+//             this.props.challenges.map(challenge => {
+//               return (
+//                 <GridListTile
+//                   classes={{ tile: styles.card}}
+//                   // onClick={() => this.goToChallenge(challenge.id)}
+//                   key={challenge.img}
+//                   >
+//                   <img
+//                     className={styles.img_style}
+//                     src={ChallengeImage1}
+//                     alt={challenge.title}
+//                   />
+//                   <GridListTileBar
+//                     title={challenge.title}
+//                     subtitle={<span>{challenge.category}</span>}
+//                     actionIcon={<IconButton
+//                           aria-label={`info about ${challenge.title}`}
+//                       />}
+//                   />
+//                   </GridListTile>
+//               )
+//             })
+//           }
+//           </GridList>
+//         // </div>
+//       );
+//     }
+//   }
 
-  export default connect(mapStateProps, mapDispatchProps)(ChellengeCard);
+//   const mapStateProps = (state) => ({
+//     challenges: state.challenges.data,
+//   });
+
+//   const mapDispatchProps = {
+//     fetchChallenges,
+//     changeStatusOnProggres,
+//   }
+
+//   export default connect(mapStateProps, mapDispatchProps)(ChellengeCard);

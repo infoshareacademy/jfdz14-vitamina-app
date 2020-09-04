@@ -8,8 +8,8 @@ import styles from './Diary.module.css';
 
 const DiaryDashboard = ({ posts, postFilter, onDelete, onKeyUpSearch, onClickToForm, data}) => (
   <section className={styles.diary__section}>
+    <h1 className={styles.diary__header__title}>Twój dziennik nastrojów:</h1>
     <header className={styles.diary__header}>
-      <h1 className={styles.diary__header__title}>Twój dziennik nastrojów:</h1>
       <DiaryChart data={data}/>
       <ButtonAdd onClickToForm={onClickToForm}/>
     </header>

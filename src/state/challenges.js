@@ -38,12 +38,22 @@ export const fetchChallenges = () => {
   }
 }
 
-export const changeStatusOnProggres = (challengeId, data) => {
+export const changeStatusOnProgress = (challengeId, data) => {
   return (dispatch) => {
     fetch(`${DATABASE_URL}/challenges/${challengeId}.json`, {
       method: 'PUT',
       body: JSON.stringify(data)
     })
     .then(() => dispatch(fetchChallenges()))
+  }
+}
+
+export const changeStatusOnDone = (challengeId, data) => {
+  return(dispatch) => {
+    fetch(`${DATABASE_URL}/challenges/${challengeId}.json`, {
+      method: 'PUT',
+      body: JSON.stringify(data),
+    })
+    .then(() => dispatch(fetchChallenges()));
   }
 }
