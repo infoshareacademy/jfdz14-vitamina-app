@@ -4,6 +4,7 @@ import trophy from './image/trophy.png';
 
 import styles from './Challenges.module.css';
 import challengeImage2 from './image/challenge2.jpg';
+import { AiOutlineLink } from 'react-icons/ai';
 
 const ChallengeInProgress = ({challenges}) => {
   const inProgress = challenges.filter(challenge => challenge.status === 'inProgress');
@@ -17,15 +18,13 @@ const ChallengeInProgress = ({challenges}) => {
         ? <div className={styles.card_list}>
             {
               inProgress.map(challenge => (
-                <div className={styles.card} key={challenge.id}>
+                <Link to={`challenges/${challenge.id}`} className={styles.card} key={challenge.id}>
                   <img src={challengeImage2} alt={challenge.title} className={styles.img} />
-                  <Link to={`challenges/${challenge.id}`}>
                   <div className={styles.card_title}>
                     <h3 style={{color: '#fff'}}>{challenge.title}</h3>
                     <p>{challenge.category}</p>
                   </div>
-                  </Link>
-                </div>
+                </Link>
               ))
             }
           </div>

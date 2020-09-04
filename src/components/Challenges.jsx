@@ -26,7 +26,6 @@ class Challenges extends React.Component {
         <SearchBar />
         <ChallengesList 
           challenges={this.props.challenges}
-          inProgress={this.handleOnProgress}
         />
       </section> 
     );

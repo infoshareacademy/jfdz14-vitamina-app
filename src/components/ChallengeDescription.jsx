@@ -73,13 +73,13 @@ class ChallengeDescription extends React.Component {
                   {
                       challenge.status === 'inProgress'
                       ?<Button variant="contained" 
-                        style={{backgroundColor: '#364954', fontFamily: 'Source Sans Pro', fontSize: '16px', color: '#fff', textTransform: 'none', width: 'auto', borderRadius: '8px', marginTop: 25}}
+                        style={{backgroundColor: '#364954', fontFamily: 'Source Sans Pro', fontSize: '16px', color: '#fff', textTransform: 'none', width: '100%', borderRadius: '8px', marginTop: 25}}
                         onClick={() => this.handleFinished(challenge.id)} 
                         >
                         Zakończ
                         </Button>
                       :<Button variant="contained" 
-                      style={{backgroundColor: '#0098C9', fontFamily: 'Source Sans Pro', fontSize: '16px', color: '#fff', textTransform: 'none', width: 'auto', borderRadius: '8px', marginTop: 25}}
+                      style={{backgroundColor: '#0098C9', fontFamily: 'Source Sans Pro', fontSize: '16px', color: '#fff', textTransform: 'none', width: '100%', borderRadius: '8px', marginTop: 25}}
                         onClick={() => this.handleInProgress(challenge.id)} 
                         >
                         Podejmij się!
