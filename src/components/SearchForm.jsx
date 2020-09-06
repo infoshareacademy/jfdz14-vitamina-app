@@ -5,12 +5,12 @@ import Form from 'react-bootstrap/Form'
 class SearchForm extends React.Component {
 
     state={
-        filter: this.props.filter
+        filter: '',
     }
 
-    handleOnChange = (event, name, value) => {
+    handleOnChange = (event) => {
         this.setState({
-            filter:{text: event.target.value}
+            filter: event.target.value,
         });
         this.props.onFilterChange(event.target.value);
     }
@@ -18,9 +18,9 @@ class SearchForm extends React.Component {
     render() {
         return (
             <Form.Group>
-                <Form.Control type="text" 
-                placeholder="Wyszukaj po nazwie" 
-                value={this.state.filter.text} 
+                <Form.Control type="text"
+                placeholder="Wyszukaj po nazwie"
+                value={this.state.filter}
                 onChange={this.handleOnChange}
                 />
             </Form.Group>

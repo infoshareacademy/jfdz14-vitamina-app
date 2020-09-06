@@ -2,6 +2,7 @@ import React from "react";
 import DiaryForm from './DiaryForm';
 import DiaryDashboard from "./DiaryDashboard";
 import { DATABASE_URL } from '../../index';
+import firebase from 'firebase';
 
 const startState = {
   posts: [{
@@ -12,6 +13,7 @@ const startState = {
   diaryForm: false,
   postFilter: '',
 }
+
 class Diary extends React.Component {
   state = {
     posts: [{
@@ -26,7 +28,8 @@ class Diary extends React.Component {
   }
 
   fetchData = () => {
-    fetch(`${DATABASE_URL}/diary.json`)
+    const USER_EMAIL = firebase.auth().currentUser.email;
+    fetch(`${DATABASE_URL}/diary.json?orderBy="identity"&equalTo="${USER_EMAIL}"`) //?orderBy="email"&equalTo="${USER_EMAIL}"'
     .then(response => response.json())
     .then(posts => {
       const arrayPosts = posts
@@ -42,6 +45,11 @@ class Diary extends React.Component {
         this.setState({
           posts: arrayPosts,
         })
+    })
+    .catch(() => {
+      this.setState({
+        posts: this.state.posts,
+      })
     });
   }
 
@@ -92,10 +100,3 @@ class Diary extends React.Component {
 }
 
 export default Diary;
-
-
-
-
-// fetch('https://javasy-vitamina-app.firebaseio.com/diary.json?orderBy="$key"&equalTo="-MFRAgObzG1CYNdGzaOW"').then(res => res.json()).then(console.log);
-
-// fetch('https://javasy-vitamina-app.firebaseio.com/diary.json?orderBy="title"&equalTo="rr"').then(res => res.json()).then(console.log);

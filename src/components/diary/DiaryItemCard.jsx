@@ -4,16 +4,16 @@ import DiaryCard from './DiaryCartd';
 
 const DiaryItemCard = ({ posts, postFilter, onDelete }) => {
     const filterData = ({ title, date }) => {
-    const textFilter = title.toLowerCase().includes(postFilter.toLowerCase());
-    const dateFilter = date.includes(postFilter);
-    const fillFilter = postFilter.length > 0;
+      const textFilter = title.toLowerCase().includes(postFilter.toLowerCase());
+      const dateFilter = date.includes(postFilter);
+      const fillFilter = postFilter.length > 0;
 
-    if (dateFilter) {
-      return dateFilter;
-    } else if(fillFilter) {
-      return textFilter;
+      if (dateFilter) {
+        return dateFilter;
+      } else if(fillFilter) {
+        return textFilter;
+      }
     }
-  }
 
   if (posts[0].id === null) {
     return (<div className={styles.diary__post__content} style={{ paddingLeft: '3%' }}>

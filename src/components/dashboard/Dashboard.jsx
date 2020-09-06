@@ -39,7 +39,7 @@ class Dashboard extends React.Component {
               challenges={this.props.challenges}
               inProgress={this.handleOnProgress}
             />
-            <h2>Wyzwania zakończone</h2>
+            <h2 style={{margin: '1%'}}>Wyzwania zakończone</h2>
             <ChallengesList challenges={this.isDoneChallenges()} />
           </div>
         </section>
