@@ -39,9 +39,10 @@ class SearchForm extends React.Component {
         return (
             <Form.Group>
                 <Form.Control type="text"
-                placeholder="Wyszukaj po nazwie"
+                placeholder=" Wyszukaj po nazwie"
                 value={this.state.filter}
                 onChange={this.handleOnChange}
+                style={{width: '300px', height: '40px', padding: '50x', border: '1px solid, #000', borderRadius: '8px'}}
                 />
             </Form.Group> 
         )
