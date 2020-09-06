@@ -15,6 +15,24 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import ListGroup from "react-bootstrap/ListGroup"
 import SearchFilters from './SearchFilters';
 import SearchForm from './SearchForm';
+import { Container, Button, TextField } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = theme => ({
+	search: {
+		display: 'flex',
+		flexDirection: 'row',
+		flexWrap: 'wrap',
+	},
+  button: {
+		textTransform: 'none',
+		margin: '1%',
+		height: '56px',
+		width: '100%',
+		maxWidth: '180px',
+		minWidth: '150px'
+	},
+})
 
 const ChallengesHeader = () => (
 	<div>
@@ -87,17 +105,31 @@ class SearchBar extends React.Component {
     }
 
     render() {
-
+			const { classes } = this.props;
       if(this.props && this.props.classes){
 
         return (
           <div className="container" style={{display: 'flex', flexWrap: 'wrap', flexDirection: 'column'}}>
-							<div className="search elements" style={{marginBottom: 20}}>
-								<div style={{display: 'flex'}}>
+							<div className="search elements" style={{marginBottom: 20, width: '100%',	maxWidth: '500px'}}>
+								<div className={classes.search} >
 											<SearchForm onFilterChange={this.handleFilterTextChange} style={{width:"100%"}}filter={this.props.filter}/>
 											{this.state.filtersOpen 
-												? <button onClick={this.operateFilters}>Schowaj filtry</button> 
-												: <button onClick={this.operateFilters}>Pokaż filtry</button>
+												? <Button 
+															size="large"
+															className={classes.button}
+															variant="contained" 
+															onClick={this.operateFilters}
+															>
+																Schowaj filtry
+																</Button> 
+												: <Button 
+															size="large"
+															className={classes.button}
+															variant="contained" 
+															onClick={this.operateFilters}
+														>
+																Pokaż filtry
+																</Button>
 											}
 								</div>
 									{this.state.filtersOpen &&
@@ -117,4 +149,4 @@ class SearchBar extends React.Component {
 
 }
 
-export default SearchBar;
+export default withStyles(styles)(SearchBar);
