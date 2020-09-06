@@ -23,6 +23,10 @@ class Challenges extends React.Component {
       })
   }
 
+  componentDidMount() {
+    this.props.fetchChallenges();
+  }
+
   render() {
     return (
       <section className={styles.section}>
