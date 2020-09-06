@@ -5,6 +5,24 @@ import { fetchChallenges } from "../state/challenges";
 import SearchResults from './SearchResults';
 import SearchFilters from './SearchFilters';
 import SearchForm from './SearchForm';
+import { Container, Button, TextField } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = theme => ({
+	search: {
+		display: 'flex',
+		flexDirection: 'row',
+		flexWrap: 'wrap',
+	},
+  button: {
+		textTransform: 'none',
+		margin: '1%',
+		height: '56px',
+		width: '100%',
+		maxWidth: '180px',
+		minWidth: '150px'
+	},
+})
 
 
 class SearchBar extends React.Component {

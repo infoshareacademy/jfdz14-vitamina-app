@@ -23,18 +23,10 @@ class Challenges extends React.Component {
       })
   }
 
-  // componentDidMount() {
-  //   const user = firebase.auth().currentUser.email;
-  //   this.props.fetchChallenges(user)
-  // }
-
   render() {
     return (
       <section className={styles.section}>
         <h1 className={styles.title}>Wyzwania </h1>
-        <button onClick={() => console.log(this.props.challenges)}>
-          status
-        </button>
         <SearchBar onFilterChange={this.handleFilterChange}/>
         <ChallengesList 
           challenges={this.props.challenges}
