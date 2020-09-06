@@ -1,43 +1,28 @@
 import React from 'react';
 import DiaryFormChart from './DiaryFormChart';
 import styles from './Diary.module.css';
+import { DATABASE_URL } from '../../index';
+import firebase from 'firebase';
 
 class DiaryForm extends React.Component {
   state = {
-    chartValue: {
-      value: 0,
-    },
-    post: {
-      title: '',
-      description: '',
-    }
+    value: 5,
+    date: new Date().toLocaleDateString(),
+    title: '',
+    description: '',
+    identity: firebase.auth().currentUser.email,
   }
 
   handleChangeCharForm = (value) => {
-    this.setState({ 
-     chartValue: {
+    this.setState({
        value: value,
-     },
     });
   }
 
-
-  handleChangeInput = (e) => {
+  handleOnChange = (e) => {
     e.preventDefault();
     this.setState({
-      post:{
-        title: e.target.value,
-        description: this.state.post.description,
-      }
-    });
-  }
-
-  handleChangeTextarea = (e) => {
-    this.setState({
-      post: {
-        title: this.state.post.title,
-        description: e.target.value,
-      }
+      [e.target.name]: e.target.value,
     })
   }
 
@@ -45,34 +30,35 @@ class DiaryForm extends React.Component {
     this.props.onClickLeaveTheForm();
   }
 
-  handleOnClickSaveForm = () => {
-    const title = this.state.post.title;
-    const description = this.state.post.description;
-    const value = this.state.chartValue.value;
-    this.props.onClickSaveInForm(title, description, value);
+  handleOnClickSaveForm = (e) => {
+    e.preventDefault();
+    fetch(`${DATABASE_URL}/diary.json`, {
+      method: "POST",
+      body: JSON.stringify(this.state),
+    })
+    this.props.onClickLeaveTheForm();
+    this.props.onSaveForm();
   }
 
 
   render() {
     return (
-      <>
         <section className={styles.diary__section}>
           <header className={styles.diary__header}>
             <h1 className={styles.diary__header__title}>Jak się dziś czujesz?</h1>
             <div className={styles.daily__value__box}>
-              <DiaryFormChart onChangeInForm={this.handleChangeCharForm}/>
+              <DiaryFormChart value={this.setState.value} onChangeInForm={this.handleChangeCharForm}/>
             </div>
           </header>
-          <main>
-            <form className={styles.diary__form}>
+            <form className={styles.diary__form} onSubmit={this.handleOnClickSaveForm}>
               <div className={styles.form__header}>
                 <input
                 className={styles.form__input}
                 type='text'
                 placeholder='Tytył wpisu'
-                autoFocus={true}
                 autoComplete='off'
-                onChange={this.handleChangeInput}
+                onChange={this.handleOnChange}
+                name='title'
                 onKeyPress={(e) => { e.key === 'Enter' && e.preventDefault(); }}
                 required ={true}
                 />
@@ -81,20 +67,19 @@ class DiaryForm extends React.Component {
                 className={styles.form__textarea}
                 maxLength={1000}
                 placeholder='To jest mieisce na Twoje dzisiejsze przemyślenia, postanowienia, odczucia, lub cokolwiek tylko zechcesz.' 
-                onChange={this.handleChangeTextarea}
+                onChange={this.handleOnChange}
+                name='description'
                 />
               <div className={styles.form__button__box}>
                 <button className={styles.form__button} onClick={this.handleOnClickLeaveForm}>
                   Anuluj
                 </button>
-                <button type='submit' className={styles.form__button} onClick={this.handleOnClickSaveForm}>
+                <button type='submit' className={styles.form__button} >
                   Zapisz
                 </button>
               </div>
             </form>
-          </main>
         </section>
-      </>
     );
   }
 }

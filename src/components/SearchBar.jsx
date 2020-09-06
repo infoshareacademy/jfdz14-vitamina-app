@@ -1,18 +1,8 @@
 import React from 'react';
+import { connect } from "react-redux";
+import { fetchChallenges } from "../state/challenges";
+
 import SearchResults from './SearchResults';
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
-import GridListTileBar from '@material-ui/core/GridListTileBar';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import IconButton from '@material-ui/core/IconButton';
-import InfoIcon from '@material-ui/icons/Info';
-import ChallengeImage1 from "./image/challenge1.jpg";
-import ChallengeImage2 from "./image/challenge2.jpg";
-import ChallengeImage3 from "./image/challenge3.jpg";
-import clsx from 'clsx';
-import { Link } from "react-router-dom";
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import ListGroup from "react-bootstrap/ListGroup"
 import SearchFilters from './SearchFilters';
 import SearchForm from './SearchForm';
 import { Container, Button, TextField } from '@material-ui/core';
@@ -34,119 +24,41 @@ const styles = theme => ({
 	},
 })
 
-const ChallengesHeader = () => (
-	<div>
-			 <h1>Wyzwania</h1>
-	</div>
-);
 
 class SearchBar extends React.Component {
-
-    constructor(props) {
-      super(props);
-
-		this.showFilters = this.showFilters.bind(this);
-		this.hideFilters = this.hideFilters.bind(this);
-		this.operateFilters = this.operateFilters.bind(this);
-
-		this.applyFilters = this.applyFilters.bind(this);
-
-
-		this.state = {filtersOpen: false}
+	componentDidMount() {
+		this.props.fetchChallenges();
 	}
 
-    handleOnFilterChange = (name, value) => {
-        this.setState({
-          filter: {text: name}
-        });
-    }
-
-	applyFilters = (f1, f2, f3) => {
-
-		//document.querySelector(".filtersBar").display = "block";
-	}
-
-	showFilters = () => {
-		//document.querySelector(".filtersBar").display = "block";
-	}
-
-	
-	hideFilters = () => {
-		//document.querySelector(".filtersBar").display = "none";
-	}
-
-	operateFilters = () => {
-		if(this.state.filtersOpen){
-			this.hideFilters();
-
-			this.setState({
-				filtersOpen: false
-			});
-		}
-		else {
-			this.showFilters();
-
-			this.setState({
-				filtersOpen: true
-			});
-		}
-	}
-
-    handleMultiFilterChange = (grp, event ,val) => {
-
-        this.props.multiFilterChange(grp, event, val);
-
-    }
-    handleFilterTextChange = (text) => {
-
-        this.props.multiFilterChange("filter_text", text);
-
-
-    }
 
     render() {
-			const { classes } = this.props;
-      if(this.props && this.props.classes){
-
         return (
           <div className="container" style={{display: 'flex', flexWrap: 'wrap', flexDirection: 'column'}}>
-							<div className="search elements" style={{marginBottom: 20, width: '100%',	maxWidth: '500px'}}>
-								<div className={classes.search} >
-											<SearchForm onFilterChange={this.handleFilterTextChange} style={{width:"100%"}}filter={this.props.filter}/>
-											{this.state.filtersOpen 
-												? <Button 
-															size="large"
-															className={classes.button}
-															variant="contained" 
-															onClick={this.operateFilters}
-															>
-																Schowaj filtry
-																</Button> 
-												: <Button 
-															size="large"
-															className={classes.button}
-															variant="contained" 
-															onClick={this.operateFilters}
-														>
-																Pokaż filtry
-																</Button>
-											}
+							<div className="search elements" style={{marginBottom: 20}}>
+								<div style={{display: 'flex'}}>
+											<SearchForm onFilterChange={this.props.onFilterChange} style={{width:"100%"}}filter={this.props.filter}/>
+											{/* {this.state.filtersOpen 
+												? <button onClick={this.operateFilters}>Schowaj filtry</button> 
+												: <button onClick={this.operateFilters}>Pokaż filtry</button>
+											} */}
 								</div>
-									{this.state.filtersOpen &&
+									{/* {this.state.filtersOpen &&
 										<SearchFilters filter={this.props.filter} multiFilterChange={this.handleMultiFilterChange} categories={this.props.categories} applyFilters={this.applyFilters} /> 
-									}
+									} */}
 							</div>
 
-						<SearchResults categories={this.props.categories} articles={this.props.articles} filter={this.props.filter} onRefresh={this.onRefresh}/>
+						{/* <SearchResults categories={this.props.categories} articles={this.props.articles} filter={this.props.filter} onRefresh={this.onRefresh}/> */}
 					</div>
         )
       }
-      else {
-				return
-			}
-
     }
 
-}
+const mapStateProps = (state) => ({
+  challenges: state.challenges.data,
+});
 
-export default withStyles(styles)(SearchBar);
+const mapDispatchProps = {
+  fetchChallenges,
+};
+
+export default connect(mapStateProps, mapDispatchProps)(SearchBar);

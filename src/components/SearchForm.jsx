@@ -24,12 +24,12 @@ const styles = theme => ({
 class SearchForm extends React.Component {
 
     state={
-        filter: this.props.filter
+        filter: '',
     }
 
-    handleOnChange = (event, name, value) => {
+    handleOnChange = (event) => {
         this.setState({
-            filter:{text: event.target.value}
+            filter: event.target.value,
         });
         this.props.onFilterChange(event.target.value);
     }
@@ -37,22 +37,14 @@ class SearchForm extends React.Component {
     render() {
         const { classes } = this.props;
         return (
-            <TextField 
-                className={classes.input}
-                variant="outlined" 
-                type="text" 
-                placeholder="Wyszukaj po nazwie" 
-                value={this.state.filter.text} 
+            <Form.Group>
+                <Form.Control type="text"
+                placeholder=" Wyszukaj po nazwie"
+                value={this.state.filter}
                 onChange={this.handleOnChange}
-                
-                  />
-           /* <Form.Group>
-                <Form.Control type="text" 
-                placeholder="Wyszukaj po nazwie" 
-                value={this.state.filter.text} 
-                onChange={this.handleOnChange}
+                style={{width: '300px', height: '40px', padding: '50x', border: '1px solid, #000', borderRadius: '8px'}}
                 />
-            </Form.Group> */
+            </Form.Group> 
         )
     }
 }

@@ -15,7 +15,7 @@ class DiaryFormChart extends React.Component {
         <input
           type='range'
           min='1'
-          list='tickmarks'
+          value={this.props.value}
           onChange={this.handleChange}
           className={styles.chart__range}
         />

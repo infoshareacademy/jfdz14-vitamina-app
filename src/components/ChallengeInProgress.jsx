@@ -1,91 +1,57 @@
 import React from 'react';
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
-import GridListTileBar from '@material-ui/core/GridListTileBar';
-import IconButton from '@material-ui/core/IconButton';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Link } from "react-router-dom";
-import { tileData } from './ChallengeDescription';
 import trophy from './image/trophy.png';
-import { useHistory } from 'react-router-dom';
 
-const ChallengeInProgress = () => {
-  const useStyles = makeStyles((theme) => ({   
-    gridList: {
-      height: 450,
-    },
-    tileStyling: {
-      width: 100,
-      height: 450,
-      padding: '10px',
-    },
-    tileStyle: {
-      borderRadius: '8px',
-      boxShadow: 'rgba(39, 39, 39, 0.2) 2px 2px 4px'
-    }
-  
-        }));
-        const classes = useStyles();
-        const history = useHistory();
+import styles from './Challenges.module.css';
+import challengeImage2 from './image/challenge2.jpg';
+import { AiOutlineLink } from 'react-icons/ai';
+import { getImage } from './ChallengesList';
 
-        
-       let challengeList = [];
-        for(let i = 0; i < localStorage.length; i++){
-          let key = localStorage.key(i);
-          challengeList.push(key); 
-        }
-        const inprogress = challengeList.filter(function (v) { return /InProgress/.test(v)});
-        
-        function goToChallangesList() {
-          let path = 'challenges';
+import ChallengeImage1 from "./image/challenge1.jpg";
+import ChallengeImage2 from "./image/challenge2.jpg";
+import ChallengeImage3 from "./image/challenge3.jpg";
+import ChallengeImage4 from "./image/challenge4.jpg";
+import ChallengeImage5 from "./image/challenge5.jpg";
+import ChallengeImage6 from "./image/challenge6.jpg";
+import ChallengeImage7 from "./image/challenge7.jpg";
+import ChallengeImage8 from "./image/challenge8.jpg";
+import ChallengeImage9 from "./image/challenge9.jpg";
+import ChallengeImage10 from "./image/challenge10.jpg";
 
-          history.push(path);
-        }
 
-        return (
+const ChallengeInProgress = ({challenges}) => {
+  const inProgress = challenges.filter(challenge => challenge.status === 'inProgress');
 
-          <div  style={{width:'100%'}}>
-            <h1 style={{margin: '1%'}}>Wyzwania w trakcie realizacji</h1>
-            {inprogress.length > 0 &&
-              <GridList cellHeight={180} cols={2}>
-              {tileData.map(tile => {
-                              if(challengeList.includes(`InProgress${tile.id}`)){
-                                  return (
-                  <GridListTile key={tile.id} classes={{ tile: classes.tileStyle}} style={{cursor:'pointer'}}>  
+  return (
 
-                    <img className={classes.tileStyle} src={tile.img} alt={tile.title}/>
-                    <Link to={`challenges/${tile.id}`}>
-                    <GridListTileBar
-                      title={tile.title}
-                      subtitle={<span>{tile.category}</span>}
-                      actionIcon={
-                        <IconButton aria-label={`info about ${tile.title}`} className={classes.icon}>
-                        </IconButton>
-                      }
-                    />
-                      </Link>
-                  </GridListTile>
-              ) } })}
-              </GridList>
+    <div  style={{width:'100%'}}>
+      <h1 style={{margin: '1%'}}>Wyzwania w trakcie realizacji</h1>
+      {
+        inProgress.length > 0
+        ? <div className={styles.card_list}>
+            {
+              inProgress.map(challenge => (
+                <Link to={`challenges/${challenge.id}`} className={styles.card} key={challenge.id}>
+                  <img src={getImage(challenge.img)} alt={challenge.title} className={styles.img} />
+                  <div className={styles.card_title}>
+                    <h3 style={{color: '#fff'}}>{challenge.title}</h3>
+                    <p>{challenge.category}</p>
+                  </div>
+                </Link>
+              ))
             }
-
-            {inprogress.length == 0 &&
-
-           
-
-            <div style={{boxShadow: '2px 2px 4px rgba(39, 39, 39, 0.2)', width:'50%', backgroundColor: '#FFF', textAlign: 'center', padding: '20px', borderRadius: '8px', cursor: 'pointer'}} onClick={() => goToChallangesList()}>
-
-                  <img src={trophy} style={{width: '15%', height: 'auto', display: 'block', marginLeft: 'auto', marginRight: 'auto'}}/>
-                  <h2 style={{display:'block'}}>Nie masz aktualnie zadnych wyzwań</h2>
-                  <p style={{color: '#0098C9', fontWeight: 'bold', display:'block'}}>Kliknij aby dodać nowe!</p>
-            </div>
-
-
-            }
-          
           </div>
-        )
+        : <div className={styles.challenge_card_info}>
+            <Link to='/challenges'>
+            <img src={trophy} style={{width: '15%', height: 'auto', display: 'block', marginLeft: 'auto', marginRight: 'auto'}}/>
+            <h2 style={{display:'block'}}>Nie masz aktualnie zadnych wyzwań</h2>
+            <p style={{color: '#0098C9', fontWeight: 'bold', display:'block'}}>Kliknij aby dodać nowe!</p>
+            </Link>
+          </div>
+      }
+    </div>
+  )
 };
-        
+
 
 export default ChallengeInProgress;
