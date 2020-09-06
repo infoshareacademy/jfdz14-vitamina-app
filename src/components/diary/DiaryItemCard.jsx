@@ -15,10 +15,10 @@ const DiaryItemCard = ({ posts, postFilter, onDelete }) => {
       }
     }
 
-  if (posts[0].id === null) {
+  if (posts.length === 0) {
     return (<div className={styles.diary__post__content} style={{ paddingLeft: '3%' }}>
       <h3>Jak się dziś czujesz?</h3>
-      <p>To mieisce na Twoje przemyślenia i doznania, których doświadczasz na co dzięń...</p>
+      <p>To mieisce na Twoje przemyślenia i doznania, których doświadczasz na codzień...</p>
     </div>)
   }
 
