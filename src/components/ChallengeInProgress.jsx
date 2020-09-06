@@ -5,6 +5,19 @@ import trophy from './image/trophy.png';
 import styles from './Challenges.module.css';
 import challengeImage2 from './image/challenge2.jpg';
 import { AiOutlineLink } from 'react-icons/ai';
+import { getImage } from './ChallengesList';
+
+import ChallengeImage1 from "./image/challenge1.jpg";
+import ChallengeImage2 from "./image/challenge2.jpg";
+import ChallengeImage3 from "./image/challenge3.jpg";
+import ChallengeImage4 from "./image/challenge4.jpg";
+import ChallengeImage5 from "./image/challenge5.jpg";
+import ChallengeImage6 from "./image/challenge6.jpg";
+import ChallengeImage7 from "./image/challenge7.jpg";
+import ChallengeImage8 from "./image/challenge8.jpg";
+import ChallengeImage9 from "./image/challenge9.jpg";
+import ChallengeImage10 from "./image/challenge10.jpg";
+
 
 const ChallengeInProgress = ({challenges}) => {
   const inProgress = challenges.filter(challenge => challenge.status === 'inProgress');
@@ -19,7 +32,7 @@ const ChallengeInProgress = ({challenges}) => {
             {
               inProgress.map(challenge => (
                 <Link to={`challenges/${challenge.id}`} className={styles.card} key={challenge.id}>
-                  <img src={challengeImage2} alt={challenge.title} className={styles.img} />
+                  <img src={getImage(challenge.img)} alt={challenge.title} className={styles.img} />
                   <div className={styles.card_title}>
                     <h3 style={{color: '#fff'}}>{challenge.title}</h3>
                     <p>{challenge.category}</p>

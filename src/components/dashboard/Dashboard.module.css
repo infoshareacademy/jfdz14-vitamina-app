@@ -7,7 +7,7 @@
   justify-content: space-around;
 }
 .chart__box {
-  width: clamp(320px, 100%, 510px);
+  width: clamp(320px, 100%, 501px);
   margin-bottom: 5px;
 }
 .chart__box__header {

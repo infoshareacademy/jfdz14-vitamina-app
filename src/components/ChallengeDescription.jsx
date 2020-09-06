@@ -3,6 +3,7 @@ import Button from "@material-ui/core/Button";
 
 import { connect } from 'react-redux';
 import { fetchChallenges, changeStatusOnDone, changeStatusOnProgress } from '../state/challenges';
+import { getImage } from './ChallengesList';
 
 import ChallengeImage1 from "./image/challenge1.jpg";
 import ChallengeImage2 from "./image/challenge2.jpg";
@@ -65,7 +66,7 @@ class ChallengeDescription extends React.Component {
           this.props.challenges.filter(challenge => challenge.id === this.props.match.params.id)
               .map(challenge => (
                 <div  key={challenge.id} style={{display: 'flex', flexWrap: 'wrap', flexDirection: 'column',alignItems: 'center', maxWidth: 900, marginLeft: 'auto', marginRight: 'auto', alignContent: 'center'}}>
-                <img style={{width: '80%', height: '300px', objectFit: 'cover', boxShadow:'3px 3px 5px #aaaaaa'}} src={ChallengeImage3} />
+                <img style={{width: '80%', height: '300px', objectFit: 'cover', boxShadow:'3px 3px 5px #aaaaaa'}} src={getImage(challenge.img)} />
                 <h1>{challenge.title}</h1>
                 <article>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis voluptatem blanditiis ullam nisi ea animi excepturi tempora facere, adipisci assumenda necessitatibus nulla aut consectetur sunt dolorem ipsum enim nam facilis.
                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam expedita incidunt, quos provident ex mollitia eaque dolore molestiae praesentium laboriosam similique temporibus fugit! Velit dolor, harum voluptate excepturi est ratione! 

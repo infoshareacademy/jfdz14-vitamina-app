@@ -5,27 +5,36 @@ import { fetchChallenges, changeStatusOnProgress } from "../state/challenges";
 import styles from "./Challenges.module.css";
 import ChallengesList from "./ChallengesList";
 import SearchBar from './SearchBar';
+import firebase from 'firebase';
 
 class Challenges extends React.Component {
-  componentDidMount() {
-    this.props.fetchChallenges();
+  state = {
+    filterText: '',
   }
 
   handleOnProgress = (itemId, data) => {
+    // const user = firebase.auth().currentUser.email;
     this.props.changeStatusOnProgress(itemId, data);
   }
 
+  handleFilterChange = (text) => {
+      this.setState({
+        filterText: text,
+      })
+  }
+
+  componentDidMount() {
+    this.props.fetchChallenges();
+  }
 
   render() {
     return (
       <section className={styles.section}>
         <h1 className={styles.title}>Wyzwania </h1>
-        <button onClick={() => console.log(this.props.challenges)}>
-          status
-        </button>
-        <SearchBar />
+        <SearchBar onFilterChange={this.handleFilterChange}/>
         <ChallengesList 
           challenges={this.props.challenges}
+          filter={this.state.filterText}
         />
       </section> 
     );
