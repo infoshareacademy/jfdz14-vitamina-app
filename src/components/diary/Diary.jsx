@@ -48,7 +48,7 @@ class Diary extends React.Component {
     })
     .catch(() => {
       this.setState({
-        posts: this.state.posts,
+        posts: startState.posts,
       })
     });
   }
